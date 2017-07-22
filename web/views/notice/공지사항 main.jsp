@@ -17,7 +17,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>Dafault_page - MAːDÆ</title>
+	<title>공지사항 - MAːDÆ</title>
 	<meta name="description" content="">
 	<link rel="shortcut icon" href="../../images/icon.ico">
 	<!-- CSS FILES -->
@@ -64,7 +64,7 @@
                    <!-- Logo / Mobile Menu -->
                    <div class="col-xs-12">
                        <div id="logo" style="width:170px;">
-                           <h1><a href="../../index.jsp"><img src="../../images/logo.png" alt="Made" /></a></h1>
+                           <h1><a href="../../index.html"><img src="../../images/logo.png" alt="Made" /></a></h1>
                        </div>
                    </div>
                </div>
@@ -88,9 +88,9 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="../../index.jsp">Home</a>
+                            <li><a href="../../index.html">Home</a>
                             </li>
-                            <li><a href="../notice/공지사항 main.html">공지사항</a>
+                            <li class="active"><a href="공지사항 main.jsp">공지사항</a>
                             </li>
                             <li><a href="#">DIY 상품</a>
                                 <ul class="dropdown-menu">
@@ -108,8 +108,8 @@
                                     <li><a href="../mypage/myinfo.html">1:1문의</a></li>
                                 </ul>
                             </li>
-                            <li><a href="../faq/faq.jsp">FAQ</a></li>
-                            <li><a href="../../contact.html">Contact</a></li>
+                            <li><a href="../faq/faq.html">FAQ</a></li>
+                            <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </div>
                 </div><!--/.row -->
@@ -124,13 +124,12 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<h2>게시글 제목</h2>
+						<h2>공지사항</h2>
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
-								<li><a href="../../index.jsp">Home</a></li>
-								<li><a href="default_page.html">Shortcodes</a></li>
-								<li>Typography</li>
+								<li><a href="../../index.html">Home</a></li>
+                                <li>공지사항</li>
 							</ul>
 						</nav>
 					</div>
@@ -138,8 +137,126 @@
 			</div>
 		</section>
         <div class="container">
-        <h1> 내용 작성 부 </h1>
-        <!--- 여기에 내용을 작성해주세요~ --->
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="panel-heading hide"></div>
+
+		<table class="board-list table">
+			<input id="p_num" type="hidden" value="">
+			<thead>
+			<tr class="header">
+				<th width="50px" class="text-center">번호</th>
+				<th width="*" class="text-left">제목</th>
+				<th width="110px" class="text-center">작성자</th>
+				<th width="90px" class="text-center">일자</th>
+				<th width="50px" class="text-center">조회</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr class="">
+                    <td class="no">1</td>                    
+					<td class="title">
+					<a href="%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD.html">항소이유서</a>
+					</td>
+					<td class="author">유시민</td>
+					<td class="date">
+						1959.7.28
+					</td>
+					<td class="count">
+                    4
+                    </td>
+				</tr>
+			</tbody>
+            <tbody>
+				<tr class="">
+                    <td class="no">2</td>                    
+					<td class="title">
+					<a href="%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD.html">항소이유서</a>
+					</td>
+					<td class="author">유시민</td>
+					<td class="date">
+						1959.7.28
+					</td>
+					<td class="count">
+                    4
+                    </td>
+				</tr>
+			</tbody>
+            <tbody>
+				<tr class="">
+                    <td class="no">3</td>                    
+					<td class="title">
+					<a href="%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD.html">항소이유서</a>
+					</td>
+					<td class="author">유시민</td>
+					<td class="date">
+						1959.7.28
+					</td>
+					<td class="count">
+                    4
+                    </td>
+				</tr>
+			</tbody>
+            <tbody>
+				<tr class="">
+                    <td class="no">4</td>                    
+					<td class="title">
+					<a href="%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD.html">항소이유서</a>
+					</td>
+					<td class="author">유시민</td>
+					<td class="date">
+						1959.7.28
+					</td>
+					<td class="count">
+                    4
+                    </td>
+				</tr>
+			</tbody>
+            <tbody>
+				<tr class="">
+                    <td class="no">5</td>                    
+					<td class="title">
+					<a href="%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD.html">항소이유서</a>
+					</td>
+					<td class="author">유시민</td>
+					<td class="date">
+						1959.7.28
+					</td>
+					<td class="count">
+                    4
+                    </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<button type="button" class="btn btn-default" onclick="top.location.href='%EA%B8%80%EC%93%B0%EA%B8%B0.html'">글쓰기</button>
+	<div class="board-page text-center">
+		<ul class="pagination">
+			<li class="">
+				<a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a>
+			</li>
+				<li>
+					<a class="">
+                        1
+					</a>
+                    <a class="">
+                        2
+					</a>
+                    <a class="">
+                        3
+					</a>
+                    <a class="">
+                        4
+					</a>
+                    <a class="">
+                        5
+					</a>
+				</li>
+			<li class="">
+				<a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a>
+			</li>
+		</ul>
+	</div>
 </div>
     </section>
 

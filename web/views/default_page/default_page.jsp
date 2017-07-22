@@ -90,7 +90,7 @@
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="../../index.jsp">Home</a>
                             </li>
-                            <li><a href="../notice/공지사항 main.html">공지사항</a>
+                            <li><a href="../notice/공지사항 main.jsp">공지사항</a>
                             </li>
                             <li><a href="#">DIY 상품</a>
                                 <ul class="dropdown-menu">

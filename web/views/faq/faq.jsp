@@ -65,7 +65,7 @@
                     <!-- Logo / Mobile Menu -->
                     <div class="col-xs-12">
                         <div id="logo" style="width:170px;">
-                            <h1><a href="../../index.html"><img src="../../images/logo.png" alt="Made" /></a></h1> </div>
+                            <h1><a href="../../index.jsp"><img src="../../images/logo.png" alt="Made" /></a></h1> </div>
                     </div>
                 </div>
             </div>
@@ -82,8 +82,8 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a href="../../index.html">Home</a> </li>
-                            <li><a href="../notice/공지사항 main.html">공지사항</a> </li>
+                            <li><a href="../../index.jsp">Home</a> </li>
+                            <li><a href="../notice/공지사항 main.jsp">공지사항</a> </li>
                             <li><a href="#">DIY 상품</a>
                                 <ul class="dropdown-menu">
                                     <li><a href="../item/item_designed.html">Designed</a></li>
@@ -120,7 +120,7 @@
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
-								<li><a href="../../index.html">Home</a></li>
+								<li><a href="../../index.jsp">Home</a></li>
                                 <li>FAQ</li>
 							</ul>
 						</nav>

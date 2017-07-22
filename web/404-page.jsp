@@ -1,35 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ page import="member.model.vo.*"%>
 <%
 	Member m = (Member) session.getAttribute("member");
 	String loginout;
 	if (m == null) {
-		loginout = "<a href='../../loginout.jsp'>&nbsp;Login&nbsp;</a>";
+		loginout = "<a href='loginout.jsp'>&nbsp;Login&nbsp;</a>";
 	} else {
-		loginout = "&nbsp;<b>"+m.getNickName()+"</b>님 환영합니다!&nbsp;&nbsp;<a href='/made/logout'>&nbsp;Logout&nbsp;</a>";
+		loginout = m.getNickName()+"님 환영합니다!&nbsp;&nbsp;<a href='logout'>&nbsp;Logout&nbsp;</a>";
 	}
 %>
 <!DOCTYPE html>
-<!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="ko"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="ko"> <!--<![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>Dafault_page - MAːDÆ</title>
+	<title>Page Not Found - MAːDÆ</title>
 	<meta name="description" content="">
-	<link rel="shortcut icon" href="../../images/icon.ico">
+	<link rel="shortcut icon" href="images/icon.ico">
 	<!-- CSS FILES -->
-    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../../css/style.css" media="screen" data-name="skins">
-    <link rel="stylesheet" href="../../css/layout/wide.css" data-name="layout">
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" data-name="skins">
+    <link rel="stylesheet" href="css/layout/wide.css" data-name="layout">
 
-    <link rel="stylesheet" href="../../css/fractionslider.css"/>
-    <link rel="stylesheet" href="../../css/style-fraction.css"/>
+    <link rel="stylesheet" href="css/fractionslider.css"/>
+    <link rel="stylesheet" href="css/style-fraction.css"/>
 
-    <link rel="stylesheet" type="text/css" href="../../css/switcher.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/switcher.css" media="screen" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -49,8 +49,8 @@
                     </div>
                     <div class="col-sm-5 top-info">
                         <ul>
-                            <li style="width: auto;"><%=loginout%></li>
-                            <li><a href="../user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
+                        	<li style="width: auto;"><%=loginout%></li>
+                            <li><a href="views/user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
                         </ul>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                    <!-- Logo / Mobile Menu -->
                    <div class="col-xs-12">
                        <div id="logo" style="width:170px;">
-                           <h1><a href="../../index.jsp"><img src="../../images/logo.png" alt="Made" /></a></h1>
+                           <h1><a href="index.jsp"><img src="images/logo.png" alt="Eve" /></a></h1>
                        </div>
                    </div>
                </div>
@@ -88,28 +88,28 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="../../index.jsp">Home</a>
+                            <li class="active"><a href="index.jsp">Home</a>
                             </li>
-                            <li><a href="../notice/공지사항 main.html">공지사항</a>
+                            <li><a href="views/notice/공지사항 main.html">공지사항</a>
                             </li>
                             <li><a href="#">DIY 상품</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="../item/item_designed.html">Designed</a></li>
-                                    <li><a href="../item/item_parts.html">Parts</a></li>
+                                    <li><a href="views/item/item_designed.html">Designed</a></li>
+                                    <li><a href="views/item/item_parts.html">Parts</a></li>
                                 </ul>
                             </li>
 
-                            <li><a href="#">마이페이지</a>
+                            <li><a href="views/mypage/order_page.html">마이페이지</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="../mypage/myinfo.html">My page</a></li>
-                                    <li><a href="../mypage/order_page.html">주문내역</a></li>
-                                    <li><a href="../mypage/myinfo.html">회원정보수정</a></li>
-                                    <li><a href="../mypage/myinfo.html">쪽지함</a></li>
-                                    <li><a href="../mypage/myinfo.html">1:1문의</a></li>
+                                    <li><a href="views/mypage/myinfo.html">My page</a></li>
+                                    <li><a href="views/mypage/order_page.html">주문내역</a></li>
+                                    <li><a href="views/mypage/myinfo.html">회원정보수정</a></li>
+                                    <li><a href="views/mypage/myinfo.html">쪽지함</a></li>
+                                    <li><a href="views/mypage/myinfo.html">1:1문의</a></li>
                                 </ul>
                             </li>
-                            <li><a href="../faq/faq.jsp">FAQ</a></li>
-                            <li><a href="../../contact.html">Contact</a></li>
+                            <li><a href="views/faq/faq.html">FAQ</a></li>
+                            <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </div>
                 </div><!--/.row -->
@@ -117,33 +117,45 @@
         </div>
 	</header>
 	<!--End Header-->
-
+	
 	<!--start wrapper-->
 	<section class="wrapper">
-       <section class="page_head">
+		<section class="page_head">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<h2>게시글 제목</h2>
+						<h2>404 Page Not Found</h2>
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
-								<li><a href="../../index.jsp">Home</a></li>
-								<li><a href="default_page.html">Shortcodes</a></li>
-								<li>Typography</li>
+								<li><a href="index.jsp">Home</a></li>
+								<li>Page Not Found</li>
 							</ul>
 						</nav>
 					</div>
 				</div>
 			</div>
 		</section>
-        <div class="container">
-        <h1> 내용 작성 부 </h1>
-        <!--- 여기에 내용을 작성해주세요~ --->
-</div>
-    </section>
-
-    <!--start footer-->
+		
+		
+		<section class="content not_found">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-lg-12 col-md-12">
+						<div class="page_404">
+							<h1>404</h1>
+							<p>Sorry, Page you're looking for is not found</p>
+							<a href="#" class="btn btn-default btn-lg back_home">
+								<i class="fa fa-arrow-circle-o-left"></i>
+								Go to Back
+							</a>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</section>
+		<!--start footer-->
     <footer class="footer">
         <div class="container">
             <div class="row">
@@ -238,23 +250,23 @@
 		</div>
 	</section>
 
-    <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/jquery.easing.1.3.js"></script>
-    <script src="../../js/retina-1.1.0.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.cookie.js"></script> <!-- jQuery cookie -->
-    <script type="text/javascript" src="../../js/styleswitch.js"></script> <!-- Style Colors Switcher -->
-    <script src="../../js/jquery.fractionslider.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" src="../../js/jquery.smartmenus.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.smartmenus.bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.jcarousel.js"></script>
-    <script type="text/javascript" src="../../js/jflickrfeed.js"></script>
-    <script type="text/javascript" src="../../js/jquery.magnific-popup.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.isotope.min.js"></script>
-    <script type="text/javascript" src="../../js/swipe.js"></script>
-    <script type="text/javascript" src="../../js/jquery-scrolltofixed-min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/retina-1.1.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script> <!-- jQuery cookie -->
+    <script type="text/javascript" src="js/styleswitch.js"></script> <!-- Style Colors Switcher -->
+    <script src="js/jquery.fractionslider.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="js/jquery.smartmenus.min.js"></script>
+    <script type="text/javascript" src="js/jquery.smartmenus.bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.jcarousel.js"></script>
+    <script type="text/javascript" src="js/jflickrfeed.js"></script>
+    <script type="text/javascript" src="js/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="js/swipe.js"></script>
+    <script type="text/javascript" src="js/jquery-scrolltofixed-min.js"></script>
 
-    <script src="../../js/main.js"></script>
+    <script src="js/main.js"></script>
 
     <!-- Start Style Switcher -->
     <div class="switcher"></div>
