@@ -55,8 +55,10 @@
 					<div class="col-sm-5 top-info">
 						<ul>
 							<li style="width: auto;"><%=loginout%></li>
+							<% if(m ==null ) {%>
 							<li><a
 								href="views/user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
+								<% } %>
 						</ul>
 					</div>
 				</div>
@@ -100,8 +102,8 @@
 							<li><a href="views/notice/공지사항 main.jsp">공지사항</a></li>
 							<li><a href="#">DIY 상품</a>
 								<ul class="dropdown-menu">
-									<li><a href="views/item/item_designed.html">Designed</a></li>
-									<li><a href="views/item/item_parts.html">Parts</a></li>
+									<li><a href="designlist">Designed</a></li>
+									<li><a href="partlist">Parts</a></li>
 								</ul></li>
 
 							<li><a href="views/mypage/order_page.html">마이페이지</a>
@@ -112,7 +114,7 @@
 									<li><a href="views/mypage/myinfo.html">쪽지함</a></li>
 									<li><a href="views/mypage/myinfo.html">1:1문의</a></li>
 								</ul></li>
-							<li><a href="views/faq/faq.html">FAQ</a></li>
+							<li><a href="views/faq/faq.jsp">FAQ</a></li>
 							<li><a href="contact.html">Contact</a></li>
 						</ul>
 					</div>

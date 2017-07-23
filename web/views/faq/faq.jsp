@@ -51,7 +51,10 @@
                     <div class="col-sm-5 top-info">
                         <ul>
                             <li style="width: auto;"><%=loginout%></li>
-                            <li><a href="../user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
+                             <% if(m ==null ) {%>
+							<li><a
+								href="../user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
+								<% } %>
                         </ul>
                     </div>
                 </div>

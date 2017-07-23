@@ -48,7 +48,7 @@
                         <span><i class="fa fa-envelope"></i>Email: firerain4@naver.com</span>--></div>
                     <div class="col-sm-5 top-info">
                         <ul>
-                            <li width="auto"><a href="">&nbsp;Login/Logout&nbsp;</a></li>
+                            <li style="width: auto;"><a href="">&nbsp;Login/Logout&nbsp;</a></li>
                             <li><a href="../user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
                         </ul>
                     </div>
@@ -63,7 +63,7 @@
                     <!-- Logo / Mobile Menu -->
                     <div class="col-xs-12">
                         <div id="logo" style="width:170px;">
-                            <h1><a href="../../index.html"><img src="../../images/logo.png" alt="Made" /></a></h1> </div>
+                            <h1><a href="../../index.jsp"><img src="../../images/logo.png" alt="Made" /></a></h1> </div>
                     </div>
                 </div>
             </div>
@@ -80,8 +80,8 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a href="../../index.html">Home</a> </li>
-                            <li><a href="../notice/공지사항 main.html">공지사항</a> </li>
+                            <li><a href="../../index.jsp">Home</a> </li>
+                            <li><a href="../notice/공지사항 main.jsp">공지사항</a> </li>
                             <li class="active"><a href="#">DIY 상품</a>
                                 <ul class="dropdown-menu">
                                     <li><a href="item_designed.html">Designed</a></li>
@@ -97,7 +97,7 @@
                                     <li><a href="../mypage/myinfo.html">1:1문의</a></li>
                                 </ul>
                             </li>
-                            <li><a href="../faq/faq.html">FAQ</a></li>
+                            <li><a href="../faq/faq.jsp">FAQ</a></li>
                             <li><a href="../../contact.html">Contact</a></li>
                         </ul>
                     </div>
@@ -134,13 +134,14 @@
                             <ul class="details">
                                 <li><span>Designed by </span>Jeonghun</li>
                                 <li><span>재질:</span> 목재류</li>
-                                <li><span>가격:</span>15,000 원</li>
-                                <li><span>완제품 구매:</span><input type="checkbox" name="chk" id=""></li>
-                                <li><span>구매수량 :</span><input type="number" name="quan" min="1" max="99" id=""></li>
+                                <li><span>가격:</span>15000원</li>
+                                <li><span>완제품 구매:</span><input type="checkbox" name="chk" id="chk"></li>
+                                <li><span>구매수량 :</span><input type="number" name="quan" min="1" max="99" id="quan"></li>
+                                <li><span>총 가격 :</span><input type="number" id="price" name="price" readonly></li>
                             </ul>
                             <br>
                             <p align="center">
-                            <button button class="btn btn-default" id="like">♥</button>
+                            <button class="btn btn-default" id="like">♥</button>
                             &nbsp;&nbsp;<button class="btn btn-default" onclick="pay_test();">구매하기</button></p>
                         </div>
                     </div>
@@ -394,6 +395,7 @@
     <!-- Start Style Switcher -->
     <div class="switcher"></div>
     <!-- End Style Switcher -->
+
         <!-- I'm Port 전자결제 -->
     <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
     <script>

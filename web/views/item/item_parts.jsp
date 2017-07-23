@@ -1,30 +1,48 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="part.model.vo.Part, member.model.vo.*, java.util.*"%>
+<%
+	ArrayList<Part> list = (ArrayList<Part>) request.getAttribute("list");
+	Member m = (Member) session.getAttribute("member");
+	String loginout;
+	if (m == null) {
+		loginout = "<a href='/made/loginout.jsp'>&nbsp;Login&nbsp;</a>";
+	} else {
+		loginout = "&nbsp;<b>" + m.getNickName() + "</b>님 환영합니다!&nbsp;&nbsp;<a href='logout'>&nbsp;Logout&nbsp;</a>";
+	}
+%>
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="ko"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html class="no-js" lang="ko">
 <!--<![endif]-->
-
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Parts - MAːDÆ</title>
     <meta name="description" content="">
-    <link rel="shortcut icon" href="../../images/icon.ico">
+    <link rel="shortcut icon" href="/made/images/icon.ico">
     <!-- CSS FILES -->
-    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../../css/style.css" media="screen" data-name="skins">
-    <link rel="stylesheet" href="../../css/layout/wide.css" data-name="layout">
-    <link rel="stylesheet" href="../../css/fractionslider.css" />
-    <link rel="stylesheet" href="../../css/style-fraction.css" />
-    <link rel="stylesheet" type="text/css" href="../../css/switcher.css" media="screen" />
+    <link rel="stylesheet" href="/made/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/made/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/made/css/style.css" media="screen" data-name="skins">
+    <link rel="stylesheet" href="/made/css/layout/wide.css" data-name="layout">
+    <link rel="stylesheet" href="/made/css/fractionslider.css" />
+    <link rel="stylesheet" href="/made/css/style-fraction.css" />
+    <link rel="stylesheet" type="text/css" href="/made/css/switcher.css" media="screen" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+    	.touching img{
+    		width : 250px;
+    		height: 250px;
+    	}
+    </style>
 </head>
 
 <body>
@@ -38,9 +56,11 @@
                         <span><i class="fa fa-envelope"></i>Email: firerain4@naver.com</span>--></div>
                     <div class="col-sm-5 top-info">
                         <ul>
-                            <li width="auto"><a href="">&nbsp;Login/Logout&nbsp;</a></li>
-                            <li><a href="../user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
-                        </ul>
+                            <li style="width: auto;"><%=loginout%></li>
+							<% if (m == null) {	%>
+							<li><a href="/made/views/user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
+							<% } %>
+						</ul>
                     </div>
                 </div>
             </div>
@@ -53,7 +73,7 @@
                     <!-- Logo / Mobile Menu -->
                     <div class="col-xs-12">
                         <div id="logo" style="width:170px;">
-                            <h1><a href="../../index.jsp"><img src="../../images/logo.png" alt="Made" /></a></h1> </div>
+                            <h1><a href="/made/index.jsp"><img src="/made/images/logo.png" alt="Made" /></a></h1> </div>
                     </div>
                 </div>
             </div>
@@ -70,12 +90,12 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a href="../../index.jsp">Home</a> </li>
+                            <li><a href="/made/index.jsp">Home</a> </li>
                             <li><a href="../notice/공지사항 main.jsp">공지사항</a> </li>
                             <li class="active"><a href="#">DIY 상품</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="item_designed.html">Designed</a></li>
-                                    <li><a href="item_parts.html">Parts</a></li>
+                                    <li><a href="/made/designlist">Designed</a></li>
+                                    <li><a href="/made/partlist">Parts</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">마이페이지</a>
@@ -108,7 +128,7 @@
                         <nav id="breadcrumbs">
                             <ul>
                                 <li>You are here:</li>
-                                <li><a href="../../index.jsp">Home</a></li>
+                                <li><a href="/made/index.jsp">Home</a></li>
                                 <li>Parts</li>
                             </ul>
                         </nav>
@@ -124,110 +144,44 @@
                         <div class="col-lg-12 isotope">
                             <!--begin portfolio filter -->
                             <ul id="filter">
-                                <li data-filter="*" class="selected"><a href="#">All</a></li>
-                                <li data-filter=".responsive"><a href="#">Responsive</a></li>
-                                <li data-filter=".mobile"><a href="#">Mobile</a></li>
-                                <li data-filter=".branding"><a href="#">Branding</a></li>
-                            </ul>
+								<li data-filter="*" class="selected"><a href="#">All</a></li>
+								<li data-filter=".WOOD"><a href="#">Wood</a></li>
+								<li data-filter=".STEEL"><a href="#">Steel</a></li>
+								<li data-filter=".PLASTIC"><a href="#">Plastic</a></li>
+								<li data-filter=".ETC"><a href="#">ETC</a></li>
+							</ul>
                             <!--end portfolio filter -->
                             <!--begin portfolio_list -->
                             <ul id="list" class="portfolio_list clearfix ">
-                                <!--begin List Item -->
-                                <li class="list_item col-sm-6">
-                                    <div class="recent-item">
-                                        <figure>
-                                            <div class="touching medium"> <img src="images/portfolio/portfolio_1.png" alt="" /> </div>
-                                            <div class="option"> <a href="images/portfolio/full/portfolio_1.png" class="hover-zoom mfp-image"><i class="fa fa-search"></i></a> <a href="portfolio_single.html" class="hover-link"><i class="fa fa-link"></i></a> </div>
-                                            <figcaption class="item-description">
-                                                <h5>Touch and Swipe</h5> <span>Technology</span> </figcaption>
-                                        </figure>
-                                    </div>
-                                </li>
-                                <!--end List Item -->
-                                <!--begin List Item -->
-                                <li class="list_item col-sm-6 mobile">
-                                    <div class="recent-item">
-                                        <figure>
-                                            <div class="touching medium"> <img src="images/portfolio/portfolio_2.png" alt="" /> </div>
-                                            <div class="option"> <a href="images/portfolio/full/portfolio_2.png" class="hover-zoom mfp-image"><i class="fa fa-search"></i></a> <a href="portfolio_single.html" class="hover-link"><i class="fa fa-link"></i></a> </div>
-                                            <figcaption class="item-description">
-                                                <h5>Touch and Swipe</h5> <span>Technology</span> </figcaption>
-                                        </figure>
-                                    </div>
-                                </li>
-                                <!--end List Item -->
-                                <!--begin List Item -->
-                                <li class="list_item col-sm-6 responsive">
-                                    <div class="recent-item">
-                                        <figure>
-                                            <div class="touching medium"> <img src="images/portfolio/portfolio_3.png" alt="" /> </div>
-                                            <div class="option"> <a href="images/portfolio/full/portfolio_3.png" class="hover-zoom mfp-image"><i class="fa fa-search"></i></a> <a href="portfolio_single.html" class="hover-link"><i class="fa fa-link"></i></a> </div>
-                                            <figcaption class="item-description">
-                                                <h5>Touch and Swipe</h5> <span>Technology</span> </figcaption>
-                                        </figure>
-                                    </div>
-                                </li>
-                                <!--end List Item -->
-                                <!--begin List Item -->
-                                <li class="list_item col-sm-6 branding">
-                                    <div class="recent-item">
-                                        <figure>
-                                            <div class="touching medium"> <img src="images/portfolio/portfolio_4.png" alt="" /> </div>
-                                            <div class="option"> <a href="images/portfolio/full/portfolio_6.png" class="hover-zoom mfp-image"><i class="fa fa-search"></i></a> <a href="portfolio_single.html" class="hover-link"><i class="fa fa-link"></i></a> </div>
-                                            <figcaption class="item-description">
-                                                <h5>Touch and Swipe</h5> <span>Technology</span> </figcaption>
-                                        </figure>
-                                    </div>
-                                </li>
-                                <!--end List Item -->
-                                <!--begin List Item -->
-                                <li class="list_item col-sm-6">
-                                    <div class="recent-item">
-                                        <figure>
-                                            <div class="touching medium"> <img src="images/portfolio/portfolio_5.png" alt="" /> </div>
-                                            <div class="option"> <a href="images/portfolio/full/portfolio_7.png" class="hover-zoom mfp-image"><i class="fa fa-search"></i></a> <a href="portfolio_single.html" class="hover-link"><i class="fa fa-link"></i></a> </div>
-                                            <figcaption class="item-description">
-                                                <h5>Touch and Swipe</h5> <span>Technology</span> </figcaption>
-                                        </figure>
-                                    </div>
-                                </li>
-                                <!--end List Item -->
-                                <!--begin List Item -->
-                                <li class="list_item col-sm-6 mobile">
-                                    <div class="recent-item">
-                                        <figure>
-                                            <div class="touching medium"> <img src="images/portfolio/portfolio_6.png" alt="" /> </div>
-                                            <div class="option"> <a href="images/portfolio/full/portfolio_8.png" class="hover-zoom mfp-image"><i class="fa fa-search"></i></a> <a href="portfolio_single.html" class="hover-link"><i class="fa fa-link"></i></a> </div>
-                                            <figcaption class="item-description">
-                                                <h5>Touch and Swipe</h5> <span>Technology</span> </figcaption>
-                                        </figure>
-                                    </div>
-                                </li>
-                                <!--end List Item -->
-                                <!--begin List Item -->
-                                <li class="list_item col-sm-6 responsive">
-                                    <div class="recent-item">
-                                        <figure>
-                                            <div class="touching medium"> <img src="images/portfolio/portfolio_7.png" alt="" /> </div>
-                                            <div class="option"> <a href="images/portfolio/full/portfolio_2.png" class="hover-zoom mfp-image"><i class="fa fa-search"></i></a> <a href="portfolio_single.html" class="hover-link"><i class="fa fa-link"></i></a> </div>
-                                            <figcaption class="item-description">
-                                                <h5>Touch and Swipe</h5> <span>Technology</span> </figcaption>
-                                        </figure>
-                                    </div>
-                                </li>
-                                <!--end List Item -->
-                                <!--begin List Item -->
-                                <li class="list_item col-sm-6 branding">
-                                    <div class="recent-item">
-                                        <figure>
-                                            <div class="touching medium"> <img src="images/portfolio/portfolio_8.png" alt="" /> </div>
-                                            <div class="option"> <a href="images/portfolio/full/portfolio_1.png" class="hover-zoom mfp-image"><i class="fa fa-search"></i></a> <a href="portfolio_single.html" class="hover-link"><i class="fa fa-link"></i></a> </div>
-                                            <figcaption class="item-description">
-                                                <h5>Touch and Swipe</h5> <span>Technology</span> </figcaption>
-                                        </figure>
-                                    </div>
-                                </li>
-                                <!--end List Item -->
+                                <%
+									for (Part p : list) {
+								%>
+								<!--begin List Item -->
+								<li class="list_item col-sm-6 <%=p.getPartCategory()%>">
+									<div class="recent-item">
+										<figure>
+											<div class="touching medium">
+												<img src="/made/images/items/parts/<%=p.getPartCategory().toLowerCase()+"/"+p.getPartImg()%>"
+													alt="" />
+											</div>
+											<div class="option">
+												<a href="/made/images/items/designed/<%=p.getPartImg()%>"
+													class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
+													<% if(m != null ) {%>
+												<a href="pDetail?id=<%=p.getPartId() %>" class="hover-link"><i
+													class="fa fa-link"></i></a> <% } %>
+											</div>
+											<figcaption class="item-description">
+												<h5>상세보기</h5>
+												<span><%=p.getPartName()%></span>
+											</figcaption>
+										</figure>
+									</div>
+								</li>
+								<!--end List Item -->
+								<%
+									}
+								%>
                             </ul>
                             <!--end portfolio_list -->
                         </div>
@@ -335,24 +289,24 @@
             </div>
         </div>
     </section>
-    <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/jquery.easing.1.3.js"></script>
-    <script src="../../js/retina-1.1.0.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/made/js/jquery-1.10.2.min.js"></script>
+    <script src="/made/js/bootstrap.min.js"></script>
+    <script src="/made/js/jquery.easing.1.3.js"></script>
+    <script src="/made/js/retina-1.1.0.min.js"></script>
+    <script type="text/javascript" src="/made/js/jquery.cookie.js"></script>
     <!-- jQuery cookie -->
-    <script type="text/javascript" src="../../js/styleswitch.js"></script>
+    <script type="text/javascript" src="/made/js/styleswitch.js"></script>
     <!-- Style Colors Switcher -->
-    <script src="../../js/jquery.fractionslider.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" src="../../js/jquery.smartmenus.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.smartmenus.bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.jcarousel.js"></script>
-    <script type="text/javascript" src="../../js/jflickrfeed.js"></script>
-    <script type="text/javascript" src="../../js/jquery.magnific-popup.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.isotope.min.js"></script>
-    <script type="text/javascript" src="../../js/swipe.js"></script>
-    <script type="text/javascript" src="../../js/jquery-scrolltofixed-min.js"></script>
-    <script src="../../js/main.js"></script>
+    <script src="/made/js/jquery.fractionslider.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="/made/js/jquery.smartmenus.min.js"></script>
+    <script type="text/javascript" src="/made/js/jquery.smartmenus.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/made/js/jquery.jcarousel.js"></script>
+    <script type="text/javascript" src="/made/js/jflickrfeed.js"></script>
+    <script type="text/javascript" src="/made/js/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="/made/js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="/made/js/swipe.js"></script>
+    <script type="text/javascript" src="/made/js/jquery-scrolltofixed-min.js"></script>
+    <script src="/made/js/main.js"></script>
     <!-- Start Style Switcher -->
     <div class="switcher"></div>
     <!-- End Style Switcher -->

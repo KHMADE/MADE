@@ -1,9 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="member.model.vo.*"%>
-<%
-	Member m = (Member)session.getAttribute("member");
-%>
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
@@ -43,11 +37,6 @@
                     </div>
                     <div class="col-sm-5 top-info">
                         <ul>
-                        <% if(m != null){ %>
-                            <li width="auto"><a href="">&nbsp;Login&nbsp;</a></li>
-                            <% } else { %>
-                            <li width="auto"><a href="">&nbsp;Logout&nbsp;</a></li>
-                            <% } %>
                             <li><a href="views/user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
                         </ul>
                     </div>
@@ -141,7 +130,7 @@
 				<div class="row">
 					<div class="col-sm-12 col-lg-12 col-md-12">
 						<div class="page_404">
-							<h1>404</h1>
+							<h1><a>4</a>04</h1>
 							<p>Sorry, Page you're looking for is not found</p>
 							<a href="#" class="btn btn-default btn-lg back_home">
 								<i class="fa fa-arrow-circle-o-left"></i>

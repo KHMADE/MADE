@@ -50,7 +50,10 @@
                     <div class="col-sm-5 top-info">
                         <ul>
                             <li style="width: auto;"><%=loginout%></li>
-                            <li><a href="../user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
+							 <% if(m ==null ) {%>
+							<li><a
+								href="../user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
+								<% } %>
                         </ul>
                     </div>
                 </div>
@@ -64,7 +67,7 @@
                    <!-- Logo / Mobile Menu -->
                    <div class="col-xs-12">
                        <div id="logo" style="width:170px;">
-                           <h1><a href="../../index.html"><img src="../../images/logo.png" alt="Made" /></a></h1>
+                           <h1><a href="../../index.jsp"><img src="../../images/logo.png" alt="Made" /></a></h1>
                        </div>
                    </div>
                </div>
@@ -88,7 +91,7 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a href="../../index.html">Home</a>
+                            <li><a href="../../index.jsp">Home</a>
                             </li>
                             <li class="active"><a href="공지사항 main.jsp">공지사항</a>
                             </li>
@@ -108,7 +111,7 @@
                                     <li><a href="../mypage/myinfo.html">1:1문의</a></li>
                                 </ul>
                             </li>
-                            <li><a href="../faq/faq.html">FAQ</a></li>
+                            <li><a href="../faq/faq.jsp">FAQ</a></li>
                             <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </div>
@@ -128,7 +131,7 @@
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
-								<li><a href="../../index.html">Home</a></li>
+								<li><a href="../../index.jsp">Home</a></li>
                                 <li>공지사항</li>
 							</ul>
 						</nav>

@@ -137,13 +137,12 @@
 			</div>
 		</section>
 		
-		
 		<section class="content not_found">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12 col-lg-12 col-md-12">
 						<div class="page_404">
-							<h1>404</h1>
+							<h1><a>4</a>04</h1>
 							<p>Sorry, Page you're looking for is not found</p>
 							<a href="#" class="btn btn-default btn-lg back_home">
 								<i class="fa fa-arrow-circle-o-left"></i>
