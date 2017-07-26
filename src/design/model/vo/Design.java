@@ -18,6 +18,25 @@ public class Design implements java.io.Serializable{
 	
 	public Design() {}
 
+	public Design(String designName, String designCategory, String designDesc, int designPrice, String designImg, String designerId) {
+		super();
+		this.designName = designName;
+		this.designCategory = designCategory;
+		this.designDesc = designDesc;
+		this.designPrice = designPrice;
+		this.designImg = designImg;
+		this.designerId = designerId;
+	}
+
+	public Design(String designId, String designName, String designDesc, int designPrice, String designImg) {
+		super();
+		this.designId = designId;
+		this.designName = designName;
+		this.designDesc = designDesc;
+		this.designPrice = designPrice;
+		this.designImg = designImg;
+	}
+
 	public Design(String designId, String designName, String designCategory, String designDesc, int designPrice, String designImg, String designerId) {
 		super();
 		this.designId = designId;

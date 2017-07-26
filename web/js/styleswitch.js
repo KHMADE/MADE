@@ -61,7 +61,7 @@ var cookieName = 'wide';
 
 function changeLayout(layout) {
 $.cookie(cookieName, layout);
-$('head link[data-name=layout]').attr('href', 'css/layout/' + layout + '.css');
+$('head link[data-name=layout]').attr('href', '/made/css/layout/' + layout + '.css');
 }
 
 if( $.cookie(cookieName)) {
@@ -401,7 +401,7 @@ $(document).ready(function($){
 
     function changeLayout(layout) {
     $.cookie(cookieName, layout);
-    $('head link[data-name=skins]').attr('href', 'css/skins/' + layout + '.css');
+    $('head link[data-name=skins]').attr('href', '/made/css/skins/' + layout + '.css');
     }
 
     if( $.cookie(cookieName)) {

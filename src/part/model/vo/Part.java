@@ -41,6 +41,16 @@ public class Part implements java.io.Serializable{
 		this.partImg = partImg;
 	}
 
+	public Part(String partName, String partCategory, int price, int quantity, String partDesc, String partImg) {
+		super();
+		this.partName = partName;
+		this.partCategory = partCategory;
+		this.price = price;
+		this.quantity = quantity;
+		this.partDesc = partDesc;
+		this.partImg = partImg;
+	}
+
 	@Override
 	public String toString() {
 		return "Part [partId=" + partId + ", partName=" + partName + ", partCategory=" + partCategory + ", partDate=" + partDate + ", price=" + price + ", quantity=" + quantity + ", partDesc=" + partDesc + ", partImg=" + partImg + "]";

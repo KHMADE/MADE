@@ -1,0 +1,150 @@
+#top-bar{background:#E74C3C;}
+
+.top-info li a,.top-info li:first-child a{border-left-color:#ED7E74; border-right-color:#BF3528;}
+
+.top-info ul{border-right-color:#ED7E74; border-left-color:#BF3528;}
+
+.list_style.circle li a i,
+.flickr-feed li .hover,
+.progress_skill .bar,
+.swipe-navi .swipe-left,
+.swipe-navi .swipe-right,
+.blogPic .blog-hover .icon,
+.list_style.square li a i,
+.highlight.default,
+.blog_large .day, .blog_single .day,
+#filter li.selected a:before,
+.carousel-pagination li.active,
+.slider-read,
+.slider .new,.slider .light-pink,
+.theme-color-pt .pricingTable:before,
+.pricingBlock.theme-color-pt .pricingTable-header .price-value,
+.promo_content a.btn
+{
+	background: #E74C3C !important;
+}
+
+.navbar-nav > li > a:hover,.navbar-nav > li > a:focus,.navbar-nav > li.active > a,
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus,
+.navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
+.navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus
+{
+    background:#E74C3C !important;
+}
+@media only screen and (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus
+    {
+        background:#E74C3C;
+    }
+}
+.navbar-nav > li > ul:before{ border-bottom-color:#E74C3C; }
+.navbar-nav > li ul > li:first-child{ border-top:2px solid #E74C3C; }
+.navbar-nav .dropdown-menu > li > a:hover{ color:#E74C3C; }
+
+.dividerHeading h4,.widget_title h4,#site-searchform #s:focus{border-color:#E74C3C;}
+
+.serviceBox_2:hover{ background:#E74C3C; }
+.serviceBox_3:hover .service_3_detail{border-bottom-color:#E74C3C}
+.panel.active_acc, .panel:hover{border-top-color:#E74C3C;}
+.icon_service i{background:#E74C3C; }
+
+.blog_medium .day{background:#E74C3C;}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus,
+.nav-tabs li.active, .nav-tabs li.active a, .nav-tabs li.active a:hover{border-top-color:#E74C3C;color:#E74C3C;}
+
+.fraction-slider .next:hover,.fraction-slider .prev:hover,
+.fraction-slider .next:hover:before,.fraction-slider .prev:hover:before{color:#E74C3C!important;border-color:#E74C3C!important;}
+
+a,
+a.read:hover, 
+.recent_posts_list li a:hover,
+.testimonial-review small,
+.active .acc_head, .active .Eve_toggle_head,
+.list_style li a:hover,
+#breadcrumbs ul li:last-child a, #breadcrumbs ul li a,
+.tp-caption.large_bold_red,
+.blogMeta a:hover, .blogTitle span:hover,
+.serviceBox_2:hover i,
+.dropcap.default,
+.blogTitle > a:hover h2,
+.sidebar_widget ul.archives_list li a:hover, .sidebar_widget ul.arrows_list1 li a:hover i,
+.blog_large .post_meta .metaInfo > span > a:hover, .blog_single .post_meta .metaInfo > span > a:hover,
+#comment-list li .comment-container:hover a,
+#comment-list li .comment-container:hover .comment-date,
+.dividerHeading h4 span:before,
+.dividerHeading h4 span:after,
+.widget_title h4 span:after,
+.widget_title h4 span:before,
+.panel-heading:hover a, .panel-heading:hover .accordian-icon,
+.active_acc .panel-title a,
+.active_acc .accordian-icon,
+.panel-heading:hover  a,
+.panel-heading:hover .accordian-icon,
+.blog_medium .post_meta .metaInfo > span > a:hover,
+.blog_medium .post_meta h2:hover a,
+.sidebar_widget ul.arrows_list li a:hover, .sidebar_widget ul.arrows_list1 li a:hover i,
+.recent_tab_list li a:hover,
+.blog_large .post_meta h2:hover a, .blog_single .post_meta h2:hover a,
+.comments_list a,.sidebar .widget ul.arrows_list li a:hover, .sidebar .widget ul.arrows_list1 li a:hover i,
+.sidebar .widget ul.archives_list li a:hover, .sidebar .widget ul.arrows_list1 li a:hover i,
+.footer li a:hover,.author_bio > h5 a,.author_name > a:hover,.project_details .details li a:hover{
+  color: #E74C3C;
+}
+
+.testimonial-item blockquote {border-top: 3px solid #E74C3C;}
+.testimonial-review > img {border: 2px solid #E74C3C;}
+
+.btn.btn-default,
+.tp-caption.modern_big_redbg,
+.tp-caption.medium_bg_red,
+.dropcap_block.default,
+.btn.btn-default.dark:hover,
+.btn.btn-default.dark:focus,
+.btn-group:focus .btn.btn-default.dark.dropdown-toggle,
+.icon_lists .fa-hover a:hover,
+#site-searchform #searchsubmit,
+.tags li a:hover,
+.shares li a:hover
+{
+	background-color:#E74C3C;
+}
+
+.comment-container:hover {border-color:#E74C3C;}
+
+.pricingTable:before,.pricingTable .btn-default{background:#696868;}
+.pricingTable .btn-default:hover{background:#403F3F;}
+
+.theme-color-pt .btn-default {background:#E74C3C;}
+
+.btn-default:hover,.theme-color-pt .btn-default:hover{background-color:#257FBF;}
+.promo_content a.btn{ border-bottom-color:#CE4233;}
+.promo_content a.btn:hover{ background:#2787CB!important; border-bottom-color:#126FB1;}
+
+.progress_skill:hover .bar,.pricingTable.business .pricingTable-header .price-value {background: #2980b9 !important;}
+
+.form-control:focus,#site-searchform #s:focus {border-color:#E74C3C;box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(52, 152, 219, 0.6);}
+
+blockquote.default,.theme-color-pt .pricingTable{border-color:#E74C3C;}
+
+#filter li a{ background:#E74C3C;}
+
+.item-description,.social_media_team{background:rgba(52, 152, 219, 0.55);}
+.option a.hover-zoom,.option a.hover-link{color:#0361A3;}
+.option a.hover-zoom:hover,.option a.hover-link:hover{background: #333;color:#fff;}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background:#E74C3C;
+    border-color: #E74C3C;
+}
+
