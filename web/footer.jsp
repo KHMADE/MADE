@@ -135,14 +135,13 @@
 		</div>
 	</section>
 			
-	<script type="text/javascript" src="/made/js/jquery-1.10.2.min.js"></script>
-	<script src="/made/js/bootstrap.min.js"></script>
 	<script src="/made/js/jquery.easing.1.3.js"></script>
 	<script src="/made/js/retina-1.1.0.min.js"></script>
 	<script type="text/javascript" src="/made/js/jquery.cookie.js"></script>
 	<!-- jQuery cookie -->
-	<script type="text/javascript" src="/made/js/styleswitch.js"></script>
+	<script type="text/javascript" src="/made/js/styleswitch.js?var=1"></script>
 	<!-- Style Colors Switcher -->
+	<!-- ?ver=1 값은 브라우저 확인 시 기존 캐시값이 아닌 변경된 파일을 읽어 오라는 뜻  -->
 	<script src="/made/js/jquery.fractionslider.js" type="text/javascript"
 		charset="utf-8"></script>
 	<script type="text/javascript" src="/made/js/jquery.smartmenus.min.js"></script>
@@ -160,6 +159,7 @@
 	<div class="switcher"></div>
 	<!-- End Style Switcher -->
 	
+	<!-- Slider Setting -->
 	<script>
 		$(window).load(function() {
 			$('.slider').fractionSlider({
@@ -174,3 +174,4 @@
 			});
 		});
 	</script>
+	<!-- Slider Setting -->

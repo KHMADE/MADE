@@ -122,8 +122,8 @@ public class PartDAO {
 	public int insertPart(Connection con, Part p) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO PART VALUES('PA'||TO_CHAR(SYSDATE,'RRMMDDHH24MI')||LPAD(SEQ_PART.NEXTVAL,2,'0'),?,?,SYSDATE,?,?,?,?)";
-		try {		//INSERT INTO PART VALUES('PA8','철재 180X100cm','STEEL',SYSDATE,2300,5,'기본 철재 샘플4','default_steel4.jpg');
+		String sql = "INSERT INTO PART VALUES('PA'||TO_CHAR(SYSDATE,'RRMMDDHH24MI')||LPAD(SEQ_PART.NEXTVAL,2,'0'),?,?,SYSDATE,?,?,?,?,0)";
+		try {
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, p.getPartName());
@@ -188,4 +188,92 @@ public class PartDAO {
 		return result;
 	}
 
+	public ArrayList<Part> selectList(Connection con, int currentPage, int limit) {
+		ArrayList<Part> list = new ArrayList<Part>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "SELECT * FROM (SELECT ROWNUM AS ROW_NUMBER,"
+				+ " COUNT(*) OVER() TOTAL_ROW_COUNT, A.* FROM"
+				+ " ( SELECT * FROM PART ORDER BY PART_DATE DESC ) A )"
+				+ " WHERE ROWNUM <= ? AND ROW_NUMBER > ?";
+		
+		//"SELECT * FROM (SELECT ROWNUM AS ROW_NUMBER, COUNT(*) OVER() TOTAL_ROW_COUNT, A.* FROM ( " + 페이징할 쿼리문 + " ) A ) WHERE ROWNUM <= :PAGE_SIZE AND ROW_NUMBER > (:PAGE_NUMBER-1) * :PAGE_SIZE;"
+		
+		int startRow = (currentPage - 1) * limit;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, limit);
+			pstmt.setInt(2, startRow);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset != null) {
+				while (rset.next()) {
+					Part p = new Part(rset.getString("PART_CODE"),
+							rset.getString("PART_TITLE"),
+							rset.getString("PART_CATEGORY"),
+							rset.getDate("PART_DATE"),
+							rset.getInt("PART_PRICE"),
+							rset.getInt("PART_STOCK"),
+							rset.getString("PART_CONTENTS"),
+							rset.getString("PART_IMG"));
+					list.add(p);
+				}
+			}
+		} catch (SQLException e){
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int getListCount(Connection con) {
+		int listCount = 0;
+		Statement stmt = null;
+		ResultSet rset = null;
+
+		String query = "select count(*) from part";
+
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+				// select 절의 첫번째 항목을 뜻함
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return listCount;
+	}
+	
+	public int addReadCount(Connection con, String partCode) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String query = "UPDATE PART " + "SET PART_COUNT = PART_COUNT + 1 "
+		+ "WHERE PART_CODE = ?";
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, partCode);
+
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
 }

@@ -34,8 +34,11 @@ public class DesignDetailViewServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		String dId = request.getParameter("id");
-		Design d = new DesignService().designSelect(dId);
-		int oriPrice = new DesignService().designPartPrice(dId);
+		DesignService dservice = new DesignService();
+		dservice.addReadCount(dId);
+		
+		Design d = dservice.designSelect(dId);
+		int oriPrice = dservice.designPartPrice(dId);
 		if(d != null){
 			RequestDispatcher view = request.getRequestDispatcher("views/item/designedDetailView.jsp");
 			request.setAttribute("design", d);

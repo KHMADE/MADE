@@ -34,7 +34,10 @@ public class PartDetailViewServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("type/html; charset=UTF-8");
 		String pId = request.getParameter("id");
-		Part p = new PartService().partSelect(pId);
+		PartService pservice = new PartService();
+		pservice.addReadCount(pId);
+		
+		Part p = pservice.partSelect(pId);
 		if(p != null){
 			RequestDispatcher view = request.getRequestDispatcher("views/item/partDetailView.jsp");
 			request.setAttribute("part", p);

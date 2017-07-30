@@ -39,7 +39,7 @@ public class PartInsertServlet extends HttpServlet {
 				request.getParameter("category"),Integer.parseInt(request.getParameter("price")),
 				Integer.parseInt(request.getParameter("quantity")),	request.getParameter("content"),
 				request.getParameter("fileName"))) > 0){
-			response.sendRedirect("/made/plist");
+			response.sendRedirect("/made/partitemlist");
 		} else {
 			response.sendRedirect("/made/404-page.jsp");
 		}

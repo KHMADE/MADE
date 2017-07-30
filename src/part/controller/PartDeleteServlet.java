@@ -36,7 +36,7 @@ public class PartDeleteServlet extends HttpServlet {
 		//INSERT INTO PART VALUES('PA8','철재 180X100cm','STEEL',SYSDATE,2300,5,'기본 철재 샘플4','default_steel4.jpg');
 			
 		if(new PartService().deletePart(request.getParameter("id")) > 0){
-			response.sendRedirect("/made/plist");
+			response.sendRedirect("/made/partitemlist");
 		} else {
 			response.sendRedirect("/made/404-page.jsp");
 		}

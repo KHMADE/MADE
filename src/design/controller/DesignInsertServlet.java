@@ -37,7 +37,7 @@ public class DesignInsertServlet extends HttpServlet {
 				request.getParameter("category"),request.getParameter("content"),
 				Integer.parseInt(request.getParameter("price")),request.getParameter("fileName"),
 				request.getParameter("designerId"))) > 0){
-			response.sendRedirect("/made/dlist");
+			response.sendRedirect("/made/designitemlist");
 		} else {
 			response.sendRedirect("/made/404-page.jsp");
 		}

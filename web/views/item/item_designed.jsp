@@ -3,13 +3,11 @@
 <%@ page import="design.model.vo.*, member.model.vo.*, java.util.*"%>
 <%
 	ArrayList<Design> list = (ArrayList<Design>) request.getAttribute("list");
-	Member m = (Member) session.getAttribute("member");
-	String loginout;
-	if (m == null) {
-		loginout = "<a href='/made/loginout.jsp'>&nbsp;Login&nbsp;</a>";
-	} else {
-		loginout = "&nbsp;<b>" + m.getNickName() + "</b>님 환영합니다!&nbsp;&nbsp;<a href='logout'>&nbsp;Logout&nbsp;</a>";
-	}
+	int listCount = ((Integer)request.getAttribute("listCount")).intValue();
+	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
+	int startPage = ((Integer)request.getAttribute("startPage")).intValue();
+	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
+	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 %>
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="ko"> <![endif]-->
@@ -53,91 +51,7 @@
 </head>
 <body>
 	<!--Start Header-->
-	<header id="header" class="clearfix">
-		<div id="top-bar">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-7 hidden-xs top-info">
-						<!--                        <span><i class="fa fa-phone"></i>Phone: (123) 456-7890</span>
-                        <span><i class="fa fa-envelope"></i>Email: firerain4@naver.com</span>-->
-					</div>
-					<div class="col-sm-5 top-info">
-						<ul>
-							<li style="width: auto;"><%=loginout%></li>
-							<%
-								if (m == null) {
-							%>
-							<li><a
-								href="/made/views/user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
-							<%
-								}
-							%>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- LOGO bar -->
-		<div id="logo-bar" class="clearfix">
-			<!-- Container -->
-			<div class="container">
-				<div class="row">
-					<!-- Logo / Mobile Menu -->
-					<div class="col-xs-12">
-						<div id="logo" style="width: 170px;">
-							<h1>
-								<a href="/made/index.jsp"><img src="/made/images/logo.png"
-									alt="Made" /></a>
-							</h1>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Container / End -->
-		</div>
-		<!--LOGO bar / End-->
-
-		<!-- Navigation
-================================================== -->
-		<div class="navbar navbar-default navbar-static-top" role="navigation">
-			<div class="container">
-				<div class="row">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse"
-							data-target=".navbar-collapse">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
-						</button>
-					</div>
-					<div class="navbar-collapse collapse">
-						<ul class="nav navbar-nav">
-							<li><a href="/made/index.jsp">Home</a></li>
-							<li><a href="../notice/공지사항 main.jsp">공지사항</a></li>
-							<li class="active"><a href="#">DIY 상품</a>
-								<ul class="dropdown-menu">
-									<li><a href="/made/designlist">Designed</a></li>
-									<li><a href="/made/partlist">Parts</a></li>
-								</ul></li>
-
-							<li><a href="#">마이페이지</a>
-								<ul class="dropdown-menu">
-									<li><a href="../mypage/myinfo.html">My page</a></li>
-									<li><a href="../mypage/order_page.html">주문내역</a></li>
-									<li><a href="../mypage/myinfo.html">회원정보수정</a></li>
-									<li><a href="../mypage/myinfo.html">쪽지함</a></li>
-									<li><a href="../mypage/myinfo.html">1:1문의</a></li>
-								</ul></li>
-							<li><a href="../faq/faq.jsp">FAQ</a></li>
-							<li><a href="contact.html">Contact</a></li>
-						</ul>
-					</div>
-				</div>
-				<!--/.row -->
-			</div>
-			<!--/.container -->
-		</div>
-	</header>
+	<%@ include file="../../header.jsp" %>
 	<!--End Header-->
 
 	<!--start wrapper-->
@@ -147,9 +61,9 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
 						<h2>Designed Item</h2>
-						<%--                     <% if(m.getClassCode().equals("A")){ %>
-                    <button class="btn btn-default">글 등록하기</button>
-                    <% } %> --%>
+						<% if(m != null && m.getClassCode().equals("A")){ %>
+                    &nbsp;&nbsp;&nbsp;<button class="btn btn-default" onclick="location.href='/made/dinsert'">글 등록하기</button>
+                    <% } %>
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
@@ -214,17 +128,48 @@
 							<!--end portfolio_list -->
 						</div>
 						<!--end isotope -->
-						<div class="col-lg-12 col-md-12 col-sm-12">
+						<!-- 페이지 번호 처리 -->
+						<div class="col-lg-7 col-md-7 col-sm-7">
 							<ul class="pagination pull-right mrgt-0">
+								<%
+									if (currentPage <= 1) {
+								%>
 								<li><a href="#">&laquo;</a></li>
-								<li class="active"><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
+								<%
+									} else {
+								%>
+								<li><a href="/made/designitemlist?page=<%=currentPage-1%>">&laquo;</a></li>
+								&nbsp;
+								<%
+									}
+								%>
+								<!-- 페이지 숫자 보여주기  -->
+								<%
+									for (int p = startPage; p <= endPage; p++) {
+										if (p == currentPage) {
+								%><li class="active"><a href="#"><%=p%></a></li>
+								<%
+									} else {
+								%>
+								<li><a href="/made/designitemlist?page=<%=p%>"><%=p%></a></li>
+								<%
+									}
+									} //else and for close
+								%>
+								<%
+									if (currentPage >= maxPage) {
+								%>
 								<li><a href="#">&raquo;</a></li>
+								<%
+									} else {
+								%>
+								<li><a href="/made/designitemlist?page=<%=currentPage + 1%>">&raquo;</a></li>
+								<%
+									}
+								%>
 							</ul>
 						</div>
+						<!-- 페이지 번호 처리 -->
 					</div>
 				</div>
 				<!--./row-->
@@ -235,163 +180,7 @@
 	<!--End wrapper-->
 
 	<!--start footer-->
-	<footer class="footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6 col-md-3 col-lg-3">
-					<div class="widget_title">
-						<h4>
-							<span>About Us</span>
-						</h4>
-					</div>
-					<div class="widget_content">
-						<p>본 프로젝트는 KH정보교육원 [NCS]웹 개발 응용SW엔지니어 양성과정_2주차 오후반 3조에서 만든
-							Semi 프로젝트입니다.</p>
-						<ul class="contact-details-alt">
-							<li><i class="fa fa-map-marker"></i>
-								<p>
-									<strong>Address</strong>: 서울시 강남구 역삼동
-								</p></li>
-							<li><i class="fa fa-user"></i>
-								<p>
-									<strong>Phone</strong>: 010-5688-2293
-								</p></li>
-							<li><i class="fa fa-envelope"></i>
-								<p>
-									<strong>Email</strong>: <a href="#">firerain4@naver.com</a>
-								</p></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-3 col-lg-3">
-					<div class="widget_title">
-						<h4>
-							<span>Recent Posts</span>
-						</h4>
-					</div>
-					<div class="widget_content">
-						<ul class="links">
-							<li><i class="fa fa-caret-right"></i> <a href="#">Aenean
-									commodo ligula eget dolor<span>November 07, 2014</span>
-							</a></li>
-							<li><i class="fa fa-caret-right"></i> <a href="#">Temporibus
-									autem quibusdam <span>November 05, 2014</span>
-							</a></li>
-							<li><i class="fa fa-caret-right"></i> <a href="#">Debitis
-									aut rerum saepe <span>November 03, 2014</span>
-							</a></li>
-							<li><i class="fa fa-caret-right"></i> <a href="#">Et
-									voluptates repudiandae <span>November 02, 2014</span>
-							</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-3 col-lg-3">
-					<div class="widget_title">
-						<h4>
-							<span>Twitter</span>
-						</h4>
-
-					</div>
-					<div class="widget_content">
-						<ul class="tweet_list">
-							<li class="tweet_content item"><i class="fa fa-twitter"></i>
-								<p class="tweet_link">
-									<a href="#">@jquery_rain </a> Lorem ipsum dolor et, consectetur
-									adipiscing eli
-								</p> <span class="time">29 September 2014</span></li>
-							<li class="tweet_content item"><i class="fa fa-twitter"></i>
-								<p class="tweet_link">
-									<a href="#">@jquery_rain </a> Lorem ipsum dolor et, consectetur
-									adipiscing eli
-								</p> <span class="time">29 September 2014</span></li>
-							<li class="tweet_content item"><i class="fa fa-twitter"></i>
-								<p class="tweet_link">
-									<a href="#">@jquery_rain </a> Lorem ipsum dolor et, consectetur
-									adipiscing eli
-								</p> <span class="time">29 September 2014</span></li>
-						</ul>
-					</div>
-					<div class="widget_content">
-						<div class="tweet_go"></div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-3 col-lg-3">
-					<div class="widget_title">
-						<h4>
-							<span>Flickr Gallery</span>
-						</h4>
-					</div>
-					<div class="widget_content">
-						<div class="flickr">
-							<ul id="flickrFeed" class="flickr-feed"></ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+	<%@ include file="../../footer.jsp" %>
 	<!--end footer-->
-
-	<section class="footer_bottom">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 ">
-					<p class="copyright">
-						&copy; Copyright 2017 MAːDÆ | Powered by <a
-							href="http://www.jqueryrain.com/">jQuery Rain</a>
-					</p>
-				</div>
-
-				<div class="col-lg-6 ">
-					<div class="footer_social">
-						<ul class="footbot_social">
-							<li><a class="fb" href="#." data-placement="top"
-								data-toggle="tooltip" title="Facbook"><i
-									class="fa fa-facebook"></i></a></li>
-							<li><a class="twtr" href="#." data-placement="top"
-								data-toggle="tooltip" title="Twitter"><i
-									class="fa fa-twitter"></i></a></li>
-							<li><a class="dribbble" href="#." data-placement="top"
-								data-toggle="tooltip" title="Dribbble"><i
-									class="fa fa-dribbble"></i></a></li>
-							<li><a class="skype" href="#." data-placement="top"
-								data-toggle="tooltip" title="Skype"><i class="fa fa-skype"></i></a></li>
-							<li><a class="rss" href="#." data-placement="top"
-								data-toggle="tooltip" title="RSS"><i class="fa fa-rss"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<script type="text/javascript" src="/made/js/jquery-1.10.2.min.js"></script>
-	<script src="/made/js/bootstrap.min.js"></script>
-	<script src="/made/js/jquery.easing.1.3.js"></script>
-	<script src="/made/js/retina-1.1.0.min.js"></script>
-	<script type="text/javascript" src="/made/js/jquery.cookie.js"></script>
-	<!-- jQuery cookie -->
-	<script type="text/javascript" src="/made/js/styleswitch.js"></script>
-	<!-- Style Colors Switcher -->
-	<script src="/made/js/jquery.fractionslider.js" type="text/javascript"
-		charset="utf-8"></script>
-	<script type="text/javascript" src="/made/js/jquery.smartmenus.min.js"></script>
-	<script type="text/javascript"
-		src="/made/js/jquery.smartmenus.bootstrap.min.js"></script>
-	<script type="text/javascript" src="/made/js/jquery.jcarousel.js"></script>
-	<script type="text/javascript" src="/made/js/jflickrfeed.js"></script>
-	<script type="text/javascript"
-		src="/made/js/jquery.magnific-popup.min.js"></script>
-	<script type="text/javascript" src="/made/js/jquery.isotope.min.js"></script>
-	<script type="text/javascript" src="/made/js/swipe.js"></script>
-	<script type="text/javascript"
-		src="/made/js/jquery-scrolltofixed-min.js"></script>
-
-	<script src="/made/js/main.js"></script>
-
-	<!-- Start Style Switcher -->
-	<div class="switcher"></div>
-	<!-- End Style Switcher -->
 </body>
 </html>

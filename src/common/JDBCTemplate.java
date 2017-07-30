@@ -16,6 +16,7 @@ public class JDBCTemplate {
 					prop.getProperty("url"),
 					prop.getProperty("user"),
 					prop.getProperty("pwd"));
+			con.setAutoCommit(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

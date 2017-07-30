@@ -35,11 +35,11 @@ public class PartUpdateServlet extends HttpServlet {
 		//"INSERT INTO PART VALUES('PA'||TO_CHAR(SYSDATE,'RRMMDDHH24MI')||LPAD(SEQ_PART.NEXTVAL,2,'0'),?,?,SYSDATE,?,?,?,?)";
 		//INSERT INTO PART VALUES('PA8','철재 180X100cm','STEEL',SYSDATE,2300,5,'기본 철재 샘플4','default_steel4.jpg');
 			
-		if(new PartService().updatePart(new Part(request.getParameter("title"),
+		if(new PartService().updatePart(new Part(request.getParameter("id"), request.getParameter("title"),
 				request.getParameter("category"),Integer.parseInt(request.getParameter("price")),
 				Integer.parseInt(request.getParameter("quantity")),	request.getParameter("content"),
 				request.getParameter("fileName"))) > 0){
-			response.sendRedirect("/made/plist");
+			response.sendRedirect("/made/partitemlist");
 		} else {
 			response.sendRedirect("/made/404-page.jsp");
 		}

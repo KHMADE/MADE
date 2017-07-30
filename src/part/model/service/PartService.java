@@ -75,4 +75,29 @@ public class PartService {
 		close(con);
 		return result;
 	}
+
+	public ArrayList<Part> selectList(int currentPage, int limit) {
+		Connection con = getConnection();
+		ArrayList<Part> list = new PartDAO().selectList(con, currentPage, limit);
+		
+		close(con);
+		return list;
+	}
+
+	public int getListCount() {
+		Connection con = getConnection();
+		int listCount = new PartDAO().getListCount(con);
+		close(con);
+		return listCount;
+	}
+
+	public void addReadCount(String pId) {
+		Connection con = getConnection();
+		int result = new PartDAO().addReadCount(con, pId);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+	}
 }

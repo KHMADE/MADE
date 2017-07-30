@@ -36,7 +36,7 @@ public class DesignUpdateServlet extends HttpServlet {
 		if(new DesignService().updateDesign(new Design(request.getParameter("designNo"),
 				request.getParameter("title"),request.getParameter("content"),
 				Integer.parseInt(request.getParameter("price")),request.getParameter("fileName"))) > 0){
-			response.sendRedirect("/made/dlist");
+			response.sendRedirect("/made/designitemlist");
 		} else {
 			response.sendRedirect("/made/404-page.jsp");
 		}

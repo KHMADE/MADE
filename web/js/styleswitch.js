@@ -62,6 +62,7 @@ var cookieName = 'wide';
 function changeLayout(layout) {
 $.cookie(cookieName, layout);
 $('head link[data-name=layout]').attr('href', '/made/css/layout/' + layout + '.css');
+    //console.log('/made/css/layout/' + layout + '.css');
 }
 
 if( $.cookie(cookieName)) {
@@ -402,6 +403,7 @@ $(document).ready(function($){
     function changeLayout(layout) {
     $.cookie(cookieName, layout);
     $('head link[data-name=skins]').attr('href', '/made/css/skins/' + layout + '.css');
+        //console.log('/made/css/layout/' + layout + '.css');
     }
 
     if( $.cookie(cookieName)) {
@@ -454,7 +456,7 @@ $(document).ready(function(){
     $('.switcher h2 a').click(function(e){
         e.preventDefault();
         var div = $('.switcher');
-        console.log(div.css('left'));
+        //console.log(div.css('left'));
         if (div.css('left') === '-255px') {
             $('.switcher').animate({
               left: '0px'

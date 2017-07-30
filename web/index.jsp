@@ -141,113 +141,7 @@
 			</div>
 		</div>
 		<!--End Slider-->
-
-		<!--start info service-->
-		<section class="info_service">
-			<div class="container">
-				<div class="row sub_content">
-					<div class="rs_box">
-						<div class="col-sm-4 col-md-4 col-lg-4">
-							<div class="serviceBox_1">
-								<div class="icon_service">
-									<i class="fa fa-laptop"></i>
-									<h3>Modern Design</h3>
-								</div>
-								<div class="fr_content">
-									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
-										commodo ligula eget dolor. Cum sociis natoque penatibus mag
-										dis parturient.</p>
-									<a class="read" href="#">Read more</a>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-4 col-md-4 col-lg-4">
-							<div class="serviceBox_1">
-								<div class="icon_service">
-									<i class="fa fa-heart"></i>
-									<h3>Clean &amp; Minimal</h3>
-								</div>
-								<div class="fr_content">
-									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
-										commodo ligula eget dolor. Cum sociis natoque penatibus mag
-										dis parturient.</p>
-									<a class="read" href="#">Read more</a>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-4 col-md-4 col-lg-4">
-							<div class="serviceBox_1">
-								<div class="icon_service">
-									<i class="fa fa-trophy"></i>
-									<h3>Branding Theme</h3>
-								</div>
-								<div class="fr_content">
-									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
-										commodo ligula eget dolor. Cum sociis natoque penatibus mag
-										dis parturient.</p>
-									<a class="read" href="#">Read more</a>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-				<div class="row sub_content">
-					<div class="rs_box">
-						<div class="col-sm-4 col-md-4 col-lg-4">
-							<div class="serviceBox_1">
-								<div class="icon_service">
-									<i class="fa fa-gear"></i>
-									<h3>Easy To Customize</h3>
-								</div>
-								<div class="fr_content">
-									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
-										commodo ligula eget dolor. Cum sociis natoque penatibus mag
-										dis parturient.</p>
-									<a class="read" href="#">Read more</a>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-4 col-md-4 col-lg-4">
-							<div class="serviceBox_1">
-								<div class="icon_service">
-									<i class="fa fa-volume-off"></i>
-									<h3>Multimedia Support</h3>
-								</div>
-								<div class="fr_content">
-									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
-										commodo ligula eget dolor. Cum sociis natoque penatibus mag
-										dis parturient.</p>
-									<a class="read" href="#">Read more</a>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-4 col-md-4 col-lg-4">
-							<div class="serviceBox_1">
-								<div class="icon_service">
-									<i class="fa fa-suitcase"></i>
-									<h3>Documentation</h3>
-								</div>
-								<div class="fr_content">
-									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
-										commodo ligula eget dolor. Cum sociis natoque penatibus mag
-										dis parturient.</p>
-									<a class="read" href="#">Read more</a>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</section>
-		<!--end info service-->
-
-		<!--Start recent work-->
+<!--Start Top 5-->
 		<section class="latest_work">
 			<div class="container">
 				<div class="row sub_content">
@@ -255,7 +149,78 @@
 						<div class="col-md-12">
 							<div class="dividerHeading">
 								<h4>
-									<span>Recent Work</span>
+									<span>Top 5 Item</span>
+								</h4>
+							</div>
+							<div class="carousel-navi">
+								<div id="work-prev" class="arrow-left jcarousel-prev">
+									<i class="fa fa-angle-left"></i>
+								</div>
+								<div id="work-next" class="arrow-right jcarousel-next">
+									<i class="fa fa-angle-right"></i>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+
+					<div class="jcarousel recent-work-jc">
+						<ul class="jcarousel-list" id="top5">
+						</ul>
+	<script type="text/javascript">
+		$(function() {
+			//$.ajax() 사용시
+			$.ajax({
+				url : "/made/toplist",
+				type : "post",
+				dataType : "json",
+				success : function(data) {
+					//console.log(data);
+					var jsonStr = JSON.stringify(data); //객체를 문자열로 변환
+					//console.log(jsonStr);
+					var json = JSON.parse(jsonStr); //문자열을 배열 객체로 바꿈
+
+					var values = $("#top5").html();
+
+					for ( var i in json.list) {
+						//한글 깨짐을 막기 위해 문자 인코딩 처리한 json 객체의 값은 decodeURIComponent() 로 디코딩 처리함
+						values += '<li class="col-sm-3 col-md-3 col-lg-3">'
+							+'<div class="recent-item">'
+							+'<figure> <div class="touching medium">'
+							+'<img src="/made/images/items/designed/'+json.list[i].image+'" height="200" alt="" />'
+							+' </div> <div class="option">'
+							+'<a href="/made/images/items/designed/'+json.list[i].image+'"'
+							+' class="hover-zoom mfp-image"> <i class="fa fa-search"></i> </a>'
+							<% if( m!= null) {%>
+							+'<a href="dDetail?id='+json.list[i].designCode+'" class="hover-link"><i class="fa fa-link"></i></a>'
+							<% } %>
+							+'</div> <figcaption class="item-description">'
+							+'<h5>'+json.list[i].category+'</h5>'
+							+'<span>'+decodeURIComponent(json.list[i].title)+'</span>'
+							+'</figcaption> </figure> </div> </li>'
+						}
+					$("#top5").html(values);
+				},
+				error : function(request,status,error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+			});
+		});
+	</script>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--Start Top 5-->
+<!--Start recent work-->
+		<section class="latest_work">
+			<div class="container">
+				<div class="row sub_content">
+					<div class="carousel-intro">
+						<div class="col-md-12">
+							<div class="dividerHeading">
+								<h4>
+									<span>Recent Designed Item</span>
 								</h4>
 							</div>
 							<div class="carousel-navi">
@@ -445,6 +410,111 @@
 			</div>
 		</section>
 		<!--Start recent work-->
+
+		<!--start info service-->
+		<section class="info_service">
+			<div class="container">
+				<div class="row sub_content">
+					<div class="rs_box">
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<div class="serviceBox_1">
+								<div class="icon_service">
+									<i class="fa fa-laptop"></i>
+									<h3>Modern Design</h3>
+								</div>
+								<div class="fr_content">
+									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
+										commodo ligula eget dolor. Cum sociis natoque penatibus mag
+										dis parturient.</p>
+									<a class="read" href="#">Read more</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<div class="serviceBox_1">
+								<div class="icon_service">
+									<i class="fa fa-heart"></i>
+									<h3>Clean &amp; Minimal</h3>
+								</div>
+								<div class="fr_content">
+									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
+										commodo ligula eget dolor. Cum sociis natoque penatibus mag
+										dis parturient.</p>
+									<a class="read" href="#">Read more</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<div class="serviceBox_1">
+								<div class="icon_service">
+									<i class="fa fa-trophy"></i>
+									<h3>Branding Theme</h3>
+								</div>
+								<div class="fr_content">
+									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
+										commodo ligula eget dolor. Cum sociis natoque penatibus mag
+										dis parturient.</p>
+									<a class="read" href="#">Read more</a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="row sub_content">
+					<div class="rs_box">
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<div class="serviceBox_1">
+								<div class="icon_service">
+									<i class="fa fa-gear"></i>
+									<h3>Easy To Customize</h3>
+								</div>
+								<div class="fr_content">
+									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
+										commodo ligula eget dolor. Cum sociis natoque penatibus mag
+										dis parturient.</p>
+									<a class="read" href="#">Read more</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<div class="serviceBox_1">
+								<div class="icon_service">
+									<i class="fa fa-volume-off"></i>
+									<h3>Multimedia Support</h3>
+								</div>
+								<div class="fr_content">
+									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
+										commodo ligula eget dolor. Cum sociis natoque penatibus mag
+										dis parturient.</p>
+									<a class="read" href="#">Read more</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<div class="serviceBox_1">
+								<div class="icon_service">
+									<i class="fa fa-suitcase"></i>
+									<h3>Documentation</h3>
+								</div>
+								<div class="fr_content">
+									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
+										commodo ligula eget dolor. Cum sociis natoque penatibus mag
+										dis parturient.</p>
+									<a class="read" href="#">Read more</a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--end info service-->
 
 		<section class="fetaure_bottom">
 			<div class="container">

@@ -31,7 +31,8 @@ public class DesignDAO {
 							rset.getString("DESIGN_CONTENTS"),
 							rset.getInt("DESIGN_PRICE"),
 							rset.getString("DESIGN_IMG"),
-							rset.getString("MEMBER_ID")));
+							rset.getString("MEMBER_ID"),
+							rset.getInt("DESIGN_COUNT")));
 				}
 			}
 		} catch(Exception e){
@@ -62,7 +63,8 @@ public class DesignDAO {
 								rset.getString("DESIGN_CONTENTS"),
 								rset.getInt("DESIGN_PRICE"),
 								rset.getString("DESIGN_IMG"),
-								rset.getString("MEMBER_ID")));
+								rset.getString("MEMBER_ID"),
+								rset.getInt("DESIGN_COUNT")));
 				}
 			}
 		} catch(Exception e){
@@ -92,7 +94,8 @@ public class DesignDAO {
 						rset.getString("DESIGN_CONTENTS"),
 						rset.getInt("DESIGN_PRICE"),
 						rset.getString("DESIGN_IMG"),
-						rset.getString("MEMBER_ID"));
+						rset.getString("MEMBER_ID"),
+						rset.getInt("DESIGN_COUNT"));
 			}
 		} catch(Exception e){
 			e.printStackTrace();
@@ -147,7 +150,8 @@ public class DesignDAO {
 							rset.getString("DESIGN_CONTENTS"),
 							rset.getInt("DESIGN_PRICE"),
 							rset.getString("DESIGN_IMG"),
-							rset.getString("MEMBER_ID")));
+							rset.getString("MEMBER_ID"),
+							rset.getInt("DESIGN_COUNT")));
 				}
 			}
 		} catch(Exception e){
@@ -162,8 +166,7 @@ public class DesignDAO {
 	public int insertDesign(Connection con, Design d){
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO DESIGN VALUES('DE'||TO_CHAR(SYSDATE,'RRMMDDHH24MI')||LPAD(SEQ_DE.NEXTVAL,2,'0'),?,?,SYSDATE,?,?,?,?)";
-//INSERT INTO DESIGN VALUES('DE'||SEQ_DE.NEXTVAL,'철재서랍장2','WOOD',SYSDATE,'철재 서랍장2입니다.',35000,'default_design4.jpg','design22');
+		String sql = "INSERT INTO DESIGN VALUES('DE'||TO_CHAR(SYSDATE,'RRMMDDHH24MI')||LPAD(SEQ_DE.NEXTVAL,2,'0'),?,?,SYSDATE,?,?,?,?,0)";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -220,5 +223,130 @@ public class DesignDAO {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public ArrayList<Design> selectList(Connection con, int currentPage, int limit) {
+		ArrayList<Design> list = new ArrayList<Design>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String query = "SELECT * FROM (SELECT ROWNUM AS ROW_NUMBER, COUNT(*) OVER()"
+				+ " TOTAL_ROW_COUNT, A.* FROM"
+				+ " ( SELECT * FROM DESIGN ORDER BY DESIGN_DATE DESC ) A )"
+				+ " WHERE ROWNUM <= ? AND ROW_NUMBER > ?";
+
+		int startRow = (currentPage - 1) * limit;
+		//int endRow = startRow + limit - 1;
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, limit);
+			pstmt.setInt(2, startRow);
+
+			rset = pstmt.executeQuery();
+			if (rset != null) {
+				
+				while (rset.next()) {
+					Design d = new Design(
+							rset.getString("DESIGN_CODE"),
+							rset.getString("DESIGN_TITLE"),
+							rset.getString("DESIGN_CATEGORY"),
+							rset.getDate("DESIGN_DATE"),
+							rset.getString("DESIGN_CONTENTS"),
+							rset.getInt("DESIGN_PRICE"),
+							rset.getString("DESIGN_IMG"),
+							rset.getString("MEMBER_ID"),
+							rset.getInt("DESIGN_COUNT"));
+					list.add(d);
+				}
+			}
+		} catch (SQLException e){
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int getListCount(Connection con) {
+		int listCount = 0;
+		Statement stmt = null;
+		ResultSet rset = null;
+
+		String query = "select count(*) from design";
+
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+				// select 절의 첫번째 항목을 뜻함
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return listCount;
+	}
+	
+	public int addReadCount(Connection con, String designCode) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String query = "UPDATE DESIGN " + "SET DESIGN_COUNT = DESIGN_COUNT + 1 "
+		+ "WHERE DESIGN_CODE = ?";
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, designCode);
+
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public ArrayList<Design> designTop5(Connection con) {
+		ArrayList<Design> designList = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = "SELECT * FROM (SELECT * FROM DESIGN ORDER BY DESIGN_COUNT DESC) WHERE ROWNUM < 6";
+		
+		try{
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			if(rset != null){
+				designList = new ArrayList<Design>();
+				while(rset.next()){
+					designList.add(new Design(rset.getString("DESIGN_CODE"),
+							rset.getString("DESIGN_TITLE"),
+							rset.getString("DESIGN_CATEGORY"),
+							rset.getDate("DESIGN_DATE"),
+							rset.getString("DESIGN_CONTENTS"),
+							rset.getInt("DESIGN_PRICE"),
+							rset.getString("DESIGN_IMG"),
+							rset.getString("MEMBER_ID"),
+							rset.getInt("DESIGN_COUNT")));
+				}
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return designList;
 	}
 }

@@ -13,8 +13,7 @@ public class Part implements java.io.Serializable{
 	private int quantity;
 	private String partDesc;
 	private String partImg;
-	
-	//INSERT INTO PART VALUES('PA8','철재 180X100cm','STEEL',SYSDATE,2300,5,'기본 철재 샘플4','default_steel4.jpg');
+	private int partCnt;
 	
 	public Part() {}
 
@@ -41,8 +40,20 @@ public class Part implements java.io.Serializable{
 		this.partImg = partImg;
 	}
 
-	public Part(String partName, String partCategory, int price, int quantity, String partDesc, String partImg) {
+	public Part(String partId, String partName, String partCategory, Date partDate, int price, int quantity, String partDesc, String partImg, int partCnt) {
 		super();
+		this.partId = partId;
+		this.partName = partName;
+		this.partCategory = partCategory;
+		this.partDate = partDate;
+		this.price = price;
+		this.quantity = quantity;
+		this.partDesc = partDesc;
+		this.partImg = partImg;
+		this.partCnt = partCnt;
+	}
+
+	public Part(String partName, String partCategory, int price, int quantity, String partDesc, String partImg) {
 		this.partName = partName;
 		this.partCategory = partCategory;
 		this.price = price;
@@ -50,10 +61,19 @@ public class Part implements java.io.Serializable{
 		this.partDesc = partDesc;
 		this.partImg = partImg;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Part [partId=" + partId + ", partName=" + partName + ", partCategory=" + partCategory + ", partDate=" + partDate + ", price=" + price + ", quantity=" + quantity + ", partDesc=" + partDesc + ", partImg=" + partImg + "]";
+		return "Part [partId=" + partId + ", partName=" + partName + ", partCategory=" + partCategory + ", partDate=" + partDate + ", price=" + price + ", quantity=" + quantity + ", partDesc=" + partDesc + ", partImg=" + partImg
+				+ ", partCnt=" + partCnt + "]";
+	}
+
+	public int getPartCnt() {
+		return partCnt;
+	}
+
+	public void setPartCnt(int partCnt) {
+		this.partCnt = partCnt;
 	}
 
 	public String getPartId() {

@@ -13,8 +13,7 @@ public class Design implements java.io.Serializable{
 	private int designPrice;
 	private String designImg;
 	private String designerId;
-	
-	//INSERT INTO DESIGN VALUES('DE1','목재서랍장1','WOOD',SYSDATE,'목재 서랍장1입니다.',15000,'default_design1.jpg','design11');
+	private int designCnt;
 	
 	public Design() {}
 
@@ -37,18 +36,7 @@ public class Design implements java.io.Serializable{
 		this.designImg = designImg;
 	}
 
-	public Design(String designId, String designName, String designCategory, String designDesc, int designPrice, String designImg, String designerId) {
-		super();
-		this.designId = designId;
-		this.designName = designName;
-		this.designCategory = designCategory;
-		this.designDesc = designDesc;
-		this.designPrice = designPrice;
-		this.designImg = designImg;
-		this.designerId = designerId;
-	}
-
-	public Design(String designId, String designName, String designCategory, Date designDate, String designDesc, int designPrice, String designImg, String designerId) {
+	public Design(String designId, String designName, String designCategory, Date designDate, String designDesc, int designPrice, String designImg, String designerId, int designCnt) {
 		super();
 		this.designId = designId;
 		this.designName = designName;
@@ -58,12 +46,21 @@ public class Design implements java.io.Serializable{
 		this.designPrice = designPrice;
 		this.designImg = designImg;
 		this.designerId = designerId;
+		this.designCnt = designCnt;
 	}
 
 	@Override
 	public String toString() {
 		return "Design [designId=" + designId + ", designName=" + designName + ", designCategory=" + designCategory + ", designDate=" + designDate + ", designDesc=" + designDesc + ", designPrice=" + designPrice + ", designImg=" + designImg
-				+ ", designerId=" + designerId + "]";
+				+ ", designerId=" + designerId + ", designCnt=" + designCnt + "]";
+	}
+
+	public int getDesignCnt() {
+		return designCnt;
+	}
+
+	public void setDesignCnt(int designCnt) {
+		this.designCnt = designCnt;
 	}
 
 	public String getDesignId() {
