@@ -37,13 +37,54 @@
 	<!--Start Header-->
 	<%@ include file="header.jsp" %>
 	<!--End Header-->
+<script type="text/javascript">
+		$(function() {
+			//$.ajax() 사용시
+			$.ajax({
+				url : "/made/toplist",
+				type : "post",
+				dataType : "json",
+				success : function(data) {
+					//console.log(data);
+					var jsonStr = JSON.stringify(data); //객체를 문자열로 변환
+					//console.log(jsonStr);
+					var json = JSON.parse(jsonStr); //문자열을 배열 객체로 바꿈
 
+					var values = $("#top5").html();
+
+					for ( var i in json.list) {
+						//한글 깨짐을 막기 위해 문자 인코딩 처리한 json 객체의 값은 decodeURIComponent() 로 디코딩 처리함
+						values += '<li class="col-sm-3 col-md-3 col-lg-3">'
+							+' <div class="recent-item">'
+							+' <figure> <div class="touching medium">'
+							+' <img src="/made/images/items/designed/'+json.list[i].image+'" style="width:200px;height:170px;" alt="" />'
+							+' </div> <div class="option">'
+							+' <a href="/made/images/items/designed/'+json.list[i].image+'"'
+							+' class="hover-zoom mfg-image"> <i class="fa fa-search"></i> </a>'
+							<% if( m!= null) {%>
+							+' <a href="dDetail?id='+json.list[i].designCode+'" class="hover-link"><i class="fa fa-link"></i></a>'
+							<% } %>
+							+' </div> <figcaption class="item-description">'
+							+' <h5>'+json.list[i].category+'</h5>'
+							+' <span>'+decodeURIComponent(json.list[i].title)+'</span>'
+							+' </figcaption> </figure> </div> </li>'
+						}
+					$("#top5").html(values);
+					//console.log(values);
+				},
+				error : function(request,status,error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+			});
+		});
+	</script>
 	<!--start wrapper-->
 	<section class="wrapper">
 		<div class="slider-wrapper">
 			<div class="slider">
 				<div class="fs_loader"></div>
 				<div class="slide">
+
 					<!--1- slide background-->
 					<img src="images/fraction-slider/gadgets/laptop-lg.png"
 						data-position="-30,550" data-in="bottom" data-delay="500"
@@ -167,46 +208,6 @@
 					<div class="jcarousel recent-work-jc">
 						<ul class="jcarousel-list" id="top5">
 						</ul>
-	<script type="text/javascript">
-		$(function() {
-			//$.ajax() 사용시
-			$.ajax({
-				url : "/made/toplist",
-				type : "post",
-				dataType : "json",
-				success : function(data) {
-					//console.log(data);
-					var jsonStr = JSON.stringify(data); //객체를 문자열로 변환
-					//console.log(jsonStr);
-					var json = JSON.parse(jsonStr); //문자열을 배열 객체로 바꿈
-
-					var values = $("#top5").html();
-
-					for ( var i in json.list) {
-						//한글 깨짐을 막기 위해 문자 인코딩 처리한 json 객체의 값은 decodeURIComponent() 로 디코딩 처리함
-						values += '<li class="col-sm-3 col-md-3 col-lg-3">'
-							+'<div class="recent-item">'
-							+'<figure> <div class="touching medium">'
-							+'<img src="/made/images/items/designed/'+json.list[i].image+'" height="200" alt="" />'
-							+' </div> <div class="option">'
-							+'<a href="/made/images/items/designed/'+json.list[i].image+'"'
-							+' class="hover-zoom mfp-image"> <i class="fa fa-search"></i> </a>'
-							<% if( m!= null) {%>
-							+'<a href="dDetail?id='+json.list[i].designCode+'" class="hover-link"><i class="fa fa-link"></i></a>'
-							<% } %>
-							+'</div> <figcaption class="item-description">'
-							+'<h5>'+json.list[i].category+'</h5>'
-							+'<span>'+decodeURIComponent(json.list[i].title)+'</span>'
-							+'</figcaption> </figure> </div> </li>'
-						}
-					$("#top5").html(values);
-				},
-				error : function(request,status,error) {
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				}
-			});
-		});
-	</script>
 					</div>
 				</div>
 			</div>

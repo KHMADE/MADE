@@ -7,7 +7,7 @@
 	String[] addr = new String[3];
 	
 	if (m == null) {
-		//loginout = "<a href='#myModal' data-toggle='modal'>&nbsp;Login&nbsp;</a>";
+		//loginout = "<a href='#login-modal' data-toggle='modal' data-target='#login-modal'>&nbsp;Login&nbsp;</a>";
 		loginout = "<a href='/made/loginout.jsp'>&nbsp;Login&nbsp;</a>";
 	} else {
 		loginout = "&nbsp;<b>" + m.getNickName()
@@ -15,7 +15,6 @@
 		addr = m.getAddress().split(",");
 	}
 %>
-
 <script type="text/javascript" src="/made/js/jquery-1.10.2.min.js"></script>
 <script src="/made/js/bootstrap.min.js"></script>
 
@@ -54,36 +53,10 @@
 	}); 
 </script>
 <!-- 서브메뉴 색상 변경 End -->
-<!-- 
-  Modal
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      Modal content
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4 class="modal-title" style="background: gray;"><img src="/made/images/logo.png">&nbsp;Login</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  <script>
-$(function(){
-    $("#myBtn").click(function(){
-        $("#myModal").modal();
-    });
-});
-</script>
-  Modal End
-   -->
+<!-- Modal Start -->
+ 
+  <!-- Modal End -->
+  
 <header id="header" class="clearfix">
 	<div id="top-bar">
 		<div class="container">
