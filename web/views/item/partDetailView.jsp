@@ -383,7 +383,8 @@ button#like:hover {
 				buyer_tel : '<%=m.getPhone()%>',
 				buyer_addr : '<%=addr[1]+" "+addr[2]%>',
 				buyer_postcode : '<%=addr[0]%>',
-				m_redirect_url : '../mypage/pay_cancel.html'
+				m_redirect_url : '/made/porder?mid='+<%=m.getId()%>
+								+'&item='+<%=p.getPartId()%>+'&quan='+Number($('#price').val())
 			}, function(rsp) {
 				if (rsp.success) {
 					//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
