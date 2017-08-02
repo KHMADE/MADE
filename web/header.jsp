@@ -44,7 +44,7 @@
 	           } else if(currentPath.indexOf("item") != -1){
                 $(".navbar-nav > li").removeClass('active');
 	        	$("li#item").addClass('active');
-            } else if (currentPath.indexOf("mypage") != -1){
+            } else if (currentPath.indexOf("mypage") != -1 || currentPath.indexOf("order") != -1){
             	$(".navbar-nav > li").removeClass('active');
 	        	$("li#mypage").addClass('active');
             } else {
@@ -113,9 +113,9 @@ $(function(){
 
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title" id="myModalLabel">
-				<img src="/made/images/logo.png" style="height:30px; width:auto;">
-				Log in</h4>
+				<p class="modal-title" id="myModalLabel" align="center">
+				<img src="/made/images/logo.png" style="height:30px; width:auto; margin-top: -6px;">
+				&nbsp;&nbsp;<b style="font-size: 16pt;">Log in</b></p>
 			</div> <!-- /.modal-header -->
 
 			<div class="modal-body">
@@ -292,8 +292,12 @@ $(function(){
 								<li><a href="/made/corderlist">주문내역</a></li>
 								<li><a href="/made/views/mypage/myinfo.html">회원정보수정</a></li>
 								<li><a href="/made/views/mypage/myinfo.html">쪽지함</a></li>
-								<li><a href="/made/views/mypage/myinfo.html">1:1문의</a></li>
-							</ul></li>
+								<% if(m != null && m.getClassCode().charAt(0) == 'A'){ %>
+									<li><a href="/made/qlist?page=1">1:1문의확인</a></li>
+									<%}else{ %>
+									<li><a href="/made/views/qa/qa.jsp">1:1문의</a></li>
+									<%} %>
+								</ul></li>
 						<li><a href="/made/views/faq/faq.jsp">FAQ</a></li>
 						<li><a href="/made/views/default_page/default_page.jsp">Default</a></li>
 						<li><a href="/made/contact.html">Contact</a></li>

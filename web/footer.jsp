@@ -153,27 +153,11 @@
 	<script type="text/javascript" src="/made/js/jquery.isotope.min.js"></script>
 	<script type="text/javascript" src="/made/js/swipe.js"></script>
 	<script type="text/javascript" src="/made/js/jquery-scrolltofixed-min.js"></script>
-
 	<!-- include summernote css/js-->
 	<link href="/made/api/summernote/dist/summernote.css" rel="stylesheet">
 	<script src="/made/api/summernote/dist/summernote.js"></script>
 	<!-- summer note korean language pack -->
 	<script src="/made/api/summernote/dist/lang/summernote-ko-KR.js"></script>
-	<!-- summernote apply -->
-	<script type="text/javascript">
-  $(function() {
-    $('.summernote').summernote({
-      width: 700,	    
-      height: 300,          // 기본 높이값
-      minHeight: null,      // 최소 높이값(null은 제한 없음)
-      maxHeight: null,      // 최대 높이값(null은 제한 없음)
-      focus: true,          // 페이지가 열릴때 포커스를 지정함
-      lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
-    });
-  });
-</script>
-	<!-- summernote apply -->
-	
 	
 	<script src="/made/js/main.js"></script>
 	<!-- Start Style Switcher -->
