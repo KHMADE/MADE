@@ -47,7 +47,7 @@ public class PartOrderServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		if (new OrderService().insertPart(item, quan, mid) > 0) {
 			view = request.getRequestDispatcher("views/order/orderView.jsp");
-			request.setAttribute("item", p);
+			request.setAttribute("code", p.getPartId());
 			request.setAttribute("quan", quan);
 			view.forward(request, response);
 		} else {
@@ -55,7 +55,6 @@ public class PartOrderServlet extends HttpServlet {
 			request.setAttribute("message", "게시글 페이지별 조회 실패");
 			view.forward(request, response);
 		}
-		response.sendRedirect("views/member/memberError.jsp");
 	}
 
 	/**

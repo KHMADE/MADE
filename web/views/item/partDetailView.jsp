@@ -373,9 +373,9 @@ button#like:hover {
 		// 문서 로딩될 때 바로 호출
 		function pay_test() {
 			IMP.request_pay({
-				pg : 'inicis',
-				pay_method : 'card',
-				merchant_uid : 'merchant_' + new Date().getTime(),
+				pg : 'kakao',
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
 				name : '주문명:<%=p.getPartName() %>',
 				amount : Number($('#price').val()),
 				buyer_email : '<%=m.getEmail()%>',
@@ -383,8 +383,7 @@ button#like:hover {
 				buyer_tel : '<%=m.getPhone()%>',
 				buyer_addr : '<%=addr[1]+" "+addr[2]%>',
 				buyer_postcode : '<%=addr[0]%>',
-				m_redirect_url : '/made/porder?mid='+<%=m.getId()%>
-								+'&item='+<%=p.getPartId()%>+'&quan='+Number($('#price').val())
+			    kakaoOpenApp : true
 			}, function(rsp) {
 				if (rsp.success) {
 					//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기

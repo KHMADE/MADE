@@ -16,7 +16,7 @@ public class OrderDAO {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = "INSERT INTO ORDER_INFO VALUES('OR'||TO_CHAR(SYSDATE,'RRMMDDHH24MI')||LPAD(SEQ_OR.NEXTVAL,2,'0'),"
-				+" ?,SYSDATE,0,0,0,NULL,?,NULL,?)";
+				+" ?, SYSDATE, ?,0,'A',NULL,NULL,NULL,?)";
 		try {
 
 			pstmt = con.prepareStatement(sql);

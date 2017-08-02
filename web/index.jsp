@@ -31,12 +31,12 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 <body>
 	<!--Start Header-->
 	<%@ include file="header.jsp" %>
 	<!--End Header-->
+	
 <script type="text/javascript">
 		$(function() {
 			//$.ajax() 사용시
@@ -59,8 +59,8 @@
 							+' <figure> <div class="touching medium">'
 							+' <img src="/made/images/items/designed/'+json.list[i].image+'" style="width:200px;height:170px;" alt="" />'
 							+' </div> <div class="option">'
-							+' <a href="/made/images/items/designed/'+json.list[i].image+'"'
-							+' class="hover-zoom mfg-image"> <i class="fa fa-search"></i> </a>'
+							+' <a href="javascript:CaricaFoto(\'/made/images/items/designed/'+json.list[i].image+'\')"'
+							+' class="hover-zoom mfg-image trigger"> <i class="fa fa-search" ></i> </a>'
 							<% if( m!= null) {%>
 							+' <a href="dDetail?id='+json.list[i].designCode+'" class="hover-link"><i class="fa fa-link"></i></a>'
 							<% } %>
@@ -77,8 +77,30 @@
 				}
 			});
 		});
-	</script>
-	<!--start wrapper-->
+		
+		function CaricaFoto(img){ 
+foto1= new Image(); 
+foto1.src=(img); 
+Controlla(img); 
+}; 
+function Controlla(img){ 
+if((foto1.width!=0)&&(foto1.height!=0)){ 
+viewFoto(img); 
+} 
+else{ 
+funzione="Controlla('"+img+"')"; 
+intervallo=setTimeout(funzione,20); 
+} 
+}; 
+
+function viewFoto(img){ 
+largh=foto1.width+20; 
+altez=foto1.height+20; 
+stringa="width="+largh+",height="+altez; 
+finestra=window.open(img,"",stringa); 
+};
+</script>
+
 	<section class="wrapper">
 		<div class="slider-wrapper">
 			<div class="slider">
@@ -151,9 +173,8 @@
 						data-delay="300" data-out="right">
 
 					<div class="para-2" data-position="200,250" data-in="left"
-						data-out="right" data-delay="3000">디자이너와 자재를 Join하여, 누구나 저렴한
-						가격으로 원하는 제품을 만들 수 있도록 하자는 목표로 자유롭게 독창적인 제품 제작이 가능하며,이를 위한 디자이너와의
-						1:1 소통도 지원합니다.</div>
+						data-out="right" data-delay="3000">디자이너와 자재를 Join, 누구나 저렴한
+						가격으로 원하는 제품을 만들 수 있고 자신만의 창의적 제품 제작이 가능하며, 디자이너와의	1:1 소통도 지원합니다.</div>
 				</div>
 				<div class="slide">
 					<img src="images/fraction-slider/main3_fix.jpg" data-in="fade"
@@ -211,9 +232,8 @@
 					</div>
 				</div>
 			</div>
-		</section>
 		<!--Start Top 5-->
-<!--Start recent work-->
+	<!--Start recent work-->
 		<section class="latest_work">
 			<div class="container">
 				<div class="row sub_content">
@@ -665,7 +685,7 @@
 		</section>
 		<!--end wrapper-->
 	</section>
-
+	</section>
 	<!--start footer-->
 	<%@ include file="footer.jsp" %>
 	<!--end footer-->

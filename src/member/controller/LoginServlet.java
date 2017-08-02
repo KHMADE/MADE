@@ -1,6 +1,8 @@
 package member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,11 +55,11 @@ public class LoginServlet extends HttpServlet {
 			//System.out.println(session.getId());
 			// 웹 페이지마다 값이 다름 (Map과 비슷함: key = String, value= Object)
 			session.setAttribute("member", member);
-			
-			response.sendRedirect("index.jsp");
+			response.getWriter().append("ok");
+			//response.sendRedirect("index.jsp");
 		} else {
-			response.sendRedirect("404-page.jsp");
-			// 파일을 직접 내보냄
+			response.getWriter().append("on");
+			//response.sendRedirect("404-page.jsp");
 		}
 	}
 
