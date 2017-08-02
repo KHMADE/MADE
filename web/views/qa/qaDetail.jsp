@@ -47,7 +47,7 @@
 		<!-- Default panel contents -->
 		<div class="panel-heading hide"></div>
 
-			<form action="/made/qaupdate" method="post" enctype="multipart/form-data">
+			<form action="/made/qaupdate" method="post">
 			<input name="qnum"  type="hidden" value="<%=q.getQaCode()%>">
 				<div class="panel-body article">
 					<h4>
@@ -132,7 +132,10 @@
       maxHeight: null,      // 최대 높이값(null은 제한 없음)
       focus: true,          // 페이지가 열릴때 포커스를 지정함
       lang: "ko-KR",         // 한국어 지정(기본값은 en-US)
+      callbacks: {
       onImageUpload: function(files, editor, welEditorble) {
+    	  console.log(files);
+    	  console.log(files[0]);
 		data = new FormData();
 		data.append("file",files[0]);
 		var $note = $(this);
@@ -144,11 +147,14 @@
 			contentType : false,
 			processData : false,
 			success : function(url){
-				alert(url);
+				//alert(url);
 				$note.summernote('insertImage',url);
+			}, error : function(request,status,error) {
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});
 	}
+      }
     });
   });
 </script>

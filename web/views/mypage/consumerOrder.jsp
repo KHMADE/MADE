@@ -56,8 +56,8 @@
 								<li>You are here:</li>
 								<!-- ■ ■ ■ ■ ■ 수정하기 ■ ■ ■ ■ ■ -->
 								<li><a href="/made/index.jsp">Home</a></li>
-								<li><a href="default_page.html">Shortcodes</a></li>
-								<li>Typography</li>
+								<li>마이페이지</li>
+								<li>주문/배송조회</li>
 							</ul>
 						</nav>
 					</div>
@@ -74,6 +74,7 @@
 					<style>
 						table * {
 							text-align : center;
+							vertical-align: middle;
 						}
 						button {
 							border : none;
@@ -90,7 +91,6 @@
 						table span {
 							font-weight: bold;
 						}
-
 						.c_product {
 							/* border:1px dashed blue; */
 							height : 100px;
@@ -115,8 +115,11 @@
 				  		<tbody>
 				  		<% for(ConsumerOrder e : list) { %>
 					  		<tr><td scope=row><%= e.getOrderDate() %><br>(<%= e.getOrderCode() %>)<br><button>영수증출력</button></td>
+					  		
 					  		<% if(e.getDesignCode() != null ) { %>
-					  		<td><div class="c_product"><img alt="상품이미지" src="/made/images/items/designed/<%= e.getDesignImg() %>"><div class="c_product_description"><a href="#"><%= e.getDesignTitle() %></a></div></div></td><td><%= e.getDesignprice() * e.getOrderCount() %><br>(<%= e.getOrderCount() %>개)</td><td><span><%= e.getOrderStateName() %></span><br><button>상품리뷰</button><br>한진택배<br>121053968031<br><button>배송추적</button></td><td><button>반품요청</button><br><button>교환요청</button></td></tr>
+					  		<td><div class="c_product"><img alt="상품이미지" src="/made/images/items/designed/<%= e.getDesignImg() %>">
+					  		<div class="c_product_description"><a href="/made/dDetail?id=<%= e.getDesignCode() %>"><%= e.getDesignTitle() %></a></div></div></td><td><%= e.getDesignprice() * e.getOrderCount() %><br>(<%= e.getOrderCount() %>개)</td><td><span><%= e.getOrderStateName() %></span><br><button>상품리뷰</button><br>한진택배<br>121053968031<br><button>배송추적</button></td><td><button>반품요청</button><br><button>교환요청</button></td></tr>
+							
 							<% } else { %>
 							<td><div class="c_product">
 								<% if(e.getPartCategory().equals("WOOD")){ %>
@@ -126,7 +129,7 @@
 								<% } else if(e.getPartCategory().equals("PLASTIC")){ %>
 								<img alt="상품이미지" src="/made/images/items/parts/plastic/<%= e.getPartImg() %>">
 								<% } %>
-							<div class="c_product_description"><a href="#"><%= e.getPartTitle() %></a></div></div></td><td><%= e.getPartPrice() * e.getOrderCount() %><br>(<%= e.getOrderCount() %>개)</td><td><span><%= e.getOrderStateName() %></span><br><button>상품리뷰</button><br>한진택배<br>121053968031<br><button>배송추적</button></td><td><button>반품요청</button><br><button>교환요청</button></td></tr>
+							<div class="c_product_description"><a href="/made/pDetail?id=<%= e.getPartCode() %>"><%= e.getPartTitle() %></a></div></div></td><td><%= e.getPartPrice() * e.getOrderCount() %><br>(<%= e.getOrderCount() %>개)</td><td><span><%= e.getOrderStateName() %></span><br><button>상품리뷰</button><br>한진택배<br>121053968031<br><button>배송추적</button></td><td><button>반품요청</button><br><button>교환요청</button></td></tr>
 							<% } %>
 						<% } %>
 					  	</tbody>
