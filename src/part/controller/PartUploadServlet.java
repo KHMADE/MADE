@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
@@ -18,32 +19,27 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import part.model.service.PartService;
-import part.model.vo.Part;
-
 /**
- * Servlet implementation class PartInsertServlet
+ * Servlet implementation class PartUploadServlet
  */
-@WebServlet("/pinsert")
-public class PartInsertServlet extends HttpServlet {
+@WebServlet("/partUpload")
+public class PartUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public PartUploadServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public PartInsertServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 게시글 원글 추가 등록 처리용 컨트롤러
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 		// 업로드할 파일의 용량 제한 : 10Mbyte로 제한한다면
 		int maxSize = 1024 * 1024 * 10;
@@ -59,28 +55,22 @@ public class PartInsertServlet extends HttpServlet {
 		// 해당 컨테이너의 구동중인 웹 애플리케이션의 루트 경로 알아냄
 		String root = request.getSession().getServletContext().getRealPath("/");
 		// 업로드되는 파일이 저장될 폴더명과 경로 연결 처리
-		String savePath = root + "\\images\\items\\parts";
+		String savePath = root + "images\\items\\parts\\desc";
 		// web/nuploadFiles 로 지정함
-
 		// request 를 MultipartRequest 객체로 변환함
 		MultipartRequest mrequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 
-		String title = mrequest.getParameter("title");
-		int price = Integer.parseInt(mrequest.getParameter("price"));
-		int quan = Integer.parseInt(mrequest.getParameter("quan"));
-		String category = mrequest.getParameter("category");
-		String content = mrequest.getParameter("content");
-		Part p = null;
+		String originFileName = mrequest.getFilesystemName("file");
 		
-		String originFileName = mrequest.getFilesystemName("input_file");
+		String renameFileName = null;
 		if (originFileName != null) {
 			// 업로도된 파일명을 "년월일시분초.확장자" 로 변경함
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + originFileName.substring(originFileName.lastIndexOf(".") + 1);
+			renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + originFileName.substring(originFileName.lastIndexOf(".") + 1);
 
 			// 파일명 바꾸기하려면 File 객체의 renameTo() 사용함
 			File originFile = new File(savePath + "\\" + originFileName);
-			File renameFile = new File(savePath + "\\" + category.toLowerCase() + "\\" + renameFileName);
+			File renameFile = new File(savePath + "\\" + renameFileName);
 
 			// 파일이름 바꾸기 실행 >> 실패할 경우 직접 바꾸기함
 			// 새 파일만들고 원래 파일내용 읽어서 복사 기록하고
@@ -101,23 +91,15 @@ public class PartInsertServlet extends HttpServlet {
 				originFile.delete(); // 원본 파일 삭제함
 			}
 
-			p = new Part(title, category, price, quan, content, renameFileName);
-
-		} else
-			p = new Part(title, category, price, quan, content, "default_image.jpg");
-
-		if (new PartService().insertPart(p) > 0) {
-			response.sendRedirect("/made/partitemlist?page=1");
-		} else {
-			view = request.getRequestDispatcher("404-page.jsp");
-			request.setAttribute("message", "부품 등록 실패!");
-			view.forward(request, response);
 		}
+		PrintWriter out = response.getWriter();
+		out.print("http://localhost:3080/made/images/items/parts/desc/" + renameFileName);
+		out.flush();
+		out.close();
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

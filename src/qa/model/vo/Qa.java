@@ -66,12 +66,12 @@ public class Qa implements java.io.Serializable {
 		this.qaAnswer = qaAnswer;
 	}
 	
-	public Qa(String memberId,String qaTitle, String qaContents, String qaImg) {
+	public Qa(String memberId,String qaTitle, String qaContents) {
 		this.memberId = memberId;
 		this.qaTitle = qaTitle;
 		this.qaContents = qaContents;
-		this.qaImg = qaImg;
 	}
+	
 	@Override
 	public String toString() {
 		return  qaCode + ", " + memberId + ", " + qaTitle + ", " + qaContents + ", " + qaDate + ", " + qaImg + ", " + qaAnswer;

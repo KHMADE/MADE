@@ -38,8 +38,7 @@
 	<!--End Header-->
 	
 <script type="text/javascript">
-		$(function() {
-			//$.ajax() 사용시
+		function top5(){
 			$.ajax({
 				url : "/made/toplist",
 				type : "post",
@@ -70,35 +69,37 @@
 							+' </figcaption> </figure> </div> </li>'
 						}
 					$("#top5").html(values);
-					//console.log(values);
+					$("#top5").reload();
 				},
 				error : function(request,status,error) {
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
 			});
+		};
+		$(function() {
+			top5();
 		});
 		
 		function CaricaFoto(img){ 
-foto1= new Image(); 
-foto1.src=(img); 
-Controlla(img); 
-}; 
-function Controlla(img){ 
-if((foto1.width!=0)&&(foto1.height!=0)){ 
-viewFoto(img); 
-} 
-else{ 
-funzione="Controlla('"+img+"')"; 
-intervallo=setTimeout(funzione,20); 
-} 
-}; 
+			foto1= new Image(); 
+			foto1.src=(img); 
+			Controlla(img); 
+		}; 
+		function Controlla(img){ 
+			if((foto1.width!=0)&&(foto1.height!=0)){ 
+				viewFoto(img); 
+			} else{ 
+				funzione="Controlla('"+img+"')"; 
+				intervallo=setTimeout(funzione,20); 
+			} 
+		}; 
 
-function viewFoto(img){ 
-largh=foto1.width+20; 
-altez=foto1.height+20; 
-stringa="width="+largh+",height="+altez; 
-finestra=window.open(img,"",stringa); 
-};
+		function viewFoto(img){ 
+				largh=foto1.width+20; 
+				altez=foto1.height+20; 
+				stringa="width="+largh+",height="+altez; 
+				finestra=window.open(img,"",stringa); 
+		};
 </script>
 
 	<section class="wrapper">

@@ -41,10 +41,19 @@
 	        if(currentPath == usePage){
 	        	$(".navbar-nav > li").not($(this)).removeClass('active');
 	        	$(this).addClass('active');
-	           } else if(currentPath.indexOf("item") != -1){
+	        } else if(currentPath.indexOf("item") != -1 
+	        		|| currentPath.indexOf("part") != -1
+	        		|| currentPath.indexOf("design") != -1
+	        		|| currentPath.indexOf("dDetail") != -1 
+	        		|| currentPath.indexOf("pDetail") != -1
+	        		|| currentPath.indexOf("pup") != -1
+	        		|| currentPath.indexOf("dup") != -1){
                 $(".navbar-nav > li").removeClass('active');
 	        	$("li#item").addClass('active');
-            } else if (currentPath.indexOf("mypage") != -1 || currentPath.indexOf("order") != -1){
+	        } else if(currentPath.indexOf("notice") != -1 || currentPath.indexOf("nlist") != -1 || currentPath.indexOf("ndetail") != -1){
+                $(".navbar-nav > li").removeClass('active');
+	        	$("li#notice").addClass('active');
+            } else if (currentPath.indexOf("mypage") != -1 || currentPath.indexOf("order") != -1 || currentPath.indexOf("qlist") != -1  || currentPath.indexOf("qa") != -1 || currentPath.indexOf("qdetail") != -1 || currentPath.indexOf("qmlist") != -1){
             	$(".navbar-nav > li").removeClass('active');
 	        	$("li#mypage").addClass('active');
             } else {
@@ -119,7 +128,7 @@ $(function(){
 			</div> <!-- /.modal-header -->
 
 			<div class="modal-body">
-				<form role="form">
+				<form role="form" id="loginform">
 					<div class="form-group">
 						<div class="input-group">
 							<label for="uLogin" class="input-group-addon glyphicon glyphicon-user"></label>
@@ -145,78 +154,6 @@ $(function(){
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- Modal End -->
-<!-- test -->
-<!-- Modal -->
-<!-- <div class="modal fade bs-modal-sm" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-        <br>
-        <div class="bs-example bs-example-tabs">
-            <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a href="#signin" data-toggle="tab">Sign In</a></li>
-              <li class=""><a href="#forgetPWD" data-toggle="tab">Forget PassWord?</a></li>
-            </ul>
-        </div>
-      <div class="modal-body">
-        <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade in" id="forgetPWD">
-        <p>test page</p>
-        <div class="control-group">
-              <label class="control-label" for="userid">userID:</label>
-              <div class="controls">
-                <input required="" id="userid" name="userid" type="text" class="form-control" placeholder="input your ID" class="input-medium" required="">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="email">userEmail:</label>
-              <div class="controls">
-                <input required="" id="email" name="email" type="email" class="form-control" placeholder="input your Email" class="input-medium" required="">
-              </div>
-            </div>
-        <p></p><br> Please contact <a mailto:href="firerain4@naver.com"></a>firerain4@naver.com</a> for any other inquiries.</p>
-        </div>
-        <div class="tab-pane fade active in" id="signin">
-            <form class="form-horizontal">
-            <fieldset>
-            Sign In Form
-            Text input
-            <div class="control-group">
-              <label class="control-label" for="userid">Alias:</label>
-              <div class="controls">
-                <input required="" id="userid" name="userid" type="text" class="form-control" placeholder="JoeSixpack" class="input-medium" required="">
-              </div>
-            </div>
-
-            Password input
-            <div class="control-group">
-              <label class="control-label" for="passwordinput">Password:</label>
-              <div class="controls">
-                <input required="" id="passwordinput" name="passwordinput" class="form-control" type="password" placeholder="********" class="input-medium">
-              </div>
-            </div>
-
-            Button
-            <div class="control-group">
-              <label class="control-label" for="signin"></label>
-              <div class="controls">
-                <button id="signin" name="signin" class="btn btn-success">Sign In</button>
-              </div>
-            </div>
-            </fieldset>
-            </form>
-        </div>
-        
-    </div>
-      </div>
-      <div class="modal-footer">
-      <p align="center">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </p>
-      </div>
-    </div>
-  </div>
-</div> -->
-  <!-- test -->
   
 <header id="header" class="clearfix">
 	<div id="top-bar">
@@ -234,7 +171,7 @@ $(function(){
 							if (m == null) {
 						%>
 						<li><a
-							href="/made/views/user/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%ED%8E%98%EC%9D%B4%EC%A7%80.html">&nbsp;회원가입&nbsp;</a></li>
+							href="/made/views/user/signup.jsp">&nbsp;회원가입&nbsp;</a></li>
 						<%
 							}
 						%>
@@ -279,7 +216,7 @@ $(function(){
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/made/index.jsp">Home</a></li>
-						<li><a href="/made/views/notice/공지사항 main.jsp">공지사항</a></li>
+						<li id="notice"><a href="/made/nilst?page=1">공지사항</a></li>
 						<li id="item"><a href="#">DIY 상품</a>
 							<ul class="dropdown-menu">
 								<li><a href="/made/designitemlist?page=1">Designed</a></li>

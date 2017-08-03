@@ -43,6 +43,7 @@ public class DesignDetailViewServlet extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("views/item/designedDetailView.jsp");
 			request.setAttribute("design", d);
 			request.setAttribute("oriPrice", oriPrice);
+			//request.setAttribute("page", Integer.parseInt(request.getParameter("page")));
 			view.forward(request, response);
 		} else {
 			response.sendRedirect("404-page.jsp");

@@ -60,7 +60,13 @@ button#like:hover {
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
+					<% if (m != null && m.getClassCode().equals("A")) { %>
+						<h2>Item <%=p.getPartName()%>&nbsp;&nbsp;&nbsp;&nbsp;
+						<button class="btn btn-default" onclick="location.href='/made/pupdateView?code=<%=p.getPartId()%>';">수정하기</button>&nbsp;&nbsp;&nbsp;
+						<button class="btn btn-default" onclick="location.href='/made/pdelete?id=<%=p.getPartId()%>';">삭제하기</button></h2>
+						<% } else { %>
 						<h2>Item <%=p.getPartName()%></h2>
+						<% } %>
 					</div>
 				</div>
 			</div>

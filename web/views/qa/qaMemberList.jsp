@@ -65,7 +65,7 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 		<div class="panel-heading hide"></div>
 
 		<table class="board-list table">
-			<input id="p_num" type="hidden" value="">
+			
 			<thead>
 			<tr class="header">
 				<th width="*" class="text-left">제목</th>
@@ -96,6 +96,7 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 			<%} %>
 		</table>
 	</div>
+	<button type="button" class="btn btn-default" onclick="top.location.href='/made/views/qa/qa.jsp'"> 1대1 문의하기</button>
 	<%-- 페이지 번호 처리 --%>
 	<div class="board-page text-center">
 		<ul class="pagination">
@@ -103,7 +104,7 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 			<%  if(currentPage <= 1){	%>
 					<span class="glyphicon glyphicon-chevron-left " style="color:blue"></span> &nbsp;
 			<%  }else{ %>
-					<a href="/made/qlist?page=<%= currentPage - 1 %>"><span class="glyphicon glyphicon-chevron-left"></span></a> &nbsp;
+					<a href="/made/qmlist?member=<%=m.getId()%>&page=<%= currentPage - 1 %>"><span class="glyphicon glyphicon-chevron-left"></span></a> &nbsp;
 			<%  } %>
 			</li>
 			<li>
@@ -111,7 +112,7 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 			if(p == currentPage){
 				%><a style="color:blue"><%= p %></a>
 			<%     }else{ %>
-				<a href="/made/qlist?page=<%= p %>"><%= p %></a>
+				<a href="/made/qmlist?member=<%=m.getId()%>&page=<%= p %>"><%= p %></a>
 			<%  }}%>
 			</li>
 			
@@ -119,11 +120,12 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 			<% if(currentPage >= maxPage){ %>
 				<span class="glyphicon glyphicon-chevron-right" style="color:blue">
 			<% }else{ %>
-				<a href="/made/qlist?page=<%= currentPage + 1 %>"><span class="glyphicon glyphicon-chevron-right"></a>
+				<a href="/made/qmlist?member=<%=m.getId()%>&page=<%= currentPage + 1 %>"><span class="glyphicon glyphicon-chevron-right"></a>
 			<% } %>
 			</li>
 		</ul>
 	</div>
+	 
 </div>
     </section>
 <!--start footer-->

@@ -65,7 +65,7 @@
 						%>
 						&nbsp;&nbsp;&nbsp;
 						<button class="btn btn-default"
-							onclick="location.href='/made/dinsert'">글 등록하기</button>
+							onclick="location.href='/made/views/item/partInsertForm.jsp';">글 등록하기</button>
 						<%
 							}
 						%>
@@ -116,7 +116,7 @@
 												<%
 													if (m != null) {
 												%>
-												<a href="pDetail?id=<%=p.getPartId()%>" class="hover-link"><i
+												<a href="pDetail?id=<%=p.getPartId()%>&page=<%=currentPage%>" class="hover-link"><i
 													class="fa fa-link"></i></a>
 												<%
 													}

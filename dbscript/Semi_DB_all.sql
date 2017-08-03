@@ -1,4 +1,4 @@
-﻿﻿/*** Semi 데이터 베이스 스크립트 Ver 2.7 ***/
+﻿﻿/*** Semi 데이터 베이스 스크립트 Ver 2.8 ***/
 /* ID : made / PWD : made1708 */
 
 /** 1.0 ver 스크립트 초기화를 위한 테이블 삭제 **/
@@ -947,6 +947,8 @@ INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707142040','RRMMDDHH24MI'),'RRMMDD
 INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707140505','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','10번째메세지','새를 좋아하신다구요? 그런 분들을 위해 소개합니다. 친환경 새 모이 통!',TO_DATE('1707140505','RRMMDDHH24MI'),'default_design10.jpg',null);
 INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131410','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','11번째메세지','더이상 그릴판을 사러 다니지 마세요!',TO_DATE('1707131410','RRMMDDHH24MI'),'default_design11.jpg',null);
 
+INSERT INTO PART VALUES('PA'||TO_CHAR(TO_DATE('1801010101','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'TEST','STEEL',TO_DATE('1801010101','RRMMDDHH24MI'),22000,20,'기본 철재 샘플3','default_steel3.jpg',0);
+INSERT INTO DESIGN VALUES('DE'||TO_CHAR(TO_DATE('1801010101','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'TEST','ETC',TO_DATE('1801010101','RRMMDDHH24MI'),'정원에 이런 탁자, 다들 하나쯤은 있지 않나요?',59000,'default_design14.jpg','design11',7);
 
 COMMIT;
 

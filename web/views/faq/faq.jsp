@@ -85,13 +85,13 @@
                                     <i class="switch fa fa-plus-circle"></i>
                                 </span>
                                 <a href="#collapseTwo" data-parent="#accordion" data-toggle="collapse">
-                                    Morbi vestibulum justo in mollis faucibus ?
+                                    Q: 제가 직접 디자인한 상품을 올릴 수 있나요?
                                 </a>
                             </h4>
                         </div>
                         <div class="panel-collapse collapse" id="collapseTwo">
-                            <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</div>
-                            <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</div>
+                            <div class="panel-body"><b>A:</b>&nbsp;네, 디자이너로 회원가입하신 후, 해당 디자인과 관련된 사진, 설계도를 첨부하시어 디자인 의뢰를 해주시면 관리자 검토 후 해당 디자인 상품을 올려드릴 것 입니다.</div>
+                            <div class="panel-body"> &nbsp;&nbsp;양질의 서비스를 제공할 수 있도록 항상 노력 하겠습니다.</div>
                         </div>
                     </div>
                     <div class="panel panel-default">
@@ -101,13 +101,13 @@
                                     <i class="switch fa fa-plus-circle"></i>
                                 </span>
                                 <a href="#collapseThree" data-parent="#accordion" data-toggle="collapse">
-                                    Sed egestas augue vel pellentesque placerat ?
+                                    Q: 배송은 어떡하죠?
                                 </a>
                             </h4>
                         </div>
                         <div class="panel-collapse collapse" id="collapseThree">
-                            <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</div>
-                            <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</div>
+                            <div class="panel-body"><b>A:</b>&nbsp;배송은 해당하는 택배회사로 저희가 의로 후 운송장 번호를 받아 주문 상태에 띄워 드릴 것입니다. 후에 그 정보를 보시고 확인하시면 됩니다 ^^.</div>
+                            <div class="panel-body"> &nbsp;&nbsp;양질의 서비스를 제공할 수 있도록 항상 노력 하겠습니다.</div>
                         </div>
                     </div>
                 </div>
@@ -121,13 +121,13 @@
                                     <i class="switch fa fa-plus-circle"></i>
                                 </span>
                                 <a href="#collapseFour" data-toggle="collapse">
-                                    Lorem ipsum consectetur adipisicing elit ?
+                                    Q: 1:1 문의를 드리고 싶은데 이미지 첨부 가능한가요?
                                 </a>
                             </h4>
                         </div>
                         <div class="panel-collapse collapse" id="collapseFour">
-                            <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</div>
-                            <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</div>
+                            <div class="panel-body"><b>A:</b>&nbsp;넵, 가능합니다! 문의하고자 하는 사진을 올려주신 후 문의해주시면 관리자가 확인 후 순차적으로 답변해드리고 있습니다.</div>
+                            <div class="panel-body"> &nbsp;&nbsp;양질의 서비스를 제공할 수 있도록 항상 노력 하겠습니다.</div>
                         </div>
                     </div>
                     <div class="panel panel-default">
@@ -137,13 +137,13 @@
                                     <i class="switch fa fa-plus-circle"></i>
                                 </span>
                                 <a href="#collapseFive" data-toggle="collapse">
-                                    Donec quis risus a est tempus ultricies ?
+                                     Q: 1:1 문의를  드리고 싶은데 이미지 첨부 가능한가요?
                                 </a>
                             </h4>
                         </div>
                         <div class="panel-collapse collapse" id="collapseFive">
-                            <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</div>
-                            <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</div>
+                            <div class="panel-body"><b>A:</b>&nbsp;넵, 가능합니다! 문의하고자 하는 사진을 올려주신 후 문의해주시면 관리자가 확인 후 순차적으로 답변해드리고 있습니다.</div>
+                            <div class="panel-body"> &nbsp;&nbsp;양질의 서비스를 제공할 수 있도록 항상 노력 하겠습니다.</div>
                         </div>
                     </div>
                     <div class="panel panel-default">
@@ -153,13 +153,13 @@
                                     <i class="switch fa fa-plus-circle"></i>
                                 </span>
                                 <a href="#collapseSix" data-toggle="collapse">
-                                    Etiam et nunc a sapien aliquam tristique ?
+                                     Q: 1:1 문의를 드리고 싶은데 이미지 첨부 가능한가요?
                                 </a>
                             </h4>
                         </div>
                         <div class="panel-collapse collapse" id="collapseSix">
-                            <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</div>
-                            <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</div>
+                            <div class="panel-body"><b>A:</b>&nbsp;넵, 가능합니다! 문의하고자 하는 사진을 올려주신 후 문의해주시면 관리자가 확인 후 순차적으로 답변해드리고 있습니다.</div>
+                            <div class="panel-body"> &nbsp;&nbsp;양질의 서비스를 제공할 수 있도록 항상 노력 하겠습니다.</div>
                         </div>
                     </div>
                 </div><!-- /Toggle -->

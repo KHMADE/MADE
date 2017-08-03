@@ -61,9 +61,13 @@ button#like:hover {
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<h2>
-							Item
-							<%=d.getDesignName()%></h2>
+					<% if (m != null && m.getClassCode().equals("A")) { %>
+						<h2>Item <%=d.getDesignName()%>&nbsp;&nbsp;&nbsp;&nbsp;
+						<button class="btn btn-default" onclick="location.href='';">수정하기</button>&nbsp;&nbsp;&nbsp;
+						<button class="btn btn-default" onclick="location.href='/made/ddelete?id=<%=d.getDesignId()%>';">삭제하기</button></h2>
+						<% } else { %>
+						<h2>Item <%=d.getDesignName()%></h2>
+						<% } %>
 					</div>
 				</div>
 			</div>

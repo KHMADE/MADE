@@ -41,7 +41,7 @@
 <section class="wrapper">
         <div class="container">
 	<div class="page-header">
-		<h1>쪽지확인</h1>
+		<h1>1대1 문의</h1>
 	</div>
 	<div class="panel panel-default">
 		<!-- Default panel contents -->
@@ -68,6 +68,7 @@
 						</div>
 					</div>
 					<%if(q.getQaAnswer()==null){ %>
+					<% if(m.getClassCode().charAt(0) == 'A'){ %>
 					<h4>
 						<%=q.getMemberId() %>님 에게 보낼 답장 메세지
 					</h4>
@@ -79,14 +80,23 @@
 							<li>
 							<input type="submit" class="btn btn-default" value="답장">
 							</li>
-						
 						<li>
-							<button type="button" class="btn btn-default" onclick="top.location.href='%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD%20main.html'">
+							<button type="button" class="btn btn-default" onclick="top.location.href='/made/qlist?page=1'">
 								목록보기
 							</button>
 						</li>
 					</ul>
 				</div>
+				<%}else{ %>
+				<h4> 관리자가 문의를 확인중입니다..		</h4>
+				<ul class="pager">
+						<li>
+							<button type="button" class="btn btn-default" onclick="top.location.href='/made/qlist?page=1'">
+								목록보기
+							</button>
+						</li>
+					</ul>
+				<%} %>
 				<%}else{ %>
 					
 					<h4>
@@ -97,10 +107,6 @@
 					<div class="panel-heading">
 							<span class="label label-info">보낸 아이디 </span>&nbsp;
                             관리자
-							<span class="label label-info">
-								보낸 날짜
-							</span>&nbsp;
-                            <%=q.getQaDate() %>
 						</div>
 						<div class="panel-body content">
 						<%=q.getQaAnswer() %>
@@ -147,7 +153,7 @@
 			contentType : false,
 			processData : false,
 			success : function(url){
-				//alert(url);
+				alert(url);
 				$note.summernote('insertImage',url);
 			}, error : function(request,status,error) {
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

@@ -41,6 +41,7 @@ public class PartDetailViewServlet extends HttpServlet {
 		if(p != null){
 			RequestDispatcher view = request.getRequestDispatcher("views/item/partDetailView.jsp");
 			request.setAttribute("part", p);
+			//request.setAttribute("page", Integer.parseInt(request.getParameter("page")));
 			view.forward(request, response);
 		} else {
 			response.sendRedirect("404-page.jsp");

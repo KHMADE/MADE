@@ -19,6 +19,14 @@ public class QaService {
 		close(con);
 		return qa;
 	}
+	
+	public ArrayList<Qa> qaMemberSelectList(String member, int currentPage, int limit){
+		Connection con = getConnection();
+		ArrayList<Qa> qa = new QaDao().selectMemberQaList(con,member,currentPage,limit);
+		close(con);
+		return qa;
+	}
+	
 	public Qa qaSelect(String no) {
 		Connection con = getConnection();
 		Qa qa = new QaDao().selectQa(con,no);
@@ -41,6 +49,13 @@ public class QaService {
 		int listCount = new QaDao().getListCount(con);
 		close(con);
 		return listCount;
+	}
+	public int getMemberListCount(String member) {
+		Connection con = getConnection();
+		int listCount = new QaDao().getMemberListCount(con,member);
+		close(con);
+		return listCount;
+		
 	}
 	public int qaAnswerUpdate(String qaNum ,String answer) {
 		int result=0;

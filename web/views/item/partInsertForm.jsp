@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="ko"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="ko"> <!--<![endif]-->
@@ -8,7 +7,7 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title> QA - MAːDÆ</title>
+	<title>부품 등록 페이지 - MAːDÆ</title>
 	<meta name="description" content="">
 	<link rel="shortcut icon" href="/made/images/icon.ico">
 	<!-- CSS FILES -->
@@ -27,6 +26,11 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style rel="stylesheet" type="text/css">
+        table td b{
+            font-size: 15pt;
+        }
+    </style>
 </head>
 <body>
 	
@@ -40,56 +44,70 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<h2>1대1 문의</h2>
+						<h2>부품 등록</h2>
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
 								<li><a href="/made/index.jsp">Home</a></li>
-								<li>QA</li>
+								<li><a href="/made/partitemlist?page=1">Part</a></li>
+								<li>Parts Item</li>
 							</ul>
 						</nav>
 					</div>
 				</div>
 			</div>
 		</section>
-		<br>
         <div class="container">
-        <div class="panel panel-default">
-                <!-- Default panel contents -->
-                <div class="panel-heading hide"></div>
-                <% if ( m != null ) {%>
-                <form method="POST" action="/made/qinsert" >
-                <input type="hidden" value="<%=m.getId()%>" name="qaMember">
-                    <div class="panel-body article">
-                        <h4>1대1문의</h4>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h5>제목 : &nbsp;<input  style="width:50%;" name="title"></h5> </div>
-                            
-                               <textarea name="content" class="summernote"></textarea>
-                           
-                        </div>
-                        <ul class="pager">
-                            <li>
-                                <input type="submit" class="btn btn-default" value="보내기">
-                            </li>
-                            </form>
-                            <li>
-                               <button type="button" class="btn btn-default" onclick="top.location.href='/made/qmlist?member=<%=m.getId()%>&page=1'"> 문의함 </button>
-                            </li>
-                        </ul>
-                    </div>
-                
-                 
-                <% } else { %>
-                <h2>가입한 회원만 이용이 가능합니다.<br><a href='/made/loginout.jsp'>로그인 화면으로 넘어가기</a></h2>
-                
-                <% } %>
-            </div>
-</div>
+        <form id="insert" method="post" action="/made/pinsert" enctype="multipart/form-data">
+        <table class="table table-bordered table-striped table-hover">
+        <tr><td><b>상품명 : </b></td><td><input type="text" name="title" id="title"></td></tr>
+        <tr><td><b>가격 : </b></td><td><input type="number" name="price" id="price" min="0"> 원</td></tr>
+        <tr><td><b>매입재고 : </b></td><td><input type="number" name="quan" id="quan" min="1"> 개</td></tr>
+        <tr><td><b>카테고리 : </b></td><td>
+        <select name="category" id="category" style="text-ailgn:center;">
+        	<option value="">--- 선택 ---</option>
+        	<option value="WOOD">목재</option>
+        	<option value="STEEL">철재</option>
+        	<option value="PLASTIC">플라스틱</option>
+        	<option value="ETC">기타</option>
+        </select></td></tr>
+        <tr><td><p><b>첨부 이미지 파일 : </b></p></td><td>
+        <img id="img_preview" class="img-circle"><br>
+        <input type="file" id="input_file"></td></tr>
+        <tr><td colspan="2"><p><b>상품 설명 :</b></p>
+        <textarea id="content" name="content" class="summernote"></textarea></td></tr>
+        <tr><td colspan="2" align="center">
+        <button class="btn btn-default" type="submit">등록하기</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-default" type="reset">취소하기</button></td></tr>
+        </table></form>
+        <p align="center"><button class="btn btn-default" type="button" onclick="javascript:history.go(-1);">이전 페이지로</button></p>
+        </div>
     </section>
-	<!-- summernote apply -->
+    
+<!-- summernote apply -->
 	<script type="text/javascript">
+	$("#insert").submit(function( event ) {
+		if($("#title").val() == ""){
+            alert("상품 명을 입력해주세요!");
+            $("#title").focus();
+            event.preventDefault();
+        } else if($("#price").val() == 0) {
+            alert("상품 가격은 0원이 될 수 없습니다.");
+            $("#price").focus();
+            event.preventDefault();
+        } else if($('#category option:selected').val() == ""){
+            alert("카테고리를 선택해 주세요!!");
+            $("#category").focus();
+            event.preventDefault();
+        } else if($('#quan').val() == ""){
+            alert("재고 수량을 적어 주세요!!");
+            $("#quan").focus();
+            event.preventDefault();
+        } else {
+            alert($("#title").val()+" 상품, "+$("#quan").val()+"개가 등록되었습니다!!!");
+            return;
+        }
+});
   $(function() {
     $('.summernote').summernote({
       width: '100%',	    
@@ -108,7 +126,7 @@
 		$.ajax({
 			data : data,
 			type : "post",
-			url : '/made/qaUpload', // servlet url
+			url : '/made/partUpload', // servlet url
 			cache : false,
 			contentType : false,
 			processData : false,
@@ -119,14 +137,16 @@
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});
-	}}
+	}
+      }
     });
   });
 </script>
 	<!-- summernote apply -->
+	
 	<!--start footer-->
 	<%@ include file="../../footer.jsp" %>
 	<!--end footer-->
-
+	<script type="text/javascript" src="../user/project(sk).js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package qa.controller;
+package part.controller;
 
 import java.io.IOException;
 
@@ -9,23 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import qa.model.service.QaService;
-import qa.model.vo.Qa;
-
-
-
+import part.model.service.PartService;
+import part.model.vo.Part;
 
 /**
- * Servlet implementation class QaAnswerUpdateServlet
+ * Servlet implementation class PartUpdateViewServlet
  */
-@WebServlet("/qaupdate")
-public class QaAnswerUpdateServlet extends HttpServlet {
+@WebServlet("/pupdateView")
+public class PartUpdateViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QaAnswerUpdateServlet() {
+    public PartUpdateViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,13 +34,17 @@ public class QaAnswerUpdateServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
-		String qNum = request.getParameter("qnum");
-		String answer = request.getParameter("answer");
-		QaService qservice = new QaService();
-		if (qservice.qaAnswerUpdate(qNum,answer) > 0) {
-			response.sendRedirect("/made/qlist?page=1");
-		} else {
-			response.sendRedirect("/made/404-page.jsp");
+		String code = request.getParameter("code");
+		Part p = new PartService().partSelect(code);
+		RequestDispatcher view = null;
+		if(p != null){
+			view = request.getRequestDispatcher("views/item/partupdateForm.jsp");
+			request.setAttribute("part", p);
+			view.forward(request, response);
+		}else{
+			view = request.getRequestDispatcher("404-page.jsp");
+			request.setAttribute("message", "부품 게시글 상세조회 실패!");
+			view.forward(request, response);
 		}
 	}
 
