@@ -147,17 +147,18 @@ public class PartDAO {
 	public int updatePart(Connection con, Part p) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = "UPDATE PART SET PART_CATEGORY = ?, PART_PRICE = ?, "
+		String sql = "UPDATE PART SET PART_TITLE = ?, PART_CATEGORY = ?, PART_PRICE = ?, "
 				+"PART_STOCK = ?, PART_CONTENTS = ?, PART_IMG = ? "
 				+"WHERE PART_CODE = ? ";
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, p.getPartCategory());
-			pstmt.setInt(2, p.getPrice());
-			pstmt.setInt(3, p.getQuantity());
-			pstmt.setString(4, p.getPartDesc());
-			pstmt.setString(5, p.getPartImg());
-			pstmt.setString(6, p.getPartId());
+			pstmt.setString(1, p.getPartName());
+			pstmt.setString(2, p.getPartCategory());
+			pstmt.setInt(3, p.getPrice());
+			pstmt.setInt(4, p.getQuantity());
+			pstmt.setString(5, p.getPartDesc());
+			pstmt.setString(6, p.getPartImg());
+			pstmt.setString(7, p.getPartId());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

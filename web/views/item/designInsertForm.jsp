@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>부품 등록 페이지 - MAːDÆ</title>
+	<title>디자인 상품 등록 페이지 - MAːDÆ</title>
 	<meta name="description" content="">
 	<link rel="shortcut icon" href="/made/images/icon.ico">
 	<!-- CSS FILES -->
@@ -44,12 +44,12 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<h2>부품 등록</h2>
+						<h2>디자인 상품 등록</h2>
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
 								<li><a href="/made/index.jsp">Home</a></li>
-								<li><a href="/made/partitemlist?page=1">Part</a></li>
+								<li><a href="/made/designitemlist?page=1">Design</a></li>
 								<li>Parts Item</li>
 							</ul>
 						</nav>

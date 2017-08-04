@@ -264,6 +264,7 @@ function sample4_execDaumPostcode() {
        <section class="page_head">
 			<div class="container">
 				<div class="row">
+				
 					<div class="col-lg-12 col-md-12 col-sm-12">
 						<h2>회원가입 창</h2>
 						<nav id="breadcrumbs">
@@ -274,8 +275,9 @@ function sample4_execDaumPostcode() {
 							</ul>
 						</nav>
 					</div>
+				
 				</div>
-			</div>
+			 </div>
 		</section>
         <div class="container" id="content">
         
@@ -298,6 +300,7 @@ function sample4_execDaumPostcode() {
 	</table>
 	<br>
 	<div id="content-form">
+	<FORM name="Form1">
 <table id="member-form" class="table table-striped">
  <tr><td colspan="4" align="center">회원 대표 이미지<br>
  
@@ -320,11 +323,11 @@ function sample4_execDaumPostcode() {
  <tr>
  <td>생년월일<br></td>
 	 <td colspan=3>
-<FORM name="Form1">
+
 <SELECT name="FirstSelectYear" onchange="ChangeOptionDays('FirstSelect')">
-        <SCRIPT language="JavaScript">
+        <script type="text/javascript">
                 document.write(WriteYearOptions(50));
-        </SCRIPT>
+        </script>
 </SELECT>
 
 <SELECT name="FirstSelectMonth" onchange="ChangeOptionDays('FirstSelect')">
@@ -375,7 +378,7 @@ function sample4_execDaumPostcode() {
         <OPTION>30
         <OPTION>31
 </SELECT>
-</FORM>
+
 
 	 </td>
 	 
@@ -420,7 +423,9 @@ function sample4_execDaumPostcode() {
 </tr>
     
  </table>
+ </FORM>
   </div>
+ 
  
  <div id="content-form2">
 <table id="member-form" class="table">

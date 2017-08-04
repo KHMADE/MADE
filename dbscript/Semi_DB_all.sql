@@ -1,4 +1,4 @@
-﻿﻿/*** Semi 데이터 베이스 스크립트 Ver 2.8 ***/
+/*** Semi 데이터 베이스 스크립트 Ver 2.8 ***/
 /* ID : made / PWD : made1708 */
 
 /** 1.0 ver 스크립트 초기화를 위한 테이블 삭제 **/
@@ -135,10 +135,11 @@ CREATE TABLE MEMBER (
 	MEMBER_CLASS_CODE VARCHAR2(2) NOT NULL, /* 구분 코드 */
 	MEMBER_PASSWORD VARCHAR2(30) NOT NULL, /* 비밀번호 */
 	MEMBER_NAME VARCHAR2(30) NOT NULL, /* 이름 */
+    MEMBER_EMAIL VARCHAR2(30) NOT NULL, /* 이메일 */
+    MEMBER_GENDER VARCHAR2(3) NOT NULL, /* 성별 */
 	MEMBER_BIRTHDAY DATE NOT NULL, /* 생년월일 */
-	MEMBER_EMAIL VARCHAR2(30) NOT NULL, /* 이메일 */
 	MEMBER_PHONE VARCHAR2(30) NOT NULL, /* 전화번호 */
-	MEMBER_ADDRESS VARCHAR2(50) NOT NULL, /* 주소 */
+	MEMBER_ADDRESS VARCHAR2(300) NOT NULL, /* 주소 */
 	MEMBER_SIGN_DATE DATE DEFAULT SYSDATE, /* 가입일 */
 	MEMBER_PROFILE_IMG VARCHAR2(50), /* 프로필 이미지 */
 	MEMBER_POINT NUMBER NOT NULL, /* 포인트 */
@@ -154,6 +155,8 @@ COMMENT ON COLUMN MEMBER.MEMBER_CLASS_CODE IS '구분 코드';
 COMMENT ON COLUMN MEMBER.MEMBER_PASSWORD IS '비밀번호';
 
 COMMENT ON COLUMN MEMBER.MEMBER_NAME IS '이름';
+
+COMMENT ON COLUMN MEMBER.MEMBER_GENDER IS '성별';
 
 COMMENT ON COLUMN MEMBER.MEMBER_BIRTHDAY IS '생년월일';
 
@@ -735,56 +738,56 @@ INSERT INTO MEMBER_CLASS VALUES('A','관리자');
 INSERT INTO MEMBER_CLASS VALUES('D','디자이너');
 INSERT INTO MEMBER_CLASS VALUES('C','소비자');
 
-INSERT INTO MEMBER VALUES('admin','A','admin','관리자',TO_DATE('1999-01-01','RRRR-MM-DD'),
-'admin@iei.or.kr','010-1111-2222','10332,서울,강남구 역삼동', SYSDATE, 'default.jpg',
+INSERT INTO MEMBER VALUES('admin','A','admin','관리자','admin@iei.or.kr','남',
+TO_DATE('1999-01-01','RRRR-MM-DD'),'010-1111-2222','10332,서울,강남구 역삼동', SYSDATE, 'default_image.jpg',
 99999,'관리자');
-INSERT INTO MEMBER VALUES('design11','D','pass11','유정훈',TO_DATE('1999-02-10','RRRR-MM-DD'),
-'aaaa@iei.or.kr','010-2211-1122','30221,서울시,강남구 역삼동', SYSDATE, 'default.jpg',
+INSERT INTO MEMBER VALUES('design11','D','pass11','유정훈','aaaa@iei.or.kr','남',
+TO_DATE('1999-02-10','RRRR-MM-DD'),'010-2211-1122','30221,서울시,강남구 역삼동', SYSDATE, 'default_image.jpg',
 90000,'유사장');
-INSERT INTO MEMBER VALUES('design22','D','pass22','김성권',TO_DATE('2000-03-15','RRRR-MM-DD'),
-'ksk8948@iei.or.kr','010-1011-8022','83621,시흥시,OO구 XX동', SYSDATE, 'default.jpg',
-99900,'김대리');
-INSERT INTO MEMBER VALUES('user11','C','pass11','나상민',TO_DATE('2001-11-20','RRRR-MM-DD'),
-'sm9171@iei.or.kr','010-1231-1246','56233,대전시,OO구 XX동', SYSDATE, 'default.jpg',
-99000,'나과장');
-INSERT INTO MEMBER VALUES('user22','C','pass22','임현상',TO_DATE('2001-06-25','RRRR-MM-DD'),
-'cuhpepcekr@iei.or.kr','010-1974-7663','43232,서울,OO구 XX동', SYSDATE, 'default.jpg',
-99990,'본부장');
-INSERT INTO MEMBER VALUES('user33','C','pass33','정진모',TO_DATE('2002-07-30','RRRR-MM-DD'),
-'jjm9290@iei.or.kr','010-7722-3349','97203,서울,OO구 XX동', SYSDATE, 'default.jpg',
-99099,'정대리');
+INSERT INTO MEMBER VALUES('design22','D','pass22','김성권','ksk8948@iei.or.kr','남',
+TO_DATE('1999-02-10','RRRR-MM-DD'),'010-2211-1122','30221,서울시,강남구 역삼동', SYSDATE, 'default_image.jpg',
+90000,'김대리');
+INSERT INTO MEMBER VALUES('user11','C','pass11','나상민','sm9171@iei.or.kr','남',
+TO_DATE('1999-02-10','RRRR-MM-DD'),'010-2211-1122','30221,서울시,강남구 역삼동', SYSDATE, 'default_image.jpg',
+90000,'나과장');
+INSERT INTO MEMBER VALUES('user22','C','pass22','임현상','cuhpepcekr@iei.or.kr','남',
+TO_DATE('1999-02-10','RRRR-MM-DD'),'010-2211-1122','30221,서울시,강남구 역삼동', SYSDATE, 'default_image.jpg',
+90000,'본부장');
+INSERT INTO MEMBER VALUES('user33','C','pass33','정진모','jjm9290@iei.or.kr','남',
+TO_DATE('1999-02-10','RRRR-MM-DD'),'010-2211-1122','30221,서울시,강남구 역삼동', SYSDATE, 'default_image.jpg',
+90000,'정대리');
 
 /* 임시 데이터 */
-INSERT INTO MEMBER VALUES('maxy','C','pass44','김막시',TO_DATE('1999-05-15','RRRR-MM-DD'),
-'maxy@iei.or.kr','010-0101-1234','10020,서울,OO구 ㅁㅁ동', SYSDATE, 'default.jpg',
-00000,'막시멈');
-INSERT INTO MEMBER VALUES('user44','C','pass44','고감동',TO_DATE('2002-05-03','RRRR-MM-DD'),
-'gamdong@iei.or.kr','010-0001-1110','60420,전주시,덕진구 효자동', SYSDATE, 'default.jpg',
-00000,'감동');
-INSERT INTO MEMBER VALUES('user55','C','pass55','고길동',TO_DATE('1970-10-24','RRRR-MM-DD'),
-'gildong@iei.or.kr','010-4353-2233','10203,서울,OO구 XX동', SYSDATE, 'default.jpg',
-10010,'둘리너무해');
-INSERT INTO MEMBER VALUES('user66','C','pass66','김철수',TO_DATE('2000-10-20','RRRR-MM-DD'),
-'steel@iei.or.kr','010-1110-1010','10213,서울,OO구 XX동', SYSDATE, 'default.jpg',
-90,'철수김철수');
-INSERT INTO MEMBER VALUES('user77','C','pass77','유심청',TO_DATE('1998-02-22','RRRR-MM-DD'),
-'simchung@iei.or.kr','010-1111-9764','39784,대전,OO구 XX동', SYSDATE, 'default.jpg',
-940,'3백석');
-INSERT INTO MEMBER VALUES('user88','C','pass88','하이모',TO_DATE('2002-07-30','RRRR-MM-DD'),
-'himo@iei.or.kr','010-2322-14242','24333,서울,OO구 XX동', SYSDATE, 'default.jpg',
-790,'머머리');
-INSERT INTO MEMBER VALUES('user99','C','pass99','유상철',TO_DATE('2002-07-30','RRRR-MM-DD'),
-'shark@iei.or.kr','010-7722-3349','97203,서울,OO구 XX동', SYSDATE, 'default.jpg',
-350,'유상어');
-INSERT INTO MEMBER VALUES('user10','C','pass10','안정환',TO_DATE('2002-07-30','RRRR-MM-DD'),
-'aragon@iei.or.kr','010-7722-3349','97203,서울,OO구 XX동', SYSDATE, 'default.jpg',
-500,'아라곤');
-INSERT INTO MEMBER VALUES('design33','D','pass33','이천수',TO_DATE('2002-07-30','RRRR-MM-DD'),
-'chsulee@iei.or.kr','010-4444-6666','03303,서울,OO구 XX동', SYSDATE, 'default.jpg',
-100,'욕쟁이삼촌');
-INSERT INTO MEMBER VALUES('design44','D','pass44','김흥국',TO_DATE('2002-07-30','RRRR-MM-DD'),
-'hk413@iei.or.kr','010-2342-3434','91111,서울,OO구 XX동', SYSDATE, 'default.jpg',
-220,'으아들이대');
+--INSERT INTO MEMBER VALUES('maxy','C','pass44','김막시',TO_DATE('1999-05-15','RRRR-MM-DD'),
+--'maxy@iei.or.kr','010-0101-1234','10020,서울,OO구 ㅁㅁ동', SYSDATE, 'default.jpg',
+--00000,'막시멈');
+--INSERT INTO MEMBER VALUES('user44','C','pass44','고감동',TO_DATE('2002-05-03','RRRR-MM-DD'),
+--'gamdong@iei.or.kr','010-0001-1110','60420,전주시,덕진구 효자동', SYSDATE, 'default.jpg',
+--00000,'감동');
+--INSERT INTO MEMBER VALUES('user55','C','pass55','고길동',TO_DATE('1970-10-24','RRRR-MM-DD'),
+--'gildong@iei.or.kr','010-4353-2233','10203,서울,OO구 XX동', SYSDATE, 'default.jpg',
+--10010,'둘리너무해');
+--INSERT INTO MEMBER VALUES('user66','C','pass66','김철수',TO_DATE('2000-10-20','RRRR-MM-DD'),
+--'steel@iei.or.kr','010-1110-1010','10213,서울,OO구 XX동', SYSDATE, 'default.jpg',
+--90,'철수김철수');
+--INSERT INTO MEMBER VALUES('user77','C','pass77','유심청',TO_DATE('1998-02-22','RRRR-MM-DD'),
+--'simchung@iei.or.kr','010-1111-9764','39784,대전,OO구 XX동', SYSDATE, 'default.jpg',
+--940,'3백석');
+--INSERT INTO MEMBER VALUES('user88','C','pass88','하이모',TO_DATE('2002-07-30','RRRR-MM-DD'),
+--'himo@iei.or.kr','010-2322-14242','24333,서울,OO구 XX동', SYSDATE, 'default.jpg',
+--790,'머머리');
+--INSERT INTO MEMBER VALUES('user99','C','pass99','유상철',TO_DATE('2002-07-30','RRRR-MM-DD'),
+--'shark@iei.or.kr','010-7722-3349','97203,서울,OO구 XX동', SYSDATE, 'default.jpg',
+--350,'유상어');
+--INSERT INTO MEMBER VALUES('user10','C','pass10','안정환',TO_DATE('2002-07-30','RRRR-MM-DD'),
+--'aragon@iei.or.kr','010-7722-3349','97203,서울,OO구 XX동', SYSDATE, 'default.jpg',
+--500,'아라곤');
+--INSERT INTO MEMBER VALUES('design33','D','pass33','이천수',TO_DATE('2002-07-30','RRRR-MM-DD'),
+--'chsulee@iei.or.kr','010-4444-6666','03303,서울,OO구 XX동', SYSDATE, 'default.jpg',
+--100,'욕쟁이삼촌');
+--INSERT INTO MEMBER VALUES('design44','D','pass44','김흥국',TO_DATE('2002-07-30','RRRR-MM-DD'),
+--'hk413@iei.or.kr','010-2342-3434','91111,서울,OO구 XX동', SYSDATE, 'default.jpg',
+--220,'으아들이대');
 
 /*  Member 분류 에러 테스트
 INSERT INTO MEMBER VALUES('test','F','test','TEST',TO_DATE('2002-07-30','RRRR-MM-DD'),
@@ -951,7 +954,7 @@ INSERT INTO PART VALUES('PA'||TO_CHAR(TO_DATE('1801010101','RRMMDDHH24MI'),'RRMM
 INSERT INTO DESIGN VALUES('DE'||TO_CHAR(TO_DATE('1801010101','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'TEST','ETC',TO_DATE('1801010101','RRMMDDHH24MI'),'정원에 이런 탁자, 다들 하나쯤은 있지 않나요?',59000,'default_design14.jpg','design11',7);
 
 COMMIT;
-
+SELECT * FROM MEMBER;
 SELECT * FROM DESIGN;
 
 ------------------------

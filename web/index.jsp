@@ -69,7 +69,6 @@
 							+' </figcaption> </figure> </div> </li>'
 						}
 					$("#top5").html(values);
-					$("#top5").reload();
 				},
 				error : function(request,status,error) {
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -78,6 +77,9 @@
 		};
 		$(function() {
 			top5();
+			// 새로고침 1회
+			if (location.href.indexOf('#reload') == -1) 
+				  location.href += '#reload';
 		});
 		
 		function CaricaFoto(img){ 
@@ -437,18 +439,21 @@
 		<section class="info_service">
 			<div class="container">
 				<div class="row sub_content">
+				<div class="dividerHeading">
+							<h4>
+								<span>MAːDÆ - The unique what you made</span>
+							</h4>
+						</div>
 					<div class="rs_box">
 						<div class="col-sm-4 col-md-4 col-lg-4">
 							<div class="serviceBox_1">
 								<div class="icon_service">
 									<i class="fa fa-laptop"></i>
-									<h3>Modern Design</h3>
+									<h3>재활용? DIY!</h3>
 								</div>
 								<div class="fr_content">
-									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
-										commodo ligula eget dolor. Cum sociis natoque penatibus mag
-										dis parturient.</p>
-									<a class="read" href="#">Read more</a>
+									<p>본 사이트를 이용하시면 단순히 재활용품으로 생각했던 물품들을 제안된 디자인을 보며 직접 만들어 볼 수 있습니다. 지금 바로 함께하세요!!</p>
+
 								</div>
 							</div>
 						</div>
@@ -457,13 +462,10 @@
 							<div class="serviceBox_1">
 								<div class="icon_service">
 									<i class="fa fa-heart"></i>
-									<h3>Clean &amp; Minimal</h3>
+									<h3>디자인 &amp; 부품재료</h3>
 								</div>
 								<div class="fr_content">
-									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
-										commodo ligula eget dolor. Cum sociis natoque penatibus mag
-										dis parturient.</p>
-									<a class="read" href="#">Read more</a>
+									<p>디자인을 보는데, 만들 부품이 없으시다구요?&nbsp;&nbsp;&nbsp;만들 부품은 있는데 디자인이 생각나지 않는다구요?&nbsp;&nbsp;&nbsp;걱정 마세요!!&nbsp;&nbsp;저희는 그 두마리 토끼를 다 잡아드릴 수 있습니다!</p>
 								</div>
 							</div>
 						</div>
@@ -472,13 +474,10 @@
 							<div class="serviceBox_1">
 								<div class="icon_service">
 									<i class="fa fa-trophy"></i>
-									<h3>Branding Theme</h3>
+									<h3>가성비甲 상품</h3>
 								</div>
 								<div class="fr_content">
-									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
-										commodo ligula eget dolor. Cum sociis natoque penatibus mag
-										dis parturient.</p>
-									<a class="read" href="#">Read more</a>
+									<p>디자이너와 직접 링크를 유지하여 누구나 저렴한 가격으로 완제품을 받아볼 수 있습니다!&nbsp;&nbsp;&nbsp;&nbsp;당신 만이 갖는 특별함, 지금 바로 주문하세요!</p>
 								</div>
 							</div>
 						</div>
@@ -491,13 +490,11 @@
 							<div class="serviceBox_1">
 								<div class="icon_service">
 									<i class="fa fa-gear"></i>
-									<h3>Easy To Customize</h3>
+									<h3>제작이 쉽다?!</h3>
 								</div>
 								<div class="fr_content">
-									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
-										commodo ligula eget dolor. Cum sociis natoque penatibus mag
-										dis parturient.</p>
-									<a class="read" href="#">Read more</a>
+									<p>저희는 주문하신 상품에 대해 직접 제작하실 수 있도록 동영상, 설계도등을 첨부하여 보내드립니다. 
+									마이너스 손이시라구요? 걱정 마세요! 제작은 누구나 할 수 있으니까요!!</p>
 								</div>
 							</div>
 						</div>
@@ -506,13 +503,11 @@
 							<div class="serviceBox_1">
 								<div class="icon_service">
 									<i class="fa fa-volume-off"></i>
-									<h3>Multimedia Support</h3>
+									<h3>고객의 소리</h3>
 								</div>
 								<div class="fr_content">
-									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
-										commodo ligula eget dolor. Cum sociis natoque penatibus mag
-										dis parturient.</p>
-									<a class="read" href="#">Read more</a>
+									<p>1:1문의 상담 / 디자이너의 디자인 의뢰 등을 통해 고객들의 의견을 적극 수렴하고 있습니다!
+									이용하시는데 불편한 점이 있으시다면 과감하게 말씀해주세요!!</p>
 								</div>
 							</div>
 						</div>
@@ -521,13 +516,10 @@
 							<div class="serviceBox_1">
 								<div class="icon_service">
 									<i class="fa fa-suitcase"></i>
-									<h3>Documentation</h3>
+									<h3>수익 보고서</h3>
 								</div>
 								<div class="fr_content">
-									<p>Lorem ipsum dolor sit amet, cons adipiscing elit. Aenean
-										commodo ligula eget dolor. Cum sociis natoque penatibus mag
-										dis parturient.</p>
-									<a class="read" href="#">Read more</a>
+									<p>사이트를 이용하시는 디자이너 분들께 수익 도표 페이지를 제공하고 있습니다. 왕창 버시게 되면 저희한테 기부 조오~금 부탁 드릴게요!!</p>
 								</div>
 							</div>
 						</div>
@@ -541,36 +533,11 @@
 		<section class="fetaure_bottom">
 			<div class="container">
 				<div class="row sub_content">
-					<div class="col-lg-6 ">
-						<div class="dividerHeading">
-							<h4>
-								<span>Why Choose Us?</span>
-							</h4>
-
-						</div>
-						<ul class="list_style circle">
-							<li><a href="#"><i class="fa fa-angle-right"></i> Donec
-									convallis, metus nec tempus aliquet</a></li>
-							<li><a href="#"><i class="fa fa-angle-right"></i> Aenean
-									commodo ligula eget dolor</a></li>
-							<li><a href="#"><i class="fa fa-angle-right"></i> Cum
-									sociis natoque penatibus mag ipsum</a></li>
-							<li><a href="#"><i class="fa fa-angle-right"></i> Lorem
-									ipsum dolor sit amet cons adipiscing</a></li>
-							<li><a href="#"><i class="fa fa-angle-right"></i>
-									Accumsan vulputate faucibus turpis dictum</a></li>
-							<li><a href="#"><i class="fa fa-angle-right"></i> Nullam
-									ultrices eros accumsan vulputate</a></li>
-							<li><a href="#"><i class="fa fa-angle-right"></i> Nunc
-									aliquet tincidunt metus sit amet</a></li>
-						</ul>
-					</div>
-
 					<!-- TESTIMONIALS -->
 					<div class="col-lg-6 ">
 						<div class="dividerHeading">
 							<h4>
-								<span>What Client's Say</span>
+								<span>What Customer's Say</span>
 							</h4>
 						</div>
 
@@ -582,15 +549,12 @@
 											<i class="fa fa-quote-right"></i>
 										</div>
 										<blockquote>
-											<p>Donec convallis, metus nec tempus aliquet, nunc metus
-												adipiscing leo, a lobortis nisi dui ut odio. Nullam
-												ultrices, eros accumsan vulputate faucibus, turpis tortor
-												dictum.</p>
+											<p>사이트를 이용하면서 일반 대량 구매 사이트와는 다른 순이익 도표화가 너무 맘에 들어 계속 관계를 맺고 있습니다.&nbsp;&nbsp;여러분 design11의 작품, 많이 이용해 주세요!!!</p>
 										</blockquote>
 										<div class="testimonial-review">
-											<img src="images/testimonials/1.png" alt="testimoni">
+											<img src="images/userimage/default_image.png" alt="testimoni">
 											<h1>
-												Jonathan Dower,<small>Company Inc.</small>
+												유OO 사장님<small>Fonty Design</small>
 											</h1>
 										</div>
 									</div>
@@ -602,15 +566,13 @@
 											<i class="fa fa-quote-right"></i>
 										</div>
 										<blockquote>
-											<p>Metus aliquet tincidunt metus, sit amet mattis lectus
-												sodales ac. Suspendisse rhoncus dictum eros, ut egestas eros
-												luctus eget. Nam nibh sem, mattis et feugiat ut, porttitor
-												nec risus.</p>
+											<p>평소 버리던 물품들을 이용해 직접 아이템을 만들 수 있다니, 개인적으로 너무 마음에 듭니다!!
+											 &nbsp;<br>흥미로운 아이디어 사이트, 번창하시길!!!</p>
 										</blockquote>
 										<div class="testimonial-review">
-											<img src="images/testimonials/2.png" alt="testimoni">
+											<img src="images/userimage/default_image1.jpg" alt="testimoni">
 											<h1>
-												Jonathan Dower<small>Leopard</small>
+												Jonathan Dower<small>Leopard 社 대표</small>
 											</h1>
 										</div>
 									</div>
@@ -622,15 +584,13 @@
 											<i class="fa fa-quote-right"></i>
 										</div>
 										<blockquote>
-											<p>Nunc aliquet tincidunt metus, sit amet mattis lectus
-												sodales ac. Suspendisse rhoncus dictum eros, ut egestas eros
-												luctus eget. Nam nibh sem, mattis et feugiat ut, porttitor
-												nec risus.</p>
+											<p>제가 평소 손으로 만드는 핸드메이드 상품을 무척 좋아하는데, 사이트를 이용하면서 정말 많은 상품들을 알아가요 ㅎㅎ.
+											이 사이트 만들어 주신 분들 정말 감사드립니다, 사랑해요~~♥♥♥</p>
 										</blockquote>
 										<div class="testimonial-review">
-											<img src="images/testimonials/3.png" alt="testimoni">
+											<img src="images/userimage/default_image2.jpg" alt="testimoni">
 											<h1>
-												Jonathan Dower<small>Leopard</small>
+												Hashimoto Kanna<small>Discovery Next 社</small>
 											</h1>
 										</div>
 									</div>
@@ -645,42 +605,6 @@
 						</div>
 					</div>
 					<!-- TESTIMONIALS END -->
-				</div>
-			</div>
-		</section>
-		<section class="clients">
-			<div class="container">
-				<div class="row sub_content">
-					<div class="col-lg-12 col-md-12 col-sm-12">
-						<div class="dividerHeading">
-							<h4>
-								<span>Our Clients</span>
-							</h4>
-
-						</div>
-
-						<div class="our_clients">
-							<ul class="client_items clearfix">
-								<li class="col-sm-3 col-md-3 col-lg-3"><a
-									href="services.html" data-placement="bottom"
-									data-toggle="tooltip" title="Client 1"><img
-										src="images/clients/1.png" alt="" /></a></li>
-								<li class="col-sm-3 col-md-3 col-lg-3"><a
-									href="services.html" data-placement="bottom"
-									data-toggle="tooltip" title="Client 2"><img
-										src="images/clients/2.png" alt="" /></a></li>
-								<li class="col-sm-3 col-md-3 col-lg-3"><a
-									href="services.html" data-placement="bottom"
-									data-toggle="tooltip" title="Client 3"><img
-										src="images/clients/3.png" alt="" /></a></li>
-								<li class="col-sm-3 col-md-3 col-lg-3"><a
-									href="services.html" data-placement="bottom"
-									data-toggle="tooltip" title="Client 4"><img
-										src="images/clients/4.png" alt="" /></a></li>
-							</ul>
-							<!--/ .client_items-->
-						</div>
-					</div>
 				</div>
 			</div>
 		</section>

@@ -19,7 +19,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Designed - MAːDÆ</title>
+<title>Designed Item - MAːDÆ</title>
 <meta name="description" content="">
 <link rel="shortcut icon" href="/made/images/icon.ico">
 <!-- CSS FILES -->
@@ -62,7 +62,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12">
 						<h2>Designed Item</h2>
 						<% if(m != null && m.getClassCode().equals("A")){ %>
-                    &nbsp;&nbsp;&nbsp;<button class="btn btn-default" onclick="location.href='/made/dinsert'">글 등록하기</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-default" onclick="location.href='/made/views/item/designInsertForm.jsp'">글 등록하기</button>
                     <% } %>
 						<nav id="breadcrumbs">
 							<ul>
