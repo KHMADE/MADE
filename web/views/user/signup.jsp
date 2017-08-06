@@ -26,7 +26,6 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    	
     <style>
  	#content {
  		background-color:#F6F6F6;
@@ -251,10 +250,27 @@ function sample4_execDaumPostcode() {
     }).open();
 }	
 
+function email_change(){
+	if(document.Form1.email.options[document.Form1.email.selectedIndex].value == '0'){
+	 document.Form1.email2.disabled = true;
+	 document.Form1.email2.value = "";
+	}
+	if(document.Form1.email.options[document.Form1.email.selectedIndex].value == '9'){
+	 document.Form1.email2.disabled = false;
+	 document.Form1.email2.value = "";
+	 document.Form1.email2.focus();
+	} else{
+	 document.Form1.email2.disabled = true;
+	 document.Form1.email2.value = document.Form1.email.options[document.Form1.email.selectedIndex].value;
+	}
+	}
+
+
 </script>
 
 </head>
 <body>
+	
 	<!--Start Header-->
 	<%@ include file="../../header.jsp" %>
 	<!--End Header-->
@@ -264,7 +280,6 @@ function sample4_execDaumPostcode() {
        <section class="page_head">
 			<div class="container">
 				<div class="row">
-				
 					<div class="col-lg-12 col-md-12 col-sm-12">
 						<h2>회원가입 창</h2>
 						<nav id="breadcrumbs">
@@ -275,9 +290,8 @@ function sample4_execDaumPostcode() {
 							</ul>
 						</nav>
 					</div>
-				
 				</div>
-			 </div>
+			</div>
 		</section>
         <div class="container" id="content">
         
@@ -299,18 +313,21 @@ function sample4_execDaumPostcode() {
 	</tr>
 	</table>
 	<br>
+	
 	<div id="content-form">
-	<FORM name="Form1">
+	<FORM name="Form1" action="/made/minsert" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="classCode" value="C">
 <table id="member-form" class="table table-striped">
  <tr><td colspan="4" align="center">회원 대표 이미지<br>
  
 	<img id="img_preview" class="img-circle"><br>
 
-	<input type="file" id="input_file" ></td></tr>
-	
- <tr><td colspan=2 align="left"><input type="text" placeholder="아이디"></td><td colspan="2" align="right"><input type="button" value="중복체크">아이디는 영문+숫자만 입력해주세요.</td></tr>
- <tr><td colspan=2><input type="password" placeholder="비밀번호"></td><td colspan=2>비밀번호는 문자+숫자8자리</td></tr>
- <tr><td colspan=2><input type="text" placeholder="비밀번호확인"></td><td colspan=2>비밀번호 확인</td></tr>
+	<input type="file" id="input_file" name="img"></td></tr>
+
+ <tr><td colspan=4 align="left"><input type="text" placeholder="닉네임" name="nickname"></td></tr>
+ <tr><td colspan=2 align="left"><input type="text" placeholder="아이디" name="userid"></td><td colspan="2" align="right"><input type="button" value="중복체크">아이디는 영문+숫자만 입력해주세요.</td></tr>
+ <tr><td colspan=2><input type="password" placeholder="비밀번호" name="userpwd"></td><td colspan=2>비밀번호는 문자+숫자8자리</td></tr>
+ <tr><td colspan=2><input type="password" placeholder="비밀번호확인" name="userpwd2"></td><td colspan=2>비밀번호 확인</td></tr>
    
  </table>
 
@@ -319,15 +336,15 @@ function sample4_execDaumPostcode() {
 
  
  <table id="member-form" class="table">
- <tr><td colspan=2><input type="text" placeholder="이름"></td><td colspan=2>이름에 숫자나 특수문자는 사용하실수 없습니다.</td></tr>
+ <tr><td colspan=2><input type="text" placeholder="이름" name="name"></td><td colspan=2>이름에 숫자나 특수문자는 사용하실수 없습니다.</td></tr>
  <tr>
  <td>생년월일<br></td>
 	 <td colspan=3>
 
 <SELECT name="FirstSelectYear" onchange="ChangeOptionDays('FirstSelect')">
-        <script type="text/javascript">
+        <SCRIPT type="text/javascript">
                 document.write(WriteYearOptions(50));
-        </script>
+        </SCRIPT>
 </SELECT>
 
 <SELECT name="FirstSelectMonth" onchange="ChangeOptionDays('FirstSelect')">
@@ -379,12 +396,11 @@ function sample4_execDaumPostcode() {
         <OPTION>31
 </SELECT>
 
-
 	 </td>
 	 
 	
 	 </tr>
-	 <tr><td>성별</td><td><input type="radio" name="gender">남</td><td><input type="radio" name="gender">여</td><td></td></tr>
+	 <tr><td>성별</td><td><input type="radio" name="gender" value="남">남</td><td><input type="radio" name="gender" value="여">여</td><td></td></tr>
  <tr><td>	<select name="phone" selected>
  			<option value="010">010
 			<option value="011">011
@@ -392,39 +408,54 @@ function sample4_execDaumPostcode() {
 			<option value="017">017
 			<option value="018">018
 		</select>
- 		</td><td colspan="2"><input type="text" placeholder="'-'을 빼고 입력"></td><td></td></tr>
- <tr><td colspan=2><input type="text" placeholder="이메일"></td><td><input type="text"></td><td><select name="email" selected>
- 			<option value="naver">naver.com
-			<option value="gmail">gmail.com
-			<option value="hanmail">hanmail.net
-			<option value="daum">daum.net
-			<option value="nate">nate.com
-			<option value="self">직접입력
-			
-		</select></td></tr>
+ 		</td><td colspan="2"><input type="text" placeholder="'-'을 빼고 입력" name="phone"></td><td></td></tr>
+ <tr>
+ <td><input type="text" name="email1" value="이메일" onfocus="this.value='';" style="width:100px"></td>
+ <td>&nbsp;@&nbsp;</td>
+ <td><input type="text" name="email2" value="" style="width:120px" disabled ></td>
+ <td>
+<select name="email" onchange="email_change()">
+    <option value="0" >선택하세요</option>
+    <option value="9">직접입력</option>
+    <option value="naver.com">naver.com</option>
+    <option value="nate.com">nate.com</option>
+    <option value="hanmail.net">hanmail.net</option>
+     <option value="hotmail.com">hotmail.com</option>
+     <option value="nate.com">nate.com</option>
+     <option value="yahoo.co.kr">yahoo.co.kr</option>
+     <option value="gmail.com">gmail.com</option>
+   </select>
+</td>
+</tr>
 		
 
 
 
 
  <tr>
- <td colspan="2"><input type="text" id="sample4_postcode" placeholder="우편번호"></td>
+ <td colspan="2"><input type="text" id="sample4_postcode" placeholder="우편번호" name="post_num"></td>
  <td colspan="2"><input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br></td>
 </tr>
 
 <tr>
-<td colspan="4"><input type="text" id="sample4_roadAddress" placeholder="도로명주소"></td>
+<td colspan="4"><input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="address1"></td>
 </tr>
 <tr>
-<td colspan="4"><input type="text" id="sample4_jibunAddress" placeholder="지번주소"><span id="guide" style="color:#999"></span></td>
+<td colspan="4"><input type="text" id="sample4_jibunAddress" placeholder="지번주소" name="address2"><span id="guide" style="color:#999"></span></td>
 
 
  
 </tr>
     
  </table>
- </FORM>
+ <div align="center">
+ 	<input type="submit" class="btn btn-primary btn-lg" value="가입하기" >
+ 	</div>
+ 	</FORM>
   </div>
+  
+  
+
  
  
  <div id="content-form2">
@@ -462,12 +493,11 @@ function sample4_execDaumPostcode() {
 			<option value="self">직접입력
 			
 		</select></td></tr>
- <tr><td colspan="3"><input type="text" placeholder="주소입력"></td><td><input type="button" value="주소찾기"></td></tr>
+ <tr><td colspan="3"><input type="text" placeholder="주소입력"></td>
+ <td><input type="button" value="주소찾기"></td></tr>
     
  </table>
-   <div align="center">
- 	<button type="button" class="btn btn-primary btn-lg">가입하기</button>
- 	</div>
+   
 
  
   </div>
@@ -486,6 +516,6 @@ function sample4_execDaumPostcode() {
 	<!--start footer-->
 	<%@ include file="../../footer.jsp" %>
 	<!--end footer-->
-<script src="project(sk).js"></script>
+
 </body>
 </html>

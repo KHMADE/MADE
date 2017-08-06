@@ -43,7 +43,7 @@ public class PartUpdateViewServlet extends HttpServlet {
 			view.forward(request, response);
 		}else{
 			view = request.getRequestDispatcher("404-page.jsp");
-			request.setAttribute("message", "부품 게시글 상세조회 실패!");
+			request.setAttribute("message", "부품 게시글 수정 페이지 조회 실패!");
 			view.forward(request, response);
 		}
 	}

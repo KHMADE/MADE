@@ -2,6 +2,7 @@ package member.model.service;
 
 import static common.JDBCTemplate.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
@@ -45,4 +46,14 @@ public class MemberService {
 		
 		return result;
 		}
+
+	/**
+	 * @return
+	 */
+	public ArrayList<String> selectAllDesigner() {
+		Connection con = getConnection();
+		ArrayList<String> DesignerList = new MemberDAO().selectAllDesigner(con);
+		close(con);
+		return DesignerList;
+	}
 }

@@ -30,7 +30,7 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style rel="stylesheet" type="text/css">
+    <style type="text/css">
         table td b{
             font-size: 15pt;
         }
@@ -76,7 +76,7 @@
         	<option value="ETC">기타</option>
         </select></td></tr>
         <tr><td><p><b>첨부된 이미지 파일 : </b></p></td><td>
-        <img id="img_preview" class="img-circle" src="/made/images/items/parts/<%=p.getPartCategory().toLowerCase()%>/<%=p.getPartImg()%>"><br>
+        <img id="img_preview" style="width:100px; height:100px;" class="img-circle" src="/made/images/items/parts/<%=p.getPartCategory().toLowerCase()%>/<%=p.getPartImg()%>"><br>
         <tr><td><p><b>수정할 이미지 파일 : </b></p></td><td>
         <img id="img_preview" class="img-circle"><br>
         <input type="file" id="input_file"></td></tr>

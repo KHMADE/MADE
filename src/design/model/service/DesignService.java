@@ -8,6 +8,8 @@ import java.util.HashMap;
 
 import design.model.dao.DesignDAO;
 import design.model.vo.Design;
+import design.model.vo.DesignPart;
+import part.model.vo.Part;
 
 public class DesignService {
 
@@ -110,13 +112,74 @@ public class DesignService {
 		close(con);
 	}
 
-	/**
-	 * @return
-	 */
 	public ArrayList<Design> selectTop5() {
 		Connection con = getConnection();
 		ArrayList<Design> list = new DesignDAO().designTop5(con);
 		close(con);
 		return list;
+	}
+	
+	public ArrayList<Design> selectRecent10() {
+		Connection con = getConnection();
+		ArrayList<Design> list = new DesignDAO().selectRecent10(con);
+		close(con);
+		return list;
+	}
+
+	public int insertDesignPart(ArrayList<DesignPart> deplist) {
+		Connection con = getConnection();
+		int[] result = new DesignDAO().insertDesignPart(con, deplist);
+		int result2 = 0;
+		for(int i = 0; i< result.length ; i++){
+			if (result[i] != -3) {
+			//  executeBatch의 리턴값은 int[]. 각각의 int값은 
+            // "0" 이상 -- 정상적인 처리 :  테이블의 변경된 행수를 나타낸다. 
+            // "-2" -- 정상적인 처리, 변경된 행수가 불분명하다. 
+            // "-3" -- 실행 실패
+				
+				if(i == result.length -1){
+					commit(con);
+					result2 = 1;
+				} else{
+					continue;
+				}
+			} else {
+				rollback(con);
+			}
+		}
+		close(con);
+		return result2;
+	}
+
+	public ArrayList<Part> selectDesignPartList(String dId) {
+		Connection con = getConnection();
+		ArrayList<Part> list = new DesignDAO().selectDesignPartList(con, dId);
+		close(con);
+		return list;
+	}
+
+	public int updateDesignPart(String dId, ArrayList<DesignPart> deplist) {
+		Connection con = getConnection();
+		int[] result = new DesignDAO().updateDesignPart(con, dId, deplist);
+		int result2 = 0;
+		for(int i = 0; i< result.length ; i++){
+			if (result[i] != -3) {
+			//  executeBatch의 리턴값은 int[]. 각각의 int값은 
+            // "0" 이상 -- 정상적인 처리 :  테이블의 변경된 행수를 나타낸다. 
+            // "-2" -- 정상적인 처리, 변경된 행수가 불분명하다. 
+            // "-3" -- 실행 실패
+				
+				if(i == result.length -1){
+					commit(con);
+					result2 = 1;
+				} else{
+					continue;
+				}
+			} else {
+				rollback(con);
+			}
+		}
+		close(con);
+		return result2;
 	}
 }

@@ -111,22 +111,19 @@ button#like:hover {
 					</div>
 				</div>
 				<div class="row sub_content">
-					<div class="col-lg-6">
+					<div class="col-lg-12">
 						<div class="dividerHeading">
 							<h4>
 								<span>Item Descriptions</span>
 							</h4>
 						</div>
 						<ul class="nav nav-tabs" id="myTab">
-							<li class="active"><a data-toggle="tab" href="#Popular">상품설명</a></li>
-							<li class=""><a data-toggle="tab" href="#Recent">상품설계도</a></li>
+							<li class="active"><a data-toggle="tab" href="#Popular">상품설명 & 상품 설계</a></li>
 							<li class=""><a data-toggle="tab" href="#Recent-Comment">Comment</a></li>
 						</ul>
 						<div class="tab-content clearfix" id="myTabContent">
 							<div id="Popular" class="tab-pane fade active in">
-								상품 설명
 								<%=p.getPartDesc()%></div>
-							<div id="Recent" class="tab-pane fade">상품 설계도.</div>
 							<div id="Recent-Comment" class="tab-pane fade">
 								<ul class="comments">
 									<li class="comments_list clearfix"><a href="#"

@@ -3,6 +3,8 @@ package order.model.vo;
 import java.sql.*;
 
 public class Order implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private String orderCode;
 	private String memberId;
 	private Date orderDate;

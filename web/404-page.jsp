@@ -60,11 +60,11 @@
 							<h1><a>4</a>04</h1>
 							<p>Sorry, Page you're looking for is not found</p>
 							<% if(exception != null){ %>
-							JSP 페이지에서 발생한 에러 메세지 : <%= exception.getMessage() %>
+							<h3>JSP 페이지에서 발생한 에러 메세지 : <%= exception.getMessage() %></h3>
 							<% } %>
 							<br>
-							Servlet 에서 전송한 에러 메세지 : 
-							<%= (String)request.getAttribute("message") %>
+							<h3>Servlet 에서 전송한 에러 메세지 : 
+							<%= (String)request.getAttribute("message") %></h3>
 							<br>
 							<a href="javascript:history.back();" class="btn btn-default btn-lg back_home">
 								<i class="fa fa-arrow-circle-o-left"></i>

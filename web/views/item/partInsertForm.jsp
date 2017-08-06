@@ -26,7 +26,7 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style rel="stylesheet" type="text/css">
+    <style  type="text/css">
         table td b{
             font-size: 15pt;
         }
@@ -72,7 +72,7 @@
         	<option value="ETC">기타</option>
         </select></td></tr>
         <tr><td><p><b>첨부 이미지 파일 : </b></p></td><td>
-        <img id="img_preview" class="img-circle"><br>
+        <img id="img_preview" style="width:100px; height:100px;" class="img-circle"><br>
         <input type="file" id="input_file" name="input_file"></td></tr>
         <tr><td colspan="2"><p><b>상품 설명 :</b></p>
         <textarea id="content" name="content" class="summernote"></textarea></td></tr>

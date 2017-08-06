@@ -75,8 +75,46 @@
 				}
 			});
 		};
+		function drecent10(){
+			$.ajax({
+				url : "/made/drecentlist",
+				type : "post",
+				dataType : "json",
+				success : function(data) {
+					//console.log(data);
+					var jsonStr = JSON.stringify(data); //객체를 문자열로 변환
+					//console.log(jsonStr);
+					var json = JSON.parse(jsonStr); //문자열을 배열 객체로 바꿈
+
+					var values = $("#r10").html();
+
+					for ( var i in json.list) {
+						//한글 깨짐을 막기 위해 문자 인코딩 처리한 json 객체의 값은 decodeURIComponent() 로 디코딩 처리함
+						values += '<li class="col-sm-3 col-md-3 col-lg-3">'
+							+' <div class="recent-item">'
+							+' <figure> <div class="touching medium">'
+							+' <img src="/made/images/items/designed/'+json.list[i].image+'" style="width:200px;height:170px;" alt="" />'
+							+' </div> <div class="option">'
+							+' <a href="javascript:CaricaFoto(\'/made/images/items/designed/'+json.list[i].image+'\')"'
+							+' class="hover-zoom mfg-image trigger"> <i class="fa fa-search" ></i> </a>'
+							<% if( m!= null) {%>
+							+' <a href="dDetail?id='+json.list[i].designCode+'" class="hover-link"><i class="fa fa-link"></i></a>'
+							<% } %>
+							+' </div> <figcaption class="item-description">'
+							+' <h5>'+json.list[i].category+'</h5>'
+							+' <span>'+decodeURIComponent(json.list[i].title)+'</span>'
+							+' </figcaption> </figure> </div> </li>'
+						}
+					$("#r10").html(values);
+				},
+				error : function(request,status,error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+			});
+		};
 		$(function() {
 			top5();
+			drecent10();
 			// 새로고침 1회
 			if (location.href.indexOf('#reload') == -1) 
 				  location.href += '#reload';
@@ -235,8 +273,9 @@
 					</div>
 				</div>
 			</div>
+		</section>
 		<!--Start Top 5-->
-	<!--Start recent work-->
+		<!--Start Recent 10-->
 		<section class="latest_work">
 			<div class="container">
 				<div class="row sub_content">
@@ -244,7 +283,7 @@
 						<div class="col-md-12">
 							<div class="dividerHeading">
 								<h4>
-									<span>Recent Designed Item</span>
+									<span>Recently Designed Item</span>
 								</h4>
 							</div>
 							<div class="carousel-navi">
@@ -260,180 +299,13 @@
 					</div>
 
 					<div class="jcarousel recent-work-jc">
-						<ul class="jcarousel-list">
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_1.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_2.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_2.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_3.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_8.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_4.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_3.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_5.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_4.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_5.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_2.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_7.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_3.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_8.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
+						<ul class="jcarousel-list" id="r10">
 						</ul>
 					</div>
 				</div>
 			</div>
 		</section>
-		<!--Start recent work-->
+		<!--End Recent 10-->
 
 		<!--start info service-->
 		<section class="info_service">
@@ -549,12 +421,12 @@
 											<i class="fa fa-quote-right"></i>
 										</div>
 										<blockquote>
-											<p>사이트를 이용하면서 일반 대량 구매 사이트와는 다른 순이익 도표화가 너무 맘에 들어 계속 관계를 맺고 있습니다.&nbsp;&nbsp;여러분 design11의 작품, 많이 이용해 주세요!!!</p>
+											<p>사이트를 이용하면서 일반 대량 구매 사이트와는 다른 순이익 도표화가 <br>너무 맘에 들어 계속 관계를 맺고 있습니다.<br>여러분 design11의 작품, 많이 이용해 주세요!!!</p>
 										</blockquote>
 										<div class="testimonial-review">
 											<img src="images/userimage/default_image.png" alt="testimoni">
 											<h1>
-												유OO 사장님<small>Fonty Design</small>
+												유OO 사장님<small>Team. 형설지공 대표</small>
 											</h1>
 										</div>
 									</div>
@@ -566,8 +438,9 @@
 											<i class="fa fa-quote-right"></i>
 										</div>
 										<blockquote>
-											<p>평소 버리던 물품들을 이용해 직접 아이템을 만들 수 있다니, 개인적으로 너무 마음에 듭니다!!
-											 &nbsp;<br>흥미로운 아이디어 사이트, 번창하시길!!!</p>
+											<p>평소 버리던 물품들을 이용해 직접 아이템을 만들 수 있다니!!! 한국에도 인건비라는 개념을 도입하여
+											<br>가격의 합려성을 고려한 점, 개인적으로 너무 마음에 듭니다!!
+											<br>흥미로운 아이디어 사이트군요. 번창하시길!!!</p>
 										</blockquote>
 										<div class="testimonial-review">
 											<img src="images/userimage/default_image1.jpg" alt="testimoni">
@@ -584,7 +457,7 @@
 											<i class="fa fa-quote-right"></i>
 										</div>
 										<blockquote>
-											<p>제가 평소 손으로 만드는 핸드메이드 상품을 무척 좋아하는데, 사이트를 이용하면서 정말 많은 상품들을 알아가요 ㅎㅎ.
+											<p>제가 평소 손으로 만드는 핸드메이드 상품을 무척 좋아하는데, <br>사이트를 이용하면서 정말 많은 상품들을 알아가요 ㅎㅎ.<br>
 											이 사이트 만들어 주신 분들 정말 감사드립니다, 사랑해요~~♥♥♥</p>
 										</blockquote>
 										<div class="testimonial-review">
@@ -608,9 +481,9 @@
 				</div>
 			</div>
 		</section>
+	</section>
 		<!--end wrapper-->
-	</section>
-	</section>
+
 	<!--start footer-->
 	<%@ include file="footer.jsp" %>
 	<!--end footer-->

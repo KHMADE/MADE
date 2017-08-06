@@ -42,20 +42,22 @@ public class MemberDAO {
 	public int insertMember(Connection con, Member m) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO MEMBER VALUES(?,?,?,?,?,?,?, SYSDATE,?,?,?,?)";
+		String sql = "INSERT INTO MEMBER VALUES(?,?,?,?,?,?,?,?,?,SYSDATE,?,0,?)";
+		//INSERT INTO MEMBER VALUES(ID,CLASSCODE,PWD,NAME,EMAIL,GENDER,BIRTH,PHONE,ADDR, SYSDATE,IMG,POINT,NICKNAME);
+		//m = new Member(userid, classCode, userpwd, name, email, gender, birth, phone, address, renameFileName);
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, m.getId());
 			pstmt.setString(2, m.getClassCode());
 			pstmt.setString(3, m.getPwd());
 			pstmt.setString(4, m.getName());
-			pstmt.setDate(5, m.getBirthday());
-			pstmt.setString(6, m.getEmail());
-			pstmt.setString(7, m.getPhone());
-			pstmt.setString(8, m.getAddress());
-			pstmt.setString(9, m.getProfileImg());
-			pstmt.setInt(10, m.getPoint());
-			pstmt.setString(11, m.getNickName());
+			pstmt.setString(5, m.getEmail());
+			pstmt.setString(6, m.getGender());
+			pstmt.setDate(7, m.getBirthday());
+			pstmt.setString(8, m.getPhone());
+			pstmt.setString(9, m.getAddress());
+			pstmt.setString(10, m.getProfileImg());
+			pstmt.setString(11, "TEST");
 			
 			result = pstmt.executeUpdate();
 			
@@ -110,5 +112,31 @@ public class MemberDAO {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<String> selectAllDesigner(Connection con) {
+		ArrayList<String> designerList = new ArrayList<String>();
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = "SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_CLASS_CODE = 'D'";
+		
+		try{
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if (rset != null) {
+				while (rset.next()) {
+				designerList.add(rset.getString(1));
+				}
+			}
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return designerList;
 	}
 }

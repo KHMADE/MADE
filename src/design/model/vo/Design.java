@@ -1,6 +1,7 @@
 package design.model.vo;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Design implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
@@ -14,9 +15,19 @@ public class Design implements java.io.Serializable{
 	private String designImg;
 	private String designerId;
 	private int designCnt;
-	
+	private ArrayList<DesignPart> deplist; 
 	public Design() {}
 
+	public Design(String designId, String designName, String designCategory, String designDesc, int designPrice, String designImg, String designerId) {
+		super();
+		this.designId = designId;
+		this.designName = designName;
+		this.designCategory = designCategory;
+		this.designDesc = designDesc;
+		this.designPrice = designPrice;
+		this.designImg = designImg;
+		this.designerId = designerId;
+	}
 	public Design(String designName, String designCategory, String designDesc, int designPrice, String designImg, String designerId) {
 		super();
 		this.designName = designName;
@@ -49,10 +60,43 @@ public class Design implements java.io.Serializable{
 		this.designCnt = designCnt;
 	}
 
+	public Design(String designName, String designCategory, String designDesc, int designPrice, String designImg, String designerId, ArrayList<DesignPart> deplist) {
+		super();
+		this.designName = designName;
+		this.designCategory = designCategory;
+		this.designDesc = designDesc;
+		this.designPrice = designPrice;
+		this.designImg = designImg;
+		this.designerId = designerId;
+		this.deplist = deplist;
+	}
+
+	public Design(String designId, String designName, String designCategory, Date designDate, String designDesc, int designPrice, String designImg, String designerId, int designCnt, ArrayList<DesignPart> deplist) {
+		super();
+		this.designId = designId;
+		this.designName = designName;
+		this.designCategory = designCategory;
+		this.designDate = designDate;
+		this.designDesc = designDesc;
+		this.designPrice = designPrice;
+		this.designImg = designImg;
+		this.designerId = designerId;
+		this.designCnt = designCnt;
+		this.deplist = deplist;
+	}
+
 	@Override
 	public String toString() {
 		return "Design [designId=" + designId + ", designName=" + designName + ", designCategory=" + designCategory + ", designDate=" + designDate + ", designDesc=" + designDesc + ", designPrice=" + designPrice + ", designImg=" + designImg
-				+ ", designerId=" + designerId + ", designCnt=" + designCnt + "]";
+				+ ", designerId=" + designerId + ", designCnt=" + designCnt + ", deplist=" + deplist + "]";
+	}
+
+	public ArrayList<DesignPart> getDeplist() {
+		return deplist;
+	}
+
+	public void setDeplist(ArrayList<DesignPart> deplist) {
+		this.deplist = deplist;
 	}
 
 	public int getDesignCnt() {

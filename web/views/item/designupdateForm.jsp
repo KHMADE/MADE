@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="part.model.vo.Part, java.util.ArrayList" %>
+<%@ page import="design.model.vo.Design, part.model.vo.Part, java.util.ArrayList" %>
 <%	
+	Design d = (Design) request.getAttribute("degisn");
 	ArrayList<Part> plist = (ArrayList<Part>)request.getAttribute("plist");
-	ArrayList<String> didlist = (ArrayList<String>)request.getAttribute("didlist");
+	ArrayList<Part> plist_all = (ArrayList<Part>)request.getAttribute("plist_all");
+	int max = plist.size();
 %>
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="ko"> <![endif]-->
@@ -12,7 +14,7 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>디자인 상품 등록 페이지 - MAːDÆ</title>
+	<title>디자인 상품 게시글 수정 페이지 - MAːDÆ</title>
 	<meta name="description" content="">
 	<link rel="shortcut icon" href="/made/images/icon.ico">
 	<!-- CSS FILES -->
@@ -49,13 +51,13 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<h2>디자인 상품 등록</h2>
+						<h2>디자인 상품 게시글 수정</h2>
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
 								<li><a href="/made/index.jsp">Home</a></li>
 								<li><a href="/made/designitemlist?page=1">Design</a></li>
-								<li>Design Item</li>
+								<li>Design Item Update</li>
 							</ul>
 						</nav>
 					</div>
@@ -63,20 +65,11 @@
 			</div>
 		</section>
         <div class="container">
-        <form id="insert" method="post" action="/made/dinsert" enctype="multipart/form-data">
+        <form id="update" method="post" action="/made/dupdate?id=<%=d.getDesignId() %>" enctype="multipart/form-data">
         <input type="number" name="partCnt" id="partCnt" style="display: none;">
         <table class="table table-bordered table-striped table-hover">
-        <tr><td><b>상품명 : </b></td><td><input type="text" name="title" id="title"></td></tr>
-        <tr><td><b>디자이너 명 : </b></td><td>
-        	<select name="designer" id="designer" style="text-ailgn:center;">
-        	<option value="">--- 선택 ---</option>
-        	<option value="admin">-- XXX --</option>
-        	<% for(String d : didlist){ %>
-        	<option value="<%=d%>"><%=d%></option>
-        	<% } %>
-        	</select>
-        	</td></tr>
-        <tr><td><b>완제품 가격 : </b></td><td><input type="number" name="price" id="price" min="0"> 원</td></tr>
+        <tr><td><b>상품명 : </b></td><td><input type="text" name="title" id="title" value="<%=d.getDesignName()%>"></td></tr>
+        <tr><td><b>디자이너 명 : </b></td><td><%= d.getDesignerId() %></td></tr>
         <tr><td><b>카테고리 : </b></td><td>
         <select name="category" id="category" style="text-ailgn:center;">
         	<option value="">--- 선택 ---</option>
@@ -85,27 +78,50 @@
         	<option value="PLASTIC">플라스틱</option>
         	<option value="ETC">기타</option>
         </select></td></tr>
+        <tr><td><b>완제품 가격 : </b></td><td><input type="number" name="price" id="price" min="0" value="<%=d.getDesignPrice()%>"> 원</td></tr>
         <tr><td><b>부품 사용 유무 </b></td><td>
+        <% if (plist.size() < 1) { %>
         	<input class="btn-primary" type="checkbox" id="partSelect" name="partSelect">사용
         	&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-default" name="addPart" id="addPart" style="display: none;"><i class="fa fa-plus"></i></button>
         	&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-default" name="delPart" id="delPart" style="display: none;"><i class="fa fa-minus"></i></button>
         	<div id="partlist" class="partlist" style="margin-top:7px; display: none;">
         	<select name="part1" id="part1" style="text-ailgn:center;">
         	<option value="">--- 선택 ---</option>
-        	<% for(Part p : plist){ %>
+        	<% for(Part p : plist_all){ %>
         	<option value="<%=p.getPartId()%>"><%=p.getPartName()%></option>
         	<% } %>
         	</select>&nbsp;&nbsp;&nbsp;<input type="number" id="partQuan1" name="partQuan1" min="1" max="50" size="3">&nbsp;SET
         	&nbsp;&nbsp;&nbsp;
         	</div>
+ 		<% } else { %>
+ 			<input class="btn-primary" type="checkbox" id="partSelect" name="partSelect" checked>사용
+ 			&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-default" name="addPart" id="addPart"><i class="fa fa-plus"></i></button>
+        	&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-default" name="delPart" id="delPart"><i class="fa fa-minus"></i></button>
+        	<% for(int i = 0; i<plist.size(); i++){ %>
+        	<div id="partlist" class="partlist" style="margin-top:7px;">
+        	<select name="part<%= i+1 %>" id="part<%= i+1 %>" style="text-ailgn:center;">
+        	<option value="">--- 선택 ---</option>
+        	<% for(Part p : plist_all){ %>
+        	<% if(p.getPartId().equals(plist.get(i).getPartId())) { %>
+        	<option value="<%=p.getPartId()%>" selected><%=p.getPartName()%></option>
+        	<% } else { %>
+        	<option value="<%=p.getPartId()%>"><%=p.getPartName()%></option>
+        	<% }} %>
+        	</select>&nbsp;&nbsp;&nbsp;<input type="number" id="partQuan<%= i+1 %>" name="partQuan<%= i+1 %>" min="1" max="50" size="3" value="<%=plist.get(i).getQuantity()%>">&nbsp;SET
+        	&nbsp;&nbsp;&nbsp;
+        	</div>
+        	<% } %>
+ 		<% } %>
         	</td></tr>
-	    <tr><td><p><b>첨부 이미지 파일 : </b></p></td><td>
-        <img id="img_preview" style="width:100px; height:100px;" class="img-circle"><br>
-        <input type="file" id="input_file" name="input_file"></td></tr>
+	    <tr><td><p><b>첨부된 이미지 파일 : </b></p></td><td>
+        <img id="img_preview" style="width:100px; height:100px;" class="img-circle" src="/made/images/items/designed/<%=d.getDesignImg()%>"><br>
+        <tr><td><p><b>수정할 이미지 파일 : </b></p></td><td>
+        <img id="img_preview" class="img-circle"><br>
+        <input type="file" id="input_file"></td></tr>
         <tr><td colspan="2"><p><b>상품 설명 :</b></p>
-        <textarea id="content" name="content" class="summernote"></textarea></td></tr>
+        <textarea id="content" name="content" class="summernote"><%=d.getDesignDesc()%></textarea></td></tr>
         <tr><td colspan="2" align="center">
-        <button class="btn btn-default" type="submit">등록하기</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-default" type="submit">수정하기</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button class="btn btn-default" type="reset">취소하기</button></td></tr>
         </table></form>
         <p align="center"><button class="btn btn-default" type="button" onclick="javascript:history.go(-1);">이전 페이지로</button></p>
@@ -114,9 +130,9 @@
     
 <!-- summernote apply -->
 	<script type="text/javascript">
-	var cnt = 0;
+	var cnt = <%= plist.size()%>;
 	
-	$("#insert").submit(function( event ) {
+	$("#update").submit(function( event ) {
 		if($("#title").val() == ""){
             alert("상품 명을 입력해주세요!");
             $("#title").focus();
@@ -149,14 +165,14 @@
     			}
             });
     		$("#partCnt").val(cnt);
-    		alert($("#title").val()+" 상품이 정상적으로 등록되었습니다!!!");
+    		alert($("#title").val()+" 상품이 정상적으로 수정되었습니다!!!");
         	return;
        	}
 	});
   $(function() {
 	  //$("#partlist").hide();
-	  
-      $("#partSelect").change(function(){
+	$("select option[value='<%= d.getDesignCategory()%>']").attr("selected", true);
+	$("#partSelect").change(function(){
         if($("#partSelect").is(":checked")){
             cnt = 1;
             $(".partlist").toggle("slow");

@@ -10,21 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import design.model.service.DesignService;
-import design.model.vo.Design;
+import member.model.service.MemberService;
+import part.model.service.PartService;
 import part.model.vo.Part;
 
 /**
- * Servlet implementation class DesignDetailViewServlet
+ * Servlet implementation class DesignInsertViewServlet
  */
-@WebServlet("/dDetail")
-public class DesignDetailViewServlet extends HttpServlet {
+@WebServlet("/dinsertView")
+public class DesignInsertViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DesignDetailViewServlet() {
+    public DesignInsertViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,25 +33,20 @@ public class DesignDetailViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		String dId = request.getParameter("id");
-		DesignService dservice = new DesignService();
-		dservice.addReadCount(dId);
-		ArrayList<Part> plist = dservice.selectDesignPartList(dId);
 		
-		Design d = dservice.designSelect(dId);
-		int oriPrice = dservice.designPartPrice(dId);
-		if(d != null){
-			RequestDispatcher view = request.getRequestDispatcher("views/item/designedDetailView.jsp");
-			request.setAttribute("design", d);
+		ArrayList<Part> plist = new PartService().selectList();
+		ArrayList<String> didlist = new MemberService().selectAllDesigner();
+		RequestDispatcher view = null;
+		if(plist != null){
+			view = request.getRequestDispatcher("views/item/designInsertForm.jsp");
 			request.setAttribute("plist", plist);
-			//System.out.println(plist);
-			request.setAttribute("oriPrice", oriPrice);
-			//request.setAttribute("page", Integer.parseInt(request.getParameter("page")));
+			request.setAttribute("didlist", didlist);
 			view.forward(request, response);
 		} else {
-			response.sendRedirect("404-page.jsp");
+			view = request.getRequestDispatcher("404-page.jsp");
+			request.setAttribute("message", "등록에 필요한 부품 아이템 조회 실패");
+			view.forward(request, response);
 		}
 	}
 

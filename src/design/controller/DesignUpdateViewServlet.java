@@ -12,19 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import design.model.service.DesignService;
 import design.model.vo.Design;
+import part.model.service.PartService;
 import part.model.vo.Part;
 
 /**
- * Servlet implementation class DesignDetailViewServlet
+ * Servlet implementation class DesignUpdateViewServlet
  */
-@WebServlet("/dDetail")
-public class DesignDetailViewServlet extends HttpServlet {
+@WebServlet("/dupView")
+public class DesignUpdateViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DesignDetailViewServlet() {
+    public DesignUpdateViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,25 +34,26 @@ public class DesignDetailViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		String dId = request.getParameter("id");
-		DesignService dservice = new DesignService();
-		dservice.addReadCount(dId);
-		ArrayList<Part> plist = dservice.selectDesignPartList(dId);
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
 		
-		Design d = dservice.designSelect(dId);
-		int oriPrice = dservice.designPartPrice(dId);
+		String code = request.getParameter("id");
+		DesignService dservice = new DesignService();
+		Design d = dservice.designSelect(code);
+		ArrayList<Part> plist_all = new PartService().selectList();
+		ArrayList<Part> plist = dservice.selectDesignPartList(code);
+		
+		RequestDispatcher view = null;
 		if(d != null){
-			RequestDispatcher view = request.getRequestDispatcher("views/item/designedDetailView.jsp");
-			request.setAttribute("design", d);
+			view = request.getRequestDispatcher("views/item/designupdateForm.jsp");
+			request.setAttribute("degisn", d);
 			request.setAttribute("plist", plist);
-			//System.out.println(plist);
-			request.setAttribute("oriPrice", oriPrice);
-			//request.setAttribute("page", Integer.parseInt(request.getParameter("page")));
+			request.setAttribute("plist_all", plist_all);
 			view.forward(request, response);
-		} else {
-			response.sendRedirect("404-page.jsp");
+		}else{
+			view = request.getRequestDispatcher("404-page.jsp");
+			request.setAttribute("message", "디자인 상품 게시글 수정 페이지 조회 실패!");
+			view.forward(request, response);
 		}
 	}
 

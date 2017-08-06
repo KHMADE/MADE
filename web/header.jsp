@@ -94,7 +94,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-    $('.modal-footer button').click(function(){
+    $('.modal-footer > button').click(function(){
     	$.ajax({
 			url : "/made/login",
 			data : {id : $('#uLogin').val(), pwd : $('#uPassword').val()},
@@ -154,7 +154,20 @@ $(function(){
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- Modal End -->
-  
+
+<!-- 로그인 여부를 확인하고 로그인 모달 창 호출 -->
+<script type="text/javascript">
+	$(function(){
+		$('#mypage ul li a').on("click", function(){
+			if($('a').first().text().trim() == "Login"){
+				$("#login-modal").modal();
+				return false;
+			}
+		});
+	});
+</script>
+
+
 <header id="header" class="clearfix">
 	<div id="top-bar">
 		<div class="container">

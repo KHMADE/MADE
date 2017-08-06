@@ -62,7 +62,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12">
 						<h2>Designed Item</h2>
 						<% if(m != null && m.getClassCode().equals("A")){ %>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-default" onclick="location.href='/made/views/item/designInsertForm.jsp'">글 등록하기</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-default" onclick="location.href='/made/dinsertView'">글 등록하기</button>
                     <% } %>
 						<nav id="breadcrumbs">
 							<ul>

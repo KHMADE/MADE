@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="design.model.vo.*, member.model.vo.*, java.sql.*"%>
+<%@ page import="part.model.vo.Part, design.model.vo.Design, member.model.vo.*, java.sql.*, java.util.ArrayList"%>
 <%
 	Design d = (Design) request.getAttribute("design");
 	int oriPrice = (int) request.getAttribute("oriPrice");
+	ArrayList<Part> plist = (ArrayList<Part>) request.getAttribute("plist");
 %>
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="ko"> <![endif]-->
@@ -63,7 +64,7 @@ button#like:hover {
 					<div class="col-lg-12 col-md-12 col-sm-12">
 					<% if (m != null && m.getClassCode().equals("A")) { %>
 						<h2>Item <%=d.getDesignName()%>&nbsp;&nbsp;&nbsp;&nbsp;
-						<button class="btn btn-default" onclick="location.href='';">수정하기</button>&nbsp;&nbsp;&nbsp;
+						<button class="btn btn-default" onclick="location.href='/made/dupView?id=<%=d.getDesignId()%>';">수정하기</button>&nbsp;&nbsp;&nbsp;
 						<button class="btn btn-default" onclick="location.href='/made/ddelete?id=<%=d.getDesignId()%>';">삭제하기</button></h2>
 						<% } else { %>
 						<h2>Item <%=d.getDesignName()%></h2>
@@ -95,6 +96,17 @@ button#like:hover {
 							<ul class="details">
 								<li><span>Designed by </span><%=d.getDesignerId()%></li>
 								<li><span>재질:</span><%=d.getDesignCategory()%></li>
+								<li><span>사용된 자재:</span>
+								<% if(plist.size() != 0) { %>
+								<table>
+									<% for(Part p : plist) {%>
+									<tr><td><a href="/made/pDetail?id=<%=p.getPartId()%>&page=1"><b><%=p.getPartName() %></b></a>&nbsp;&nbsp;<%=p.getPrice() %>원 &nbsp;&nbsp; <%=p.getQuantity() %>개</td></tr>
+								<% } %>
+								</table>
+								<% } else {%>
+									제공 자재 없음
+								<% } %>
+								</li>
 								<li><span>디자인 가격:</span><%=d.getDesignPrice()%>원</li>
 								<li><span>완제품 구매:</span><input type="checkbox" name="chk"
 									id="chk"></li>
@@ -114,22 +126,20 @@ button#like:hover {
 					</div>
 				</div>
 				<div class="row sub_content">
-					<div class="col-lg-6">
+					<div class="col-lg-12">
 						<div class="dividerHeading">
 							<h4>
 								<span>Item Descriptions</span>
 							</h4>
 						</div>
 						<ul class="nav nav-tabs" id="myTab">
-							<li class="active"><a data-toggle="tab" href="#Popular">상품설명</a></li>
-							<li class=""><a data-toggle="tab" href="#Recent">상품설계도</a></li>
+							<li class="active"><a data-toggle="tab" href="#Popular">상품설명 & 상품 설계</a></li>
 							<li class=""><a data-toggle="tab" href="#Recent-Comment">Comment</a></li>
 						</ul>
 						<div class="tab-content clearfix" id="myTabContent">
 							<div id="Popular" class="tab-pane fade active in">
 								상품 설명
 								<%=d.getDesignDesc()%></div>
-							<div id="Recent" class="tab-pane fade">상품 설계도.</div>
 							<div id="Recent-Comment" class="tab-pane fade">
 								<ul class="comments">
 									<li class="comments_list clearfix"><a href="#"
@@ -159,6 +169,55 @@ button#like:hover {
 											leo, a lobortis nisi dui ut odio. Nullam ultrices, eros
 											accumsan vulputate faucibus, turpis tortor.
 										</p></li>
+										<li>
+										<div id="writeReview">
+											<div class="dividerHeading">
+                               				 <h4><span>후기 작성하기</span></h4>
+                               				 </div>
+                               				 <form>
+								<textarea id="content" name="content" class="summernote"></textarea>
+								<p align="center">
+								<button type="button" class="btn btn-default">등록하기</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="button" class="btn btn-default">취소하기</button></p>
+								</form>
+								<script>
+								$(function(){
+									$('.summernote').summernote({
+									      width: '100%',	    
+									      height: 100,          // 기본 높이값
+									      minHeight: null,      // 최소 높이값(null은 제한 없음)
+									      maxHeight: null,      // 최대 높이값(null은 제한 없음)
+									      focus: true,          // 페이지가 열릴때 포커스를 지정함
+									      lang: "ko-KR",         // 한국어 지정(기본값은 en-US)
+									      callbacks: {
+									      onImageUpload: function(files, editor, welEditorble) {
+									    	  console.log(files);
+									    	  console.log(files[0]);
+											data = new FormData();
+											data.append("file",files[0]);
+											var $note = $(this);
+											$.ajax({
+												data : data,
+												type : "post",
+												url : '/made/designUploadImg', // servlet url
+												cache : false,
+												contentType : false,
+												processData : false,
+												success : function(url){
+													//alert(url);
+													$note.summernote('insertImage',url);
+												}, error : function(request,status,error) {
+													alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+												}
+											});
+										}
+									      }
+									    });
+								});
+								</script>
+								</div>
+										</li>
 								</ul>
 							</div>
 						</div>
@@ -169,7 +228,7 @@ button#like:hover {
 						<div class="col-md-12">
 							<div class="dividerHeading">
 								<h4>
-									<span>Recent Work</span>
+									<span>Recent Item</span>
 								</h4>
 							</div>
 							<div class="carousel-navi">
@@ -185,166 +244,6 @@ button#like:hover {
 					</div>
 					<div class="jcarousel recent-work-jc">
 						<ul class="jcarousel-list">
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_1.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_2.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_3.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_4.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_5.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_1.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_2.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_3.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
 						</ul>
 					</div>
 				</div>
@@ -356,8 +255,65 @@ button#like:hover {
 	<%@ include file="../../footer.jsp" %>
 	<!--end footer-->
 	<script>
+	function drecent10(){
+		$.ajax({
+			url : "/made/drecentlist",
+			type : "post",
+			dataType : "json",
+			success : function(data) {
+				//console.log(data);
+				var jsonStr = JSON.stringify(data); //객체를 문자열로 변환
+				//console.log(jsonStr);
+				var json = JSON.parse(jsonStr); //문자열을 배열 객체로 바꿈
+
+				var values = $(".jcarousel-list").html();
+
+				for ( var i in json.list) {
+					//한글 깨짐을 막기 위해 문자 인코딩 처리한 json 객체의 값은 decodeURIComponent() 로 디코딩 처리함
+					values += '<li class="col-sm-3 col-md-3 col-lg-3">'
+					+'<div class="recent-item"> <figure> <div class="touching medium">'
+								+' <img src="/made/images/items/designed/'+json.list[i].image+'" style="width:200px;height:170px;" alt="" />'
+							+' </div> <div class="option">'
+								+' <a href="javascript:CaricaFoto(\'/made/images/items/designed/'+json.list[i].image+'\')"'
+								+'	class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>'
+								<% if( m!= null) {%>
+								+' <a href="dDetail?id='+json.list[i].designCode+'" class="hover-link"><i class="fa fa-link"></i></a>'
+								<% } %>
+								+' </div> <figcaption class="item-description">'
+								+' <h5>'+json.list[i].category+'</h5>'
+								+' <span>'+decodeURIComponent(json.list[i].title)+'</span>'
+								+' </figcaption> </figure> </div> </li>';
+					}
+				$(".jcarousel-list").html(values);
+			},
+			error : function(request,status,error) {
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	};
+	function CaricaFoto(img){ 
+		foto1= new Image(); 
+		foto1.src=(img); 
+		Controlla(img); 
+	}; 
+	function Controlla(img){ 
+		if((foto1.width!=0)&&(foto1.height!=0)){ 
+			viewFoto(img); 
+		} else{ 
+			funzione="Controlla('"+img+"')"; 
+			intervallo=setTimeout(funzione,20); 
+		} 
+	}; 
+
+	function viewFoto(img){ 
+			largh=foto1.width+20; 
+			altez=foto1.height+20; 
+			stringa="width="+largh+",height="+altez; 
+			finestra=window.open(img,"",stringa); 
+	};
 		var price = <%=oriPrice%>
 		$(function(){
+			drecent10();
 			$("#price").val(price);
 			$("#chk").change(function(){
 		        if($(this).is(":checked")){
@@ -375,6 +331,7 @@ button#like:hover {
 			});
 		});
 	</script>
+	
 	<!-- I'm Port 전자결제 -->
 	<script type="text/javascript"
 		src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
