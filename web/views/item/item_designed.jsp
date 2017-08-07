@@ -109,7 +109,7 @@
 												<a href="/made/images/items/designed/<%=d.getDesignImg()%>"
 													class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
 													<% if(m != null ) {%>
-												<a href="dDetail?id=<%=d.getDesignId() %>" class="hover-link"><i
+												<a href="dDetail?id=<%=d.getDesignId()%>&mid=<%=m.getId()%>" class="hover-link"><i
 													class="fa fa-link"></i></a>
 													<% } %>
 											</div>

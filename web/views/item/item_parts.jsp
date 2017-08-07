@@ -116,7 +116,7 @@
 												<%
 													if (m != null) {
 												%>
-												<a href="pDetail?id=<%=p.getPartId()%>&page=<%=currentPage%>" class="hover-link"><i
+												<a href="pDetail?id=<%=p.getPartId()%>&page=<%=currentPage%>&mid=<%= m.getId() %>" class="hover-link"><i
 													class="fa fa-link"></i></a>
 												<%
 													}

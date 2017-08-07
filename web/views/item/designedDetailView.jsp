@@ -4,6 +4,7 @@
 <%
 	Design d = (Design) request.getAttribute("design");
 	int oriPrice = (int) request.getAttribute("oriPrice");
+	int likechk = ((Integer)request.getAttribute("like")).intValue();
 	ArrayList<Part> plist = (ArrayList<Part>) request.getAttribute("plist");
 %>
 <!DOCTYPE html>
@@ -32,8 +33,13 @@
 <link rel="stylesheet" type="text/css" href="/made/css/switcher.css"
 	media="screen" />
 <style>
-button#like {
+button.like {
 	background: #fcabdd;
+	color: black;
+}
+
+button.unlike {
+	background: #efdee9;
 	color: black;
 }
 
@@ -117,7 +123,11 @@ button#like:hover {
 							</ul>
 							<br>
 							<p align="center"><% if(m != null){ %>
-								<button class="btn btn-default" id="like">♥</button>
+							<% if(likechk != 0) { %>
+								<button class="btn btn-default like" id="like">♥</button>
+							<% } else { %>
+								<button class="btn btn-default unlike" id="like">♥</button>
+							<% } %>
 								&nbsp;&nbsp;
 								<button class="btn btn-default" onclick="pay_test();">구매하기</button>
 								<% } %>
@@ -133,7 +143,7 @@ button#like:hover {
 							</h4>
 						</div>
 						<ul class="nav nav-tabs" id="myTab">
-							<li class="active"><a data-toggle="tab" href="#Popular">상품설명 & 상품 설계</a></li>
+							<li class="active"><a data-toggle="tab" href="#Popular">상품설명 &amp; 상품 설계</a></li>
 							<li class=""><a data-toggle="tab" href="#Recent-Comment">Comment</a></li>
 						</ul>
 						<div class="tab-content clearfix" id="myTabContent">
@@ -228,7 +238,7 @@ button#like:hover {
 						<div class="col-md-12">
 							<div class="dividerHeading">
 								<h4>
-									<span>Recent Item</span>
+									<span>Recently Designed Item</span>
 								</h4>
 							</div>
 							<div class="carousel-navi">
@@ -311,7 +321,8 @@ button#like:hover {
 			stringa="width="+largh+",height="+altez; 
 			finestra=window.open(img,"",stringa); 
 	};
-		var price = <%=oriPrice%>
+		var likechk = <%= likechk %>;
+		var price = <%=oriPrice%>;
 		$(function(){
 			drecent10();
 			$("#price").val(price);
@@ -328,6 +339,34 @@ button#like:hover {
 				} else {
 					$("#price").val($("#quan").val()*price);
 				}
+			});
+			
+			$("#like").on('click',function(){
+				$.ajax({
+					url : "/made/designLike",
+					type : "post",
+					data : {
+						like : likechk,
+						mid : "<%=m.getId()%>",
+						did : "<%=d.getDesignId()%>"
+					},
+					success : function(data) {
+						if(data != 0){
+							likechk = data;
+							$("#like").removeClass('unlike');
+							$("#like").addClass('like');
+							alert("찜하기 되었습니다.");
+						} else {
+							likechk = data;
+							$("#like").removeClass('like');
+							$("#like").addClass('unlike');
+							alert("찜하기가 해제 되었습니다.");	
+						}
+					},
+					error : function(request,status,error) {
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}
+				});
 			});
 		});
 	</script>

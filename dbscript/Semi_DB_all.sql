@@ -431,7 +431,7 @@ COMMENT ON COLUMN ORDER_INFO.PART_CODE IS '부품 코드';
 CREATE TABLE PART_SET (
 	DESIGN_CODE VARCHAR2(14) NOT NULL, /* 디자인 코드 */
 	PART_CODE VARCHAR2(14) NOT NULL, /* 부품 코드 */
-       QUANTITY NUMBER     /* 부품 갯수 */
+    QUANTITY NUMBER     /* 부품 갯수 */
 );
 
 COMMENT ON TABLE PART_SET IS '부품 묶음';
@@ -743,7 +743,6 @@ ALTER TABLE QA
 --		REFERENCES PART (
 --			PART_CODE
 --		);
-              
               
 /* 회원 정보 추가 */
 INSERT INTO MEMBER_CLASS VALUES('A','관리자');

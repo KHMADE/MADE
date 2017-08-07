@@ -277,4 +277,98 @@ public class PartDAO {
 
 		return result;
 	}
+
+	public int likechk(Connection con, String pid, String mid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int chk = 0;
+		String sql = "SELECT * FROM LIKELIST WHERE PART_CODE = ? AND MEMBER_ID = ?";
+		try{
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pid);
+			pstmt.setString(2, mid);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				chk = 1;
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return chk;
+	}
+
+	public int insertLike(Connection con, String mid, String pid) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO LIKELIST VALUES(?, null, ?)";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, pid);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteLike(Connection con, String mid, String pid) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "DELETE FROM LIKELIST WHERE MEMBER_ID = ? AND PART_CODE = ?";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, pid);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<Part> selectRecent10(Connection con) {
+		ArrayList<Part> partList = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = "SELECT * FROM (SELECT * FROM PART ORDER BY PART_DATE DESC) WHERE ROWNUM < 11";
+		
+		try{
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			if(rset != null){
+				partList = new ArrayList<Part>();
+				while(rset.next()){
+					partList.add(new Part(rset.getString("PART_CODE"),
+							rset.getString("PART_TITLE"),
+							rset.getString("PART_CATEGORY"),
+							rset.getDate("PART_DATE"),
+							rset.getInt("PART_PRICE"),
+							rset.getInt("PART_STOCK"),
+							rset.getString("PART_CONTENTS"),
+							rset.getString("PART_IMG"),
+							rset.getInt("PART_COUNT")));
+				}
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return partList;
+	}
 }

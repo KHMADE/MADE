@@ -3,6 +3,7 @@
 <%@ page import="part.model.vo.Part, member.model.vo.* , java.sql.*"%>
 <%	
 	Part p = (Part) request.getAttribute("part");
+	int likechk = ((Integer)request.getAttribute("like")).intValue();
 %>
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="ko"> <![endif]-->
@@ -30,8 +31,13 @@
 <link rel="stylesheet" type="text/css" href="/made/css/switcher.css"
 	media="screen" />
 <style>
-button#like {
+button.like {
 	background: #fcabdd;
+	color: black;
+}
+
+button.unlike {
+	background: #efdee9;
 	color: black;
 }
 
@@ -102,7 +108,11 @@ button#like:hover {
 							<br>
 							<p align="center">
 								<% if(m != null){ %>
-								<button class="btn btn-default" id="like">♥</button>
+								<% if(likechk != 0) { %>
+								<button class="btn btn-default like" id="like">♥</button>
+								<% } else { %>
+								<button class="btn btn-default unlike" id="like">♥</button>
+								<% } %>
 								&nbsp;&nbsp;
 								<button class="btn btn-default" onclick="pay_test();">구매하기</button>
 								<% } %>
@@ -118,7 +128,7 @@ button#like:hover {
 							</h4>
 						</div>
 						<ul class="nav nav-tabs" id="myTab">
-							<li class="active"><a data-toggle="tab" href="#Popular">상품설명 & 상품 설계</a></li>
+							<li class="active"><a data-toggle="tab" href="#Popular">상품설명 &amp; 상품 설계</a></li>
 							<li class=""><a data-toggle="tab" href="#Recent-Comment">Comment</a></li>
 						</ul>
 						<div class="tab-content clearfix" id="myTabContent">
@@ -163,7 +173,7 @@ button#like:hover {
 						<div class="col-md-12">
 							<div class="dividerHeading">
 								<h4>
-									<span>Recent Work</span>
+									<span>Recently Parts Item</span>
 								</h4>
 							</div>
 							<div class="carousel-navi">
@@ -179,166 +189,6 @@ button#like:hover {
 					</div>
 					<div class="jcarousel recent-work-jc">
 						<ul class="jcarousel-list">
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_1.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_2.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_3.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_4.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_5.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_1.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_2.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
-							<!-- Recent Work Item -->
-							<li class="col-sm-3 col-md-3 col-lg-3">
-								<div class="recent-item">
-									<figure>
-										<div class="touching medium">
-											<img src="images/portfolio/portfolio_3.png" alt="" />
-										</div>
-										<div class="option">
-											<a href="images/portfolio/full/portfolio_1.png"
-												class="hover-zoom mfp-image"><i class="fa fa-search"></i></a>
-											<a href="portfolio_single.html" class="hover-link"><i
-												class="fa fa-link"></i></a>
-										</div>
-										<figcaption class="item-description">
-											<h5>Touch and Swipe</h5>
-											<span>Technology</span>
-										</figcaption>
-									</figure>
-								</div>
-							</li>
 						</ul>
 					</div>
 				</div>
@@ -351,6 +201,7 @@ button#like:hover {
 	<!--end footer-->
 	<script>
 		var price = <%=p.getPrice()%>;
+		var likechk = <%= likechk %>;
 		$(function(){
 			//Number("12345").toLocaleString('en');
 			$("#price").val(price);
@@ -363,6 +214,93 @@ button#like:hover {
 			$("#quan").on("change",function(){
 				$("#price").val($("#quan").val()*price);
 			}); --%>
+			
+			$("#like").on('click',function(){
+				$.ajax({
+					url : "/made/partLike",
+					type : "post",
+					data : {
+						like : likechk,
+						mid : "<%=m.getId()%>",
+						pid : "<%=p.getPartId()%>"
+					},
+					success : function(data) {
+						if(data != 0){
+							likechk = data;
+							$("#like").removeClass('unlike');
+							$("#like").addClass('like');
+							alert("찜하기 되었습니다.");
+						} else {
+							likechk = data;
+							$("#like").removeClass('like');
+							$("#like").addClass('unlike');
+							alert("찜하기가 해제 되었습니다.");	
+						}
+					},
+					error : function(request,status,error) {
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}
+				});
+			});
+			
+			function precent10(){
+				$.ajax({
+					url : "/made/precentlist",
+					type : "post",
+					dataType : "json",
+					success : function(data) {
+						//console.log(data);
+						var jsonStr = JSON.stringify(data); //객체를 문자열로 변환
+						//console.log(jsonStr);
+						var json = JSON.parse(jsonStr); //문자열을 배열 객체로 바꿈
+
+						var values = $(".jcarousel-list").html();
+
+						for ( var i in json.list) {
+							//한글 깨짐을 막기 위해 문자 인코딩 처리한 json 객체의 값은 decodeURIComponent() 로 디코딩 처리함
+							values += '<li class="col-sm-3 col-md-3 col-lg-3">'
+								+' <div class="recent-item">'
+								+' <figure> <div class="touching medium">'
+								+' <img src="/made/images/items/parts/'+json.list[i].category+'/'+json.list[i].image+'" style="width:200px;height:170px;" alt="" />'
+								+' </div> <div class="option">'
+								+' <a href="javascript:CaricaFoto(\'/made/images/items/parts/'+json.list[i].category+'/'+json.list[i].image+'\')"'
+								+' class="hover-zoom mfg-image trigger"> <i class="fa fa-search" ></i> </a>'
+								<% if( m!= null) {%>
+								+' <a href="dDetail?id='+json.list[i].partCode+'" class="hover-link"><i class="fa fa-link"></i></a>'
+								<% } %>
+								+' </div> <figcaption class="item-description">'
+								+' <h5>'+json.list[i].category+'</h5>'
+								+' <span>'+decodeURIComponent(json.list[i].title)+'</span>'
+								+' </figcaption> </figure> </div> </li>'
+							}
+						$(".jcarousel-list").html(values);
+					},
+					error : function(request,status,error) {
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}
+				});
+			};
+			
+			function CaricaFoto(img){ 
+				foto1= new Image(); 
+				foto1.src=(img); 
+				Controlla(img); 
+			}; 
+			function Controlla(img){ 
+				if((foto1.width!=0)&&(foto1.height!=0)){ 
+					viewFoto(img); 
+				} else{ 
+					funzione="Controlla('"+img+"')"; 
+					intervallo=setTimeout(funzione,20); 
+				} 
+			}; 
+
+			function viewFoto(img){ 
+					largh=foto1.width+20; 
+					altez=foto1.height+20; 
+					stringa="width="+largh+",height="+altez; 
+					finestra=window.open(img,"",stringa); 
+			};
 		});
 	</script>
 	<!-- I'm Port 전자결제 -->

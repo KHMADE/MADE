@@ -182,4 +182,36 @@ public class DesignService {
 		close(con);
 		return result2;
 	}
+
+	public int likechk(String did, String mid) {
+		Connection con = getConnection();
+		int chk = new DesignDAO().likechk(con, did, mid);
+		close(con);
+
+		return chk;
+	}
+
+	public int insertLike(String mid, String did) {
+		Connection con = getConnection();
+		int result = new DesignDAO().insertLike(con, mid, did);
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+	public int deleteLike(String mid, String did) {
+		Connection con = getConnection();
+		int result = new DesignDAO().deleteLike(con, mid, did);
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
 }

@@ -521,4 +521,65 @@ public class DesignDAO {
 		
 		return result2;
 	}
+
+	public int likechk(Connection con, String did, String mid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int chk = 0;
+		String sql = "SELECT * FROM LIKELIST WHERE DESIGN_CODE = ? AND MEMBER_ID = ?";
+		try{
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, did);
+			pstmt.setString(2, mid);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				chk = 1;
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return chk;
+	}
+
+	public int insertLike(Connection con, String mid, String did) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO LIKELIST VALUES(?, ?, null)";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, did);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteLike(Connection con, String mid, String did) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "DELETE FROM LIKELIST WHERE MEMBER_ID = ? AND DESIGN_CODE = ?";
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, did);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		return result;
+	}
 }

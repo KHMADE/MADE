@@ -86,7 +86,7 @@
 					//console.log(jsonStr);
 					var json = JSON.parse(jsonStr); //문자열을 배열 객체로 바꿈
 
-					var values = $("#r10").html();
+					var values = $("#dr10").html();
 
 					for ( var i in json.list) {
 						//한글 깨짐을 막기 위해 문자 인코딩 처리한 json 객체의 값은 decodeURIComponent() 로 디코딩 처리함
@@ -105,7 +105,44 @@
 							+' <span>'+decodeURIComponent(json.list[i].title)+'</span>'
 							+' </figcaption> </figure> </div> </li>'
 						}
-					$("#r10").html(values);
+					$("#dr10").html(values);
+				},
+				error : function(request,status,error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+			});
+		};
+		function precent10(){
+			$.ajax({
+				url : "/made/precentlist",
+				type : "post",
+				dataType : "json",
+				success : function(data) {
+					//console.log(data);
+					var jsonStr = JSON.stringify(data); //객체를 문자열로 변환
+					//console.log(jsonStr);
+					var json = JSON.parse(jsonStr); //문자열을 배열 객체로 바꿈
+
+					var values = $("#pr10").html();
+
+					for ( var i in json.list) {
+						//한글 깨짐을 막기 위해 문자 인코딩 처리한 json 객체의 값은 decodeURIComponent() 로 디코딩 처리함
+						values += '<li class="col-sm-3 col-md-3 col-lg-3">'
+							+' <div class="recent-item">'
+							+' <figure> <div class="touching medium">'
+							+' <img src="/made/images/items/parts/'+json.list[i].category+'/'+json.list[i].image+'" style="width:200px;height:170px;" alt="" />'
+							+' </div> <div class="option">'
+							+' <a href="javascript:CaricaFoto(\'/made/images/items/parts/'+json.list[i].category+'/'+json.list[i].image+'\')"'
+							+' class="hover-zoom mfg-image trigger"> <i class="fa fa-search" ></i> </a>'
+							<% if( m!= null) {%>
+							+' <a href="dDetail?id='+json.list[i].partCode+'" class="hover-link"><i class="fa fa-link"></i></a>'
+							<% } %>
+							+' </div> <figcaption class="item-description">'
+							+' <h5>'+json.list[i].category+'</h5>'
+							+' <span>'+decodeURIComponent(json.list[i].title)+'</span>'
+							+' </figcaption> </figure> </div> </li>'
+						}
+					$("#pr10").html(values);
 				},
 				error : function(request,status,error) {
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -115,6 +152,7 @@
 		$(function() {
 			top5();
 			drecent10();
+			precent10();
 			// 새로고침 1회
 			if (location.href.indexOf('#reload') == -1) 
 				  location.href += '#reload';
@@ -299,7 +337,32 @@
 					</div>
 
 					<div class="jcarousel recent-work-jc">
-						<ul class="jcarousel-list" id="r10">
+						<ul class="jcarousel-list" id="dr10">
+						</ul>
+					</div>
+				</div>
+				<div class="row sub_content">
+					<div class="carousel-intro">
+						<div class="col-md-12">
+							<div class="dividerHeading">
+								<h4>
+									<span>Recently Parts Item</span>
+								</h4>
+							</div>
+							<div class="carousel-navi">
+								<div id="work-prev" class="arrow-left jcarousel-prev">
+									<i class="fa fa-angle-left"></i>
+								</div>
+								<div id="work-next" class="arrow-right jcarousel-next">
+									<i class="fa fa-angle-right"></i>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+
+					<div class="jcarousel recent-work-jc">
+						<ul class="jcarousel-list" id="pr10">
 						</ul>
 					</div>
 				</div>

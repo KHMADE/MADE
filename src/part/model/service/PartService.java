@@ -100,4 +100,43 @@ public class PartService {
 			rollback(con);
 		close(con);
 	}
+
+	public int likechk(String pid, String mid) {
+		Connection con = getConnection();
+		int chk = new PartDAO().likechk(con, pid, mid);
+		close(con);
+
+		return chk;
+	}
+
+	public int insertLike(String mid, String pid) {
+		Connection con = getConnection();
+		int result = new PartDAO().insertLike(con, mid, pid);
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+	public int deleteLike(String mid, String pid) {
+		Connection con = getConnection();
+		int result = new PartDAO().deleteLike(con, mid, pid);
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+	public ArrayList<Part> selectRecent10() {
+		Connection con = getConnection();
+		ArrayList<Part> list = new PartDAO().selectRecent10(con);
+		close(con);
+		return list;
+	}
 }

@@ -1,28 +1,27 @@
-package part.controller;
+package design.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import part.model.service.PartService;
-import part.model.vo.Part;
+import design.model.service.DesignService;
 
 /**
- * Servlet implementation class PartDetailViewServlet
+ * Servlet implementation class DesignLikeCheckServlet
  */
-@WebServlet("/pDetail")
-public class PartDetailViewServlet extends HttpServlet {
+@WebServlet("/designLike")
+public class DesignLikeCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PartDetailViewServlet() {
+    public DesignLikeCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,29 +31,29 @@ public class PartDetailViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("type/html; charset=UTF-8");
-		String pId = request.getParameter("id");
+		response.setContentType("text/html; charset=UTF-8");
+		String did = request.getParameter("did");
 		String mid = request.getParameter("mid");
-		PartService pservice = new PartService();
-		pservice.addReadCount(pId);
-		int likechk = pservice.likechk(pId, mid);
+		int likechk = Integer.parseInt(request.getParameter("like"));
+		DesignService dservice = new DesignService(); 
 		
-		Part p = pservice.partSelect(pId);
-		if(p != null){
-			RequestDispatcher view = request.getRequestDispatcher("views/item/partDetailView.jsp");
-			request.setAttribute("part", p);
-			request.setAttribute("like", likechk);
-			//request.setAttribute("page", Integer.parseInt(request.getParameter("page")));
-			view.forward(request, response);
+		PrintWriter out = response.getWriter();
+		if(likechk == 0){
+			dservice.insertLike(mid, did);
+			out.print(1);
 		} else {
-			response.sendRedirect("404-page.jsp");
+			dservice.deleteLike(mid, did);
+			out.print(0);
 		}
+		out.flush();
+		out.close();
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
