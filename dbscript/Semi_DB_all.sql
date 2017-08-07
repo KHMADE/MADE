@@ -772,34 +772,34 @@ SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_CLASS_CODE = 'D';
 
 /* 임시 데이터 */
 INSERT INTO MEMBER VALUES('maxy','C','pass44','김막시','maxy@iei.or.kr','여',
-TO_DATE('1999-05-15','RRRR-MM-DD'),'010-0101-1234','10020,서울,OO구 ㅁㅁ동', SYSDATE, 'default.jpg',
+TO_DATE('1999-05-15','RRRR-MM-DD'),'010-0101-1234','10020,서울,OO구 ㅁㅁ동', SYSDATE, 'default_image.jpg',
 00000,'막시멈');
 INSERT INTO MEMBER VALUES('user44','C','pass44','고감동','gamdong@iei.or.kr','여',
-TO_DATE('2002-05-03','RRRR-MM-DD'),'010-0001-1110','60420,전주시,덕진구 효자동', SYSDATE, 'default.jpg',
+TO_DATE('2002-05-03','RRRR-MM-DD'),'010-0001-1110','60420,전주시,덕진구 효자동', SYSDATE, 'default_image.jpg',
 00000,'감동');
 INSERT INTO MEMBER VALUES('user55','C','pass55','고길동','gildong@iei.or.kr','남',
-TO_DATE('1970-10-24','RRRR-MM-DD'),'010-4353-2233','10203,서울,OO구 XX동', SYSDATE, 'default.jpg',
+TO_DATE('1970-10-24','RRRR-MM-DD'),'010-4353-2233','10203,서울,OO구 XX동', SYSDATE, 'default_image.jpg',
 10010,'둘리너무해');
 INSERT INTO MEMBER VALUES('user66','C','pass66','김철수','steel@iei.or.kr','남',
-TO_DATE('2000-10-20','RRRR-MM-DD'),'010-1110-1010','10213,서울,OO구 XX동', SYSDATE, 'default.jpg',
+TO_DATE('2000-10-20','RRRR-MM-DD'),'010-1110-1010','10213,서울,OO구 XX동', SYSDATE, 'default_image.jpg',
 90,'철수김철수');
 INSERT INTO MEMBER VALUES('user77','C','pass77','유심청','simchung@iei.or.kr','여',
-TO_DATE('1998-02-22','RRRR-MM-DD'),'010-1111-9764','39784,대전,OO구 XX동', SYSDATE, 'default.jpg',
+TO_DATE('1998-02-22','RRRR-MM-DD'),'010-1111-9764','39784,대전,OO구 XX동', SYSDATE, 'default_image.jpg',
 940,'3백석');
 INSERT INTO MEMBER VALUES('user88','C','pass88','하이모','himo@iei.or.kr','남',
-TO_DATE('2002-07-30','RRRR-MM-DD'),'010-2322-14242','24333,서울,OO구 XX동', SYSDATE, 'default.jpg',
+TO_DATE('2002-07-30','RRRR-MM-DD'),'010-2322-14242','24333,서울,OO구 XX동', SYSDATE, 'default_image.jpg',
 790,'머머리');
 INSERT INTO MEMBER VALUES('user99','C','pass99','유상철','shark@iei.or.kr','남',
-TO_DATE('2002-07-30','RRRR-MM-DD'),'010-7722-3349','97203,서울,OO구 XX동', SYSDATE, 'default.jpg',
+TO_DATE('2002-07-30','RRRR-MM-DD'),'010-7722-3349','97203,서울,OO구 XX동', SYSDATE, 'default_image.jpg',
 350,'유상어');
 INSERT INTO MEMBER VALUES('user10','C','pass10','안정환','aragon@iei.or.kr','남',
-TO_DATE('2002-07-30','RRRR-MM-DD'),'010-7722-3349','97203,서울,OO구 XX동', SYSDATE, 'default.jpg',
+TO_DATE('2002-07-30','RRRR-MM-DD'),'010-7722-3349','97203,서울,OO구 XX동', SYSDATE, 'default_image.jpg',
 500,'아라곤');
 INSERT INTO MEMBER VALUES('design33','D','pass33','이천수','chsulee@iei.or.kr','남',
-TO_DATE('2002-07-30','RRRR-MM-DD'),'010-4444-6666','03303,서울,OO구 XX동', SYSDATE, 'default.jpg',
+TO_DATE('2002-07-30','RRRR-MM-DD'),'010-4444-6666','03303,서울,OO구 XX동', SYSDATE, 'default_image.jpg',
 100,'욕쟁이삼촌');
 INSERT INTO MEMBER VALUES('design44','D','pass44','김흥국','hk413@iei.or.kr','남',
-TO_DATE('2002-07-30','RRRR-MM-DD'),'010-2342-3434','91111,서울,OO구 XX동', SYSDATE, 'default.jpg',
+TO_DATE('2002-07-30','RRRR-MM-DD'),'010-2342-3434','91111,서울,OO구 XX동', SYSDATE, 'default_image.jpg',
 220,'으아들이대');
 
 /*  Member 분류 에러 테스트
