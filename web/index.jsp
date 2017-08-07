@@ -135,7 +135,7 @@
 							+' <a href="javascript:CaricaFoto(\'/made/images/items/parts/'+json.list[i].category+'/'+json.list[i].image+'\')"'
 							+' class="hover-zoom mfg-image trigger"> <i class="fa fa-search" ></i> </a>'
 							<% if( m!= null) {%>
-							+' <a href="dDetail?id='+json.list[i].partCode+'" class="hover-link"><i class="fa fa-link"></i></a>'
+							+' <a href="pDetail?id='+json.list[i].partCode+'" class="hover-link"><i class="fa fa-link"></i></a>'
 							<% } %>
 							+' </div> <figcaption class="item-description">'
 							+' <h5>'+json.list[i].category+'</h5>'
