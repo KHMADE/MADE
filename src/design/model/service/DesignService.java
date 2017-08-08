@@ -214,4 +214,40 @@ public class DesignService {
 		close(con);
 		return result;
 	}
+
+	public int insertDesignReview(String dId, String mid, String content) {
+		Connection con = getConnection();
+		int result = new DesignDAO().insertDesignReview(con, dId, mid, content);
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+	public Object updateDesignReview(String reviewCode, String updtContent) {
+		Connection con = getConnection();
+		int result = new DesignDAO().updateDesignReview(con, reviewCode, updtContent);
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+	
+	public Object deleteDesignReview(String reviewCode) {
+		Connection con = getConnection();
+		int result = new DesignDAO().deleteDesignReview(con, reviewCode);
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
 }

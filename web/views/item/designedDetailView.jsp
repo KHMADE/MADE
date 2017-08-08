@@ -6,6 +6,7 @@
 	int oriPrice = (int) request.getAttribute("oriPrice");
 	int likechk = ((Integer)request.getAttribute("like")).intValue();
 	ArrayList<Part> plist = (ArrayList<Part>) request.getAttribute("plist");
+	ArrayList<ItemReview> reviewList = (ArrayList<ItemReview>) request.getAttribute("review");
 %>
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" class="no-js" lang="ko"> <![endif]-->
@@ -124,9 +125,9 @@ button#like:hover {
 							<br>
 							<p align="center"><% if(m != null){ %>
 							<% if(likechk != 0) { %>
-								<button class="btn btn-default like" id="like">♥</button>
+								<button class="btn btn-default like" id="like">♥ 찜 취소</button>
 							<% } else { %>
-								<button class="btn btn-default unlike" id="like">♥</button>
+								<button class="btn btn-default unlike" id="like">♥ 찜하기</button>
 							<% } %>
 								&nbsp;&nbsp;
 								<button class="btn btn-default" onclick="pay_test();">구매하기</button>
@@ -152,54 +153,131 @@ button#like:hover {
 								<%=d.getDesignDesc()%></div>
 							<div id="Recent-Comment" class="tab-pane fade">
 								<ul class="comments">
-									<li class="comments_list clearfix"><a href="#"
-										class="post-thumbnail"><img width="60" height="60" alt="#"
-											src="images/content/recent_3.png"></a>
-										<p>
-											<strong><a href="#">LaraDut</a> <i>says: </i> </strong> Morbi
-											augue velit, tempus mattis dignissim nec, porta sed risus.
-											Donec eget magna eu lorem tristique pellentesque eget eu dui.
-											Fusce lacinia tempor malesuada.
-										</p></li>
-									<li class="comments_list clearfix"><a href="#"
-										class="post-thumbnail"><img width="60" height="60" alt="#"
-											src="images/content/recent_1.png"></a>
-										<p>
-											<strong><a href="#">Ronny</a> <i>says: </i> </strong> Tempus
-											mattis dignissim nec, porta sed risus. Donec eget magna eu
-											lorem tristique pellentesque eget eu dui. Fusce lacinia
-											tempor malesuada.
-										</p></li>
-									<li class="comments_list clearfix"><a href="#"
-										class="post-thumbnail"><img width="60" height="60" alt="#"
-											src="images/content/recent_2.png"></a>
-										<p>
-											<strong><a href="#">Steve</a> <i>says: </i> </strong> Donec
-											convallis, metus nec tempus aliquet, nunc metus adipiscing
-											leo, a lobortis nisi dui ut odio. Nullam ultrices, eros
-											accumsan vulputate faucibus, turpis tortor.
-										</p></li>
+								<% if(reviewList.size() != 0) { %>
+								<% for(ItemReview rv : reviewList) {%>
+								<li class="comments_list clearfix">
+									<input type="hidden" id="reviewCode" class="reviewCode" name="reviewCode" value="<%=rv.getReviewCode()%>">
+									<a href="#" class="post-thumbnail">
+									<img width="60" height="60" alt="#" src="/made/images/userimage/<%=rv.getMemberImg()%>"></a>
+										<strong style="font-size:14pt;"><a href="#"><%=rv.getMemberId()%></a> <i style="font-size:10pt;">says: <%=rv.getReviewDate()%></i><br><br></strong>
+											<div class="reviewContents" id="reviewContents" style="margin-top:-15px; padding-left: 71px; font-size:11pt; color:black;"><%=rv.getReviewContent()%></div>
+
+										<% if( rv.getMemberId().equals(m.getId())){ %>
+										<p align="right">
+										<button type="button" class="btn btn-default btn-xs updateConfirm" name="updateConfirm" id="updateConfirm" style="display: none;">수정완료</button>
+										&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-default btn-xs update" name="update" id="update">수정하기</button>
+										&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-default btn-xs delete" name="delete" id="delete">삭제하기</button></p></li>
+								<% }}} else { %>
+									<li class="comments_list clearfix"> <h3>현재 등록된 후기가 없습니다.</h3> </li>
+								<% } %>
 										<li>
 										<div id="writeReview">
 											<div class="dividerHeading">
                                				 <h4><span>후기 작성하기</span></h4>
                                				 </div>
-                               				 <form>
+                               <form action="/made/dreviewinsert" method="post">
+                               	<input type="hidden" id="mid" name="mid" value="<%=m.getId()%>">
+                               	<input type="hidden" id="did" name="did" value="<%=d.getDesignId()%>">
 								<textarea id="content" name="content" class="summernote"></textarea>
 								<p align="center">
-								<button type="button" class="btn btn-default">등록하기</button>
+								<button type="submit" class="btn btn-default" id="reviewSubmit">등록하기</button>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="button" class="btn btn-default">취소하기</button></p>
+								<button type="button" class="btn btn-default" id="reviewReset">취소하기</button></p>
 								</form>
 								<script>
 								$(function(){
-									$('.summernote').summernote({
+                                    $(".updateConfirm").on('click',function(){
+                                        var parentP = $(this).parent();
+                                        var parentLi = parentP.parent();
+                                        var siblingP = parentLi.children('p:eq(0)');
+                                        var reviewCode = parentLi.children('input').val();
+                                        var updtContent = parentP.children(".updateContent").val();
+                                        //console.log(updtContent);
+                                        $.ajax({
+                                            url : "/made/dupReview",
+                                            type : "post",
+                                            data: {
+                                            	designCode : "<%=d.getDesignId()%>",
+                                            	mid : "<%=m.getId()%>",
+                                                reviewCode : reviewCode,
+                                                updtContent : updtContent
+                                            },
+                                            success : function(data) {
+                                            	alert(data);
+                                            }, error : function(request,status,error) {
+                                               alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                                            }
+                                        });
+                                        
+                                        parentLi.find(".reviewContents").html(updtContent);
+                                        parentP.children(".updateContent").remove();
+                                        parentP.children(".updateConfirm").toggle("fast");
+                                        parentP.children('.update').text("수정하기");
+									});
+									$(".update").on('click',function(){
+										var parentP = $(this).parent();
+                                        var parentLi = parentP.parent();
+                                        var siblingP = parentLi.children('p:eq(0)');
+										var content = parentLi.children('.reviewContents').text();
+										
+										if($(this).text() == "수정하기"){
+											parentP.append('<textarea style="margin-top:7px;" class="updateContent" name="updateContent" id="updateContent">'+content+'</textarea>');
+											parentP.children(".updateConfirm").toggle("fast");
+											$(this).text("수정취소");
+											alert("수정 합니다~");
+										} else {
+											parentP.children(".updateContent").remove();
+											$(this).text("수정하기");
+											parentP.children(".updateConfirm").toggle("fast");
+											alert("수정 취소합니다~");
+										}
+									});
+									
+									$(".delete").on('click',function(){
+                                        var parentP = $(this).parent();
+                                        var parentLi = parentP.parent();
+										var reviewCode = parentLi.children('input').val();
+                                        
+										$.ajax({
+                                            url : "/made/dDelReview",
+                                            type : "post",
+                                            data: {
+                                            	designCode : "<%=d.getDesignId()%>",
+                                            	mid : "<%=m.getId()%>",
+                                            	reviewCode : reviewCode
+                                            },
+                                            success : function(data) {
+                                                alert(data);
+                                                parentLi.remove();
+                                            }, error : function(request,status,error) {
+                                               alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                                            }
+                                    });
+                                });
+                                    summernote();
+                                    $('#reviewReset').submit(function(){
+                                		$('.summernote').summernote('reset');
+                                		summernote();
+                                	});
+                                    $('#reviewSubmit').on('submit',function(event){
+                                    	if ($('#summernote').summernote('isEmpty')) {
+                                      	  alert('후기란이 비어 있습니다.');
+                                      	  event.preventDefault();
+                                      } else {
+                                    	  return;
+                                      }
+                                	});
+                                });
+                                    
+                                    function summernote(){
+                                        $('.summernote').summernote({
 									      width: '100%',	    
 									      height: 100,          // 기본 높이값
 									      minHeight: null,      // 최소 높이값(null은 제한 없음)
 									      maxHeight: null,      // 최대 높이값(null은 제한 없음)
 									      focus: true,          // 페이지가 열릴때 포커스를 지정함
 									      lang: "ko-KR",         // 한국어 지정(기본값은 en-US)
+									      placeholder: '여기에 후기를 작성해주세요~!!',
 									      callbacks: {
 									      onImageUpload: function(files, editor, welEditorble) {
 									    	  console.log(files);
@@ -219,12 +297,12 @@ button#like:hover {
 													$note.summernote('insertImage',url);
 												}, error : function(request,status,error) {
 													alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-												}
-											});
-										}
-									      }
-									    });
-								});
+                                                }
+                                            });
+                                          }
+                                          }
+                                        });
+								};
 								</script>
 								</div>
 										</li>
@@ -355,11 +433,13 @@ button#like:hover {
 							likechk = data;
 							$("#like").removeClass('unlike');
 							$("#like").addClass('like');
+							$("#like").text("♥ 찜 취소");
 							alert("찜하기 되었습니다.");
 						} else {
 							likechk = data;
 							$("#like").removeClass('like');
 							$("#like").addClass('unlike');
+							$("#like").text("♥ 찜 하기");
 							alert("찜하기가 해제 되었습니다.");	
 						}
 					},

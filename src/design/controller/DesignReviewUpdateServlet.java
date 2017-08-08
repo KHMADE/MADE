@@ -1,6 +1,5 @@
-package design.controller;
+ package design.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -12,19 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import design.model.service.DesignService;
-import design.model.vo.Design;
 
 /**
- * Servlet implementation class DesignDeleteServlet
+ * Servlet implementation class DesignReviewUpdateServlet
  */
-@WebServlet("/ddelete")
-public class DesignDeleteServlet extends HttpServlet {
+@WebServlet("/dupReview")
+public class DesignReviewUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DesignDeleteServlet() {
+    public DesignReviewUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,31 +33,21 @@ public class DesignDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		String id = request.getParameter("id");
 		DesignService dservice = new DesignService();
-		Design d = dservice.designSelect(id);
 		
-		// 해당 컨테이너의 구동중인 웹 애플리케이션의 루트 경로 알아냄
-		String root = request.getSession().getServletContext().getRealPath("/");
-		// 업로드되는 파일이 저장될 폴더명과 경로 연결 처리
-		String savePath = root + "images\\items\\designed";
+		String reviewCode = request.getParameter("reviewCode");
+		String updtContent = request.getParameter("updtContent");
 		
-		if(d.getDesignImg() != null && !d.getDesignImg().equals("default_image.jpg")){
-			File oldFile = new File(savePath + "\\" + d.getDesignImg());
-			oldFile.delete();
-		}
-		
+		//System.out.println("디자인 리뷰 업뎃 서블릿 : "+reviewCode+", "+updtContent);
 		RequestDispatcher view = null;
-		if (dservice.deleteDesign(id) > 0) {
+		if(dservice.updateDesignReview(reviewCode,updtContent) != null){
 			PrintWriter out = response.getWriter();
-			out.println("<script language='javascript'>");
-			out.println("alert('아이템 삭제가 성공적으로 이루어졌습니다.');");
-			out.println("location.href = '/made/designitemlist?page=1';"); 
-			out.println("</script>"); 
+			out.print("후기 수정이 정상적으로 완료되었습니다!!");
+			out.flush();
 			out.close();
 		} else {
 			view = request.getRequestDispatcher("404-page.jsp");
-			request.setAttribute("message", "아이템 삭제 실패!! : 현재 주문이 존재하는 상품입니다.");
+			request.setAttribute("message","디자인 후기 수정 과정 중 오류가 발생했습니다!!<br>상세한 사항은 관리자에게 문의하세요!");
 			view.forward(request, response);
 		}
 	}

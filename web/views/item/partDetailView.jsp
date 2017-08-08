@@ -109,9 +109,9 @@ button#like:hover {
 							<p align="center">
 								<% if(m != null){ %>
 								<% if(likechk != 0) { %>
-								<button class="btn btn-default like" id="like">♥</button>
+								<button class="btn btn-default like" id="like">♥ 찜 취소</button>
 								<% } else { %>
-								<button class="btn btn-default unlike" id="like">♥</button>
+								<button class="btn btn-default unlike" id="like">♥ 찜하기</button>
 								<% } %>
 								&nbsp;&nbsp;
 								<button class="btn btn-default" onclick="pay_test();">구매하기</button>
@@ -232,11 +232,13 @@ button#like:hover {
 							likechk = data;
 							$("#like").removeClass('unlike');
 							$("#like").addClass('like');
+							$("#like").text("♥ 찜 취소");
 							alert("찜하기 되었습니다.");
 						} else {
 							likechk = data;
 							$("#like").removeClass('like');
 							$("#like").addClass('unlike');
+							$("#like").text("♥ 찜 하기");
 							alert("찜하기가 해제 되었습니다.");	
 						}
 					},

@@ -1,7 +1,7 @@
 package design.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,22 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import design.model.service.DesignService;
-import design.model.vo.Design;
-import member.model.service.ReviewService;
-import member.model.vo.ItemReview;
-import part.model.vo.Part;
 
 /**
- * Servlet implementation class DesignDetailViewServlet
+ * Servlet implementation class DesignReviewDeleteServlet
  */
-@WebServlet("/dDetail")
-public class DesignDetailViewServlet extends HttpServlet {
+@WebServlet("/dDelReview")
+public class DesignReviewDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DesignDetailViewServlet() {
+    public DesignReviewDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,30 +33,19 @@ public class DesignDetailViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		String dId = request.getParameter("id");
-		String mid = request.getParameter("mid");
 		DesignService dservice = new DesignService();
-		dservice.addReadCount(dId);
-		ArrayList<ItemReview> rvwlist = new ReviewService().selectDesignReview(dId);
-		ArrayList<Part> plist = dservice.selectDesignPartList(dId);
-		int likechk = dservice.likechk(dId, mid);
 		
-		Design d = dservice.designSelect(dId);
-		int oriPrice = dservice.designPartPrice(dId);
+		String reviewCode = request.getParameter("reviewCode");
+		
 		RequestDispatcher view = null;
-		if(d != null){
-			view = request.getRequestDispatcher("views/item/designedDetailView.jsp");
-			request.setAttribute("design", d);
-			request.setAttribute("plist", plist);
-			request.setAttribute("like", likechk);
-			request.setAttribute("review",rvwlist);
-			//System.out.println(plist);
-			request.setAttribute("oriPrice", oriPrice);
-			//request.setAttribute("page", Integer.parseInt(request.getParameter("page")));
-			view.forward(request, response);
+		if(dservice.deleteDesignReview(reviewCode) != null){
+			PrintWriter out = response.getWriter();
+			out.print("후기 삭제가 정상적으로 완료되었습니다!!");
+			out.flush();
+			out.close();
 		} else {
 			view = request.getRequestDispatcher("404-page.jsp");
-			request.setAttribute("message","디자인 상세보기 페이지 오류!!<br> 관리자에게 문의하세요!");
+			request.setAttribute("message","디자인 후기 삭제 과정 중 오류가 발생했습니다!!<br>상세한 사항은 관리자에게 문의하세요!");
 			view.forward(request, response);
 		}
 	}
