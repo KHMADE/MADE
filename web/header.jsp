@@ -247,6 +247,9 @@ $(function(){
 									<%}else{ %>
 									<li><a href="/made/views/qa/qa.jsp">1:1문의</a></li>
 									<%} %>
+									<% if(m != null &&(m.getClassCode().equals("A") || m.getClassCode().equals("D"))) {%>
+									<li><a href="/made/views/mypage/profitView.jsp">수익 차트 보기</a></li>
+									<%} %>
 								</ul></li>
 						<li><a href="/made/views/faq/faq.jsp">FAQ</a></li>
 						<li><a href="/made/views/default_page/default_page.jsp">Default</a></li>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사이트 개업 기념 이벤트!!</title>
+<script type="text/javascript">
+<!--
+function setCookie(name, value, expiredays) {
+var today = new Date();
+    today.setDate(today.getDate() + expiredays);
+    document.cookie = name + '=' + escape(value) + '; path=/; expires=' + today.toGMTString() + ';'
+}
+function closePop() {        
+if(document.forms[0].todayPop.checked)                
+setCookie('blogWebCafe', 'rangs', 1);
+self.close();
+}
+//-->
+</script>
+<style>
+.wrapper {
+z-index:1;
+position:relative;
+width:512px;
+height:380px;
+border:1px solid;
+border-radius:5px; 
+}
+.wrapper:after{
+width:512px;
+height:380px;
+z-index:-1;
+position:absolute;
+top:0;
+left:0;
+content:"";
+background-image: url('/made/images/popupImg.jpg') ;
+background-repeat:no-repeat;
+background-position:center;
+background-origin:content-box;
+background-size: 100%;
+
+opacity: 0.3!important; filter:alpha(opacity=30);
+}
+
+.title{color:#000000;font-weight:bold;font-size:20px;}
+</style>
+</head>
+<body>
+<div class="wrapper">
+		<p align="center"><img style="width:40%; height:40%;" src="/made/images/logo.png"><h2>개업 기념 이벤트!</h2></p>
+		<div class="detail">
+		<p> 8월 7일 ~ 8월 10일까지 <b style="color:blue;">3만원 이상</b> 구매하시는 고객 분께<br> 한하여, 배송비 무료 서비스를 진행합니다!</p>
+		<p> 앞으로도 많은 이용 부탁 드릴게요~!!</p>
+		<form>
+		<input type="checkbox" name="todayPop" onClick="closePop()">
+		오늘 하루 그만보기
+</form>
+		</div>
+	</div>
+</body>
+</html>

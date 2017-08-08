@@ -12,7 +12,6 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="">
 <title>MAːDÆ - The unique what you made</title>
-
 <link rel="shortcut icon" href="images/icon.ico">
 <!-- CSS FILES -->
 <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -550,6 +549,31 @@
 	<!--start footer-->
 	<%@ include file="footer.jsp" %>
 	<!--end footer-->
-
+<script type="text/javascript">
+<!--
+function getCookie(name){    
+var wcname = name + '=';
+var wcstart, wcend, end;
+var i = 0;   
+  while(i <= document.cookie.length) {            
+   wcstart = i;  
+ wcend   = (i + wcname.length);            
+ if(document.cookie.substring(wcstart, wcend) == wcname) {                    
+  if((end = document.cookie.indexOf(';', wcend)) == -1)                           
+   end = document.cookie.length;                    
+  return document.cookie.substring(wcend, end);            
+   }           
+ i = document.cookie.indexOf('', i) + 1;            
+  
+   if(i == 0)                    
+  break;    
+  }    
+  return '';
+}
+if(getCookie('blogWebCafe') != 'rangs') {       
+ window.open('todayPopup.html?ver=1','','resizable=no,width=540,height=400,top=200,left=300');
+}
+//-->
+</script>
 </body>
 </html>

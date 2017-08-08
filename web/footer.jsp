@@ -44,23 +44,23 @@
 						<p>총 5 명의 구성원으로 이루어져 있습니다. <br>능력자분 연락주세요, 언제든지 환영합니다.</p>
 						<ul class="contact-details-alt thanksAllOfYou">
 							<li><div class="testimonial-review">
-								<img style="width:45px; height:45px;"src="images/userimage/yoo_boss.jpg" alt="testimoni">
+								<img style="width:45px; height:45px;"src="/made/images/userimage/yoo_boss.jpg" alt="testimoni">
 									인간로봇, 유 사장<small>&nbsp;&nbsp; Team. 형설지공 AI사장</small>
 							</div></li>
 							<li><div class="testimonial-review">
-								<img style="width:45px; height:45px;"src="images/userimage/nasang.jpg" alt="testimoni">
+								<img style="width:45px; height:45px;"src="/made/images/userimage/nasang.jpg" alt="testimoni">
 									가출간부, 나 과장<small>&nbsp;&nbsp; Team. 형설지공 인사과장</small>
 							</div></li>
 							<li><div class="testimonial-review">
-								<img style="width:45px; height:45px;"src="images/userimage/default_image.jpg" alt="testimoni">
+								<img style="width:45px; height:45px;"src="/made/images/userimage/default_image.jpg" alt="testimoni">
 									본부장은 임 본부장<small>&nbsp;&nbsp; Team. 형설지공 기술고문</small>
 							</div></li>
 							<li><div class="testimonial-review">
-								<img style="width:45px; height:45px;"src="images/userimage/emilla.jpg" alt="testimoni">
+								<img style="width:45px; height:45px;"src="/made/images/userimage/emilla.jpg" alt="testimoni">
 									한조대기중 김 대리<small>&nbsp;&nbsp; Team. 형설지공 인사요원</small>
 							</div></li>
 							<li><div class="testimonial-review">
-								<img style="width:45px; height:45px;"src="images/userimage/jjm.jpg" alt="testimoni">
+								<img style="width:45px; height:45px;"src="/made/images/userimage/jjm.jpg" alt="testimoni">
 									엑박사자, 정대리<small>&nbsp;&nbsp; Team. 형설지공 수석몸짱</small>
 							</div></li>
 						</ul>
