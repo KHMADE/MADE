@@ -1,7 +1,6 @@
 package part.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,21 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.ReviewService;
-import member.model.vo.ItemReview;
-import part.model.service.PartService;
-import part.model.vo.Part;
 
 /**
- * Servlet implementation class PartDetailViewServlet
+ * Servlet implementation class PartReviewInsertServlet
  */
-@WebServlet("/pDetail")
-public class PartDetailViewServlet extends HttpServlet {
+@WebServlet("/previewinsert")
+public class PartReviewInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PartDetailViewServlet() {
+    public PartReviewInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,26 +31,19 @@ public class PartDetailViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("type/html; charset=UTF-8");
-		String pId = request.getParameter("id");
+		response.setContentType("text/html; charset=UTF-8");
+		String pId = request.getParameter("pid");
 		String mid = request.getParameter("mid");
-		PartService pservice = new PartService();
-		pservice.addReadCount(pId);
-		ArrayList<ItemReview> rvwlist = new ReviewService().selectPartReview(pId);
-		int likechk = pservice.likechk(pId, mid);
-		
-		Part p = pservice.partSelect(pId);
+		String content = request.getParameter("content");
+		ReviewService rwservice = new ReviewService();
+		//System.out.println(content);
+		//DesignService dservice = new DesignService();
 		RequestDispatcher view = null;
-		if(p != null){
-			view = request.getRequestDispatcher("views/item/partDetailView.jsp");
-			request.setAttribute("part", p);
-			request.setAttribute("like", likechk);
-			request.setAttribute("review",rvwlist);
-			//request.setAttribute("page", Integer.parseInt(request.getParameter("page")));
-			view.forward(request, response);
+		if(rwservice.insertPartReview(pId, mid, content) > 0){
+			response.sendRedirect("/made/pDetail?id="+pId+"&mid="+mid);	
 		} else {
 			view = request.getRequestDispatcher("404-page.jsp");
-			request.setAttribute("message","부품 상세보기 페이지 오류!!<br> 관리자에게 문의하세요!");
+			request.setAttribute("message", "부품 아이템 후기 등록 실패!");
 			view.forward(request, response);
 		}
 	}
@@ -63,6 +52,7 @@ public class PartDetailViewServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import design.model.service.DesignService;
+import member.model.service.ReviewService;
 
 /**
  * Servlet implementation class DesignReviewDeleteServlet
@@ -33,12 +33,12 @@ public class DesignReviewDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		DesignService dservice = new DesignService();
 		
+		ReviewService rwservice = new ReviewService();
 		String reviewCode = request.getParameter("reviewCode");
 		
 		RequestDispatcher view = null;
-		if(dservice.deleteDesignReview(reviewCode) != null){
+		if(rwservice.deleteDesignReview(reviewCode) != null){
 			PrintWriter out = response.getWriter();
 			out.print("후기 삭제가 정상적으로 완료되었습니다!!");
 			out.flush();

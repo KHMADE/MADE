@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import design.model.service.DesignService;
+import member.model.service.ReviewService;
 
 /**
  * Servlet implementation class DesignReviewUpdateServlet
@@ -33,14 +33,15 @@ public class DesignReviewUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		DesignService dservice = new DesignService();
+		//DesignService dservice = new DesignService();
+		ReviewService rwservice = new ReviewService();
 		
 		String reviewCode = request.getParameter("reviewCode");
 		String updtContent = request.getParameter("updtContent");
 		
 		//System.out.println("디자인 리뷰 업뎃 서블릿 : "+reviewCode+", "+updtContent);
 		RequestDispatcher view = null;
-		if(dservice.updateDesignReview(reviewCode,updtContent) != null){
+		if(rwservice.updateDesignReview(reviewCode,updtContent) != null){
 			PrintWriter out = response.getWriter();
 			out.print("후기 수정이 정상적으로 완료되었습니다!!");
 			out.flush();

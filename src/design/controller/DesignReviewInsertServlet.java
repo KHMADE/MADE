@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import design.model.service.DesignService;
+import member.model.service.ReviewService;
 
 /**
  * Servlet implementation class DesignReviewInsertServlet
@@ -35,10 +35,11 @@ public class DesignReviewInsertServlet extends HttpServlet {
 		String dId = request.getParameter("did");
 		String mid = request.getParameter("mid");
 		String content = request.getParameter("content");
+		ReviewService rwservice = new ReviewService();
 		//System.out.println(content);
-		DesignService dservice = new DesignService();
+		//DesignService dservice = new DesignService();
 		RequestDispatcher view = null;
-		if(dservice.insertDesignReview(dId, mid, content) > 0){
+		if(rwservice.insertDesignReview(dId, mid, content) > 0){
 			response.sendRedirect("/made/dDetail?id="+dId+"&mid="+mid);	
 		} else {
 			view = request.getRequestDispatcher("404-page.jsp");

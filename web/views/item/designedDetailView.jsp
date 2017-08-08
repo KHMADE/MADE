@@ -224,12 +224,12 @@ button#like:hover {
 											parentP.append('<textarea style="margin-top:7px;" class="updateContent" name="updateContent" id="updateContent">'+content+'</textarea>');
 											parentP.children(".updateConfirm").toggle("fast");
 											$(this).text("수정취소");
-											alert("수정 합니다~");
+											//alert("수정 합니다~");
 										} else {
 											parentP.children(".updateContent").remove();
 											$(this).text("수정하기");
 											parentP.children(".updateConfirm").toggle("fast");
-											alert("수정 취소합니다~");
+											//alert("수정 취소합니다~");
 										}
 									});
 									
@@ -261,7 +261,7 @@ button#like:hover {
                                 	});
                                     $('#reviewSubmit').on('submit',function(event){
                                     	if ($('#summernote').summernote('isEmpty')) {
-                                      	  alert('후기란이 비어 있습니다.');
+                                      	  alert('후기 란이 비어 있습니다.');
                                       	  event.preventDefault();
                                       } else {
                                     	  return;

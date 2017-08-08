@@ -22,7 +22,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 /**
  * Servlet implementation class PartUploadServlet
  */
-@WebServlet("/partUpload")
+@WebServlet("/partUploadImg")
 public class PartUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
