@@ -8,15 +8,16 @@
 	<footer class="footer">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-6 col-md-3 col-lg-3">
+				<div class="col-sm-6 col-md-4 col-lg-4">
 					<div class="widget_title">
 						<h4>
-							<span>About Us</span>
+							<span>Who's MAːDÆ</span>
 						</h4>
 					</div>
 					<div class="widget_content">
 						<p>본 프로젝트는 KH정보교육원 [NCS]웹 개발 응용SW엔지니어 양성과정_2주차 오후반 3조에서 만든
-							Semi 프로젝트입니다.</p>
+							Semi 프로젝트입니다.<br><br><span class="thanksAllOfYou" style="display: none;">만들다보니 아쉬운 점도 많고, 배운 점도 많지만 확실한 건 잠이 줄었다는 겁니다.<br>
+							앞으로 다가올 휴일엔 진짜 제대로 잘 수 있을 것 같은 느낌....각설하고... 팀원 분들 모두 고생 많으셨습니다.</span></p>
 						<ul class="contact-details-alt">
 							<li><i class="fa fa-map-marker"></i>
 								<p>
@@ -33,7 +34,39 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-sm-6 col-md-3 col-lg-3">
+				<div class="col-sm-6 col-md-4 col-lg-4">
+					<div class="widget_title">
+						<h4>
+							<span>About Us</span>
+						</h4>
+					</div>
+					<div class="widget_content">
+						<p>총 5 명의 구성원으로 이루어져 있습니다. <br>능력자분 연락주세요, 언제든지 환영합니다.</p>
+						<ul class="contact-details-alt thanksAllOfYou">
+							<li><div class="testimonial-review">
+								<img style="width:45px; height:45px;"src="images/userimage/yoo_boss.jpg" alt="testimoni">
+									인간로봇, 유 사장<small>&nbsp;&nbsp; Team. 형설지공 AI사장</small>
+							</div></li>
+							<li><div class="testimonial-review">
+								<img style="width:45px; height:45px;"src="images/userimage/nasang.jpg" alt="testimoni">
+									가출간부, 나 과장<small>&nbsp;&nbsp; Team. 형설지공 인사과장</small>
+							</div></li>
+							<li><div class="testimonial-review">
+								<img style="width:45px; height:45px;"src="images/userimage/default_image.jpg" alt="testimoni">
+									본부장은 임 본부장<small>&nbsp;&nbsp; Team. 형설지공 기술고문</small>
+							</div></li>
+							<li><div class="testimonial-review">
+								<img style="width:45px; height:45px;"src="images/userimage/emilla.jpg" alt="testimoni">
+									한조대기중 김 대리<small>&nbsp;&nbsp; Team. 형설지공 인사요원</small>
+							</div></li>
+							<li><div class="testimonial-review">
+								<img style="width:45px; height:45px;"src="images/userimage/jjm.jpg" alt="testimoni">
+									엑박사자, 정대리<small>&nbsp;&nbsp; Team. 형설지공 수석몸짱</small>
+							</div></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4 col-lg-4">
 					<div class="widget_title">
 						<h4>
 							<span>Flickr Gallery</span>
@@ -124,6 +157,14 @@
 				'pauseOnHover' : true,
 				'slideEndAnimation' : true,
 				'autoChange' : true
+			});
+		});
+		$(function(){
+			$(".thanksAllOfYou").parent().hover(
+					function(){
+						$(this).children(".thanksAllOfYou").show("slow");
+					},function(){
+						$(this).children(".thanksAllOfYou").hide("slow");
 			});
 		});
 	</script>

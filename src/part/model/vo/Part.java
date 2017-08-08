@@ -16,7 +16,16 @@ public class Part implements java.io.Serializable{
 	private int partCnt;
 	
 	public Part() {}
-
+	
+	public Part(String partId, String partName, String partCategory, int price, int quantity, String partImg) {
+		super();
+		this.partId = partId;
+		this.partName = partName;
+		this.partCategory = partCategory;
+		this.price = price;
+		this.quantity = quantity;
+		this.partImg = partImg;
+	}
 	public Part(String partId, String partName, String partCategory, int price, int quantity, String partDesc, String partImg) {
 		super();
 		this.partId = partId;

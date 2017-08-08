@@ -476,7 +476,7 @@ public class DesignDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "SELECT PART_CODE, PART_TITLE, PART_PRICE, QUANTITY FROM PART"
+		String query = "SELECT PART_CODE, PART_TITLE, PART_CATEGORY, PART_PRICE, QUANTITY, PART_IMG FROM PART"
 				+" JOIN PART_SET USING(PART_CODE)"
 				+" WHERE DESIGN_CODE = ?";
 		try {
@@ -488,8 +488,10 @@ public class DesignDAO {
 				while (rset.next()) {
 					list.add(new Part(rset.getString("PART_CODE"),
 							rset.getString("PART_TITLE"),
+							rset.getString("PART_CATEGORY"),
 							rset.getInt("PART_PRICE"),
-							rset.getInt("QUANTITY")));
+							rset.getInt("QUANTITY"),
+							rset.getString("PART_IMG")));
 				}
 			}
 		} catch (SQLException e){

@@ -1,4 +1,4 @@
-/*** Semi 데이터 베이스 스크립트 Ver 3.0 ***/
+/*** Semi 데이터 베이스 스크립트 Ver 3.3 ***/
 /* ID : made / PWD : made1708 */
 
 /** 1.0 ver 스크립트 초기화를 위한 테이블 삭제 **/
@@ -370,6 +370,8 @@ CREATE TABLE DESIGN (
        CONSTRAINT FK_DE_CATEGORY FOREIGN KEY(DESIGN_CATEGORY) REFERENCES CATEGORY
 );
 
+SELECT * FROM DESIGN;
+
 COMMENT ON TABLE DESIGN IS '디자인게시글';
 
 COMMENT ON COLUMN DESIGN.DESIGN_CODE IS '디자인 코드';
@@ -388,21 +390,23 @@ COMMENT ON COLUMN DESIGN.DESIGN_IMG IS '이미지';
 COMMENT ON COLUMN DESIGN.MEMBER_ID IS '디자이너';
 COMMENT ON COLUMN DESIGN.DESIGN_COUNT IS '조회수';
 
-
+select * from part;
 /* 주문서 */
 CREATE TABLE ORDER_INFO (
 	ORDER_CODE VARCHAR2(14) CONSTRAINT PK_ORDER PRIMARY KEY, /* 주문 코드 */
 	MEMBER_ID VARCHAR2(30) NOT NULL, /* 아이디 */
 	ORDER_DATE DATE NOT NULL, /* 주문일 */
-  ORDER_COUNT NUMBER, /* 주문 갯수 */
+       ORDER_COUNT NUMBER, /* 주문 갯수 */
 	ORDER_POINT NUMBER, /* 주문별 포인트 */
 	ORDER_STATE_CODE VARCHAR2(10) NOT NULL, /* 상태 코드 */
 	SHIP_COMPANY_NAME VARCHAR2(30), /* 배송 업체명 */
 	ORDER_SHIP_CODE VARCHAR2(30), /* 운송장 번호 */
-  DESIGN_CODE VARCHAR2(14), /* 디자인 코드 */
-  PART_CODE VARCHAR2(14), /* 부품 코드 */
-  CONSTRAINT FK_DE_CODE FOREIGN KEY(DESIGN_CODE) REFERENCES DESIGN,
-  CONSTRAINT FK_PT_CODE FOREIGN KEY(PART_CODE) REFERENCES PART
+       DESIGN_CODE VARCHAR2(14), /* 디자인 코드 */
+       PART_CODE VARCHAR2(14), /* 부품 코드 */
+--       ORDER_PRICE NUMBER, /* 구매 가격 */
+--       DESIGN_FULL VARCHAR2(3) CONSTRAINT CK_DESIGNFULL CHECK (DESIGN_FULL IN('Y', 'N')),
+       CONSTRAINT FK_DE_CODE FOREIGN KEY(DESIGN_CODE) REFERENCES DESIGN,
+       CONSTRAINT FK_PT_CODE FOREIGN KEY(PART_CODE) REFERENCES PART
 );
 
 COMMENT ON TABLE ORDER_INFO IS '주문서';
@@ -426,7 +430,6 @@ COMMENT ON COLUMN ORDER_INFO.ORDER_SHIP_CODE IS '운송장 번호';
 COMMENT ON COLUMN ORDER_INFO.DESIGN_CODE IS '디자인 코드';
 
 COMMENT ON COLUMN ORDER_INFO.PART_CODE IS '부품 코드';
-
 
 /* 부품 묶음 */
 CREATE TABLE PART_SET (
@@ -525,7 +528,7 @@ CONSTRAINT FK_LL_PACODE FOREIGN KEY(PART_CODE) REFERENCES PART ON DELETE CASCADE
 COMMENT ON COLUMN LIKELIST.MEMBER_ID IS '유저ID';
 COMMENT ON COLUMN LIKELIST.DESIGN_CODE IS '디자인코드';
 COMMENT ON COLUMN LIKELIST.PART_CODE IS '부품코드';
-SELECT * FROM ITEM_REVIEW;
+
 /* 상품 후기 */
 CREATE TABLE ITEM_REVIEW(
 REVIEW_CODE VARCHAR2(14) CONSTRAINT PK_REVIEW PRIMARY KEY,
@@ -770,10 +773,6 @@ TO_DATE('1999-02-10','RRRR-MM-DD'),'010-3233-7153','30221,서울시,강남구 �
 INSERT INTO MEMBER VALUES('user33','C','pass33','정진모','jjm9290@iei.or.kr','남',
 TO_DATE('1999-02-10','RRRR-MM-DD'),'010-9504-9598','30221,서울시,강남구 역삼동', SYSDATE, 'jjm.jpg',
 90000,'정대리');
-
---SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_CLASS_CODE = 'D';
-
-/* 임시 데이터 */
 INSERT INTO MEMBER VALUES('maxy','C','pass44','김막시','maxy@iei.or.kr','여',
 TO_DATE('1999-05-15','RRRR-MM-DD'),'010-0101-1234','10020,서울,OO구 ㅁㅁ동', SYSDATE, 'sg.jpg',
 00000,'막시멈');
@@ -874,6 +873,10 @@ INSERT INTO PART VALUES('PA'||TO_CHAR(TO_DATE('1707121614','RRMMDDHH24MI'),'RRMM
 INSERT INTO PART VALUES('PA'||TO_CHAR(TO_DATE('1707170102','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'목재 판넬','WOOD',TO_DATE('1707121612','RRMMDDHH24MI'),21230,5,'기본 목재 샘플4','default_wood4.jpg',0);
 INSERT INTO PART VALUES('PA'||TO_CHAR(TO_DATE('1707170207','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'플라스틱 인조잔디블럭_50size','PLASTIC',TO_DATE('1707121637','RRMMDDHH24MI'),15000,70,'플라스틱 자재 샘플3','default_plastic3.jpg',0);
 INSERT INTO PART VALUES('PA'||TO_CHAR(TO_DATE('1707170738','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'철재 모형','STEEL',TO_DATE('1707170738','RRMMDDHH24MI'),22000,20,'기본 철재 샘플3','default_steel3.jpg',0);
+INSERT INTO PART VALUES('PA170809060701','DIY-Shoes','ETC',TO_DATE('1708090538','RRMMDDHH24MI'),15000,130,'<p style="text-align: center; "><font face="Arial Black"><b>DIY-Shoes (Get your own unique Shoes)</b></font></p><p style="text-align: center; "><font face="Arial Black"><b><br></b></font></p><div style="text-align: center;"><iframe width="560" height="315" src="https://www.youtube.com/embed/2r-zF48muPk?start=65" frameborder="0" allowfullscreen=""></iframe></div><div style="text-align: center;"><br></div><div style="text-align: center;">요즘 신발 디자인이 너무 흔해서 재미가 없다구요?</div><div style="text-align: center;">그런 당신을 위해 준비했습니다, 세상에 하나뿐인 신발, DIY Shoes!!</div><div style="text-align: center;"><br></div><div style="text-align: center;">[ 만드는 법]</div><div style="text-align: center;"><br></div><div style="text-align: center;">1. 본 페이지의 무색 스니커즈 단화를 구매하세요!</div><div style="text-align: center;">(유성 매직은 상품에 포함되어 있지 않습니다.)</div><div style="text-align: center;"><img src="http://localhost:3080/made/images/items/parts/desc/20170809060729.jpg" style="width: 605px;"><br></div><div style="text-align: center;"><br></div><div style="text-align: center;">2. 본인이 원하는 디자인을 본 딸 틀을 준비하세요!</div><div style="text-align: center;"><img src="http://localhost:3080/made/images/items/parts/desc/20170809060738.jpg" style="width: 605px;"><br></div><div style="text-align: center;"><br></div><div style="text-align: center;">3. 다 그린 후, 그늘진 서늘한 곳에서 약 3시간 정도 말리면 준비 끝!!</div><div style="text-align: center;">자, 어서가서 지인들께 당신의 특별한 신발을 자랑하세요~!!</div><div style="text-align: center;"><img src="http://localhost:3080/made/images/items/parts/desc/20170809060746.jpg" style="width: 605px;"><br></div>','20170809060751.jpg',180);
+INSERT INTO PART VALUES('PA170809061302','목재 리폼 스티커 100x45cm','ETC',TO_DATE('1708090738','RRMMDDHH24MI'),5500,50,'<p style="text-align: center; "><img src="http://localhost:3080/made/images/items/parts/desc/20170809061339.jpg" style="width: 495px;"><br></p><p><br></p><p>목재 리폼 스티커 입니다.</p><p>디자인이 맘에 안드는 가구가 있거나, 인테리어를 꾸미고 싶을 때 안성 맞춤인 스티커!</p><p>뭐라구요, 아직 안써보셨다구요?</p><p>그럼 하나 장만 하시고, 놀라는 일만 남았겠군요!!</p>','20170809061351.jpg',70);
+
+select * from part;
 
 /* 디자인 판매 게시글 */
 INSERT INTO DESIGN VALUES('DE'||TO_CHAR(TO_DATE('1707101335','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(0,2,'0'),'목재서랍장1','WOOD',TO_DATE('1707101335','RRMMDDHH24MI'),'목재 서랍장1입니다.',15000,'default_design1.jpg','design11',9);
@@ -890,6 +893,7 @@ INSERT INTO DESIGN VALUES('DE'||TO_CHAR(TO_DATE('1707131410','RRMMDDHH24MI'),'RR
 INSERT INTO DESIGN VALUES('DE'||TO_CHAR(TO_DATE('1707151430','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'철재캠프파이어화덕','STEEL',TO_DATE('1707151430','RRMMDDHH24MI'),'역시 캠프하면 캠프파이어죠!! 화재는 책임 못집니다.',63000,'default_design12.jpg','design11',0);
 INSERT INTO DESIGN VALUES('DE'||TO_CHAR(TO_DATE('1707151447','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'목재n철재 책상','ETC',TO_DATE('1707151447','RRMMDDHH24MI'),'철재와 목재로 친환경 책상을 만듭니다, 완제품 구매시엔 원하시는 사이즈를 말씀하세요.',75000,'default_design13.jpg','design22',0);
 INSERT INTO DESIGN VALUES('DE'||TO_CHAR(TO_DATE('1707131750','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'목재n철재 탁자','ETC',TO_DATE('1707131750','RRMMDDHH24MI'),'정원에 이런 탁자, 다들 하나쯤은 있지 않나요?',59000,'default_design14.jpg','design11',0);
+INSERT INTO DESIGN VALUES('DE170809062201', '목재 리폼 노트북', 'ETC', TO_DATE('170809','RRMMDD'),	'<p><iframe frameborder="0" src="//www.youtube.com/embed/9ifQqJycl-c" width="640" height="360" class="note-video-clip"></iframe><br></p><p>목재리폼 스티커를 활용한 노트북 꾸미기!!</p><p>아니 혹해서 들어온 당신, 아직도 구닥다리 기본 랩탑 스킨을 사용 중이시라구요??</p><p>이번 기회를 놓치시면 전문가의 손.길. &nbsp;기대하기 힘들 걸요!!!</p><p><br></p><p>지금이라면 사이트에서 판매하는 스티커를 활용해서 직접 붙이실 수도 있습니다. 기대하세요~!!</p><p><br></p><p><b>[준비물]</b></p><p>&nbsp;- 사무용 칼</p><p>&nbsp;- 리폼 스티커 (이 사이트에서도 팔더라구요 ㅎㅎ)</p><p><br></p><p><b>[만드는 법]</b></p><p>1. 먼저 본인의 노트북 사이즈에 맞게 리폼 스티커를 제단합니다.</p><p><img src="http://localhost:3080/made/images/items/designed/desc/20170809062106.jpg" style="width: 390.977px; height: 260px;"><br></p><p><br></p><p>2. 뭐 있나요, 붙이시면 끝인 걸!! 붙일때 혐오스러운 기포가 안생기게,</p><p> 먼저 물티슈와 마른 티슈로 한 번씩 표면을 닦아주고 수평으로 조심히 붙여줍니다.</p><p><img src="http://localhost:3080/made/images/items/designed/desc/20170809062054.jpg" style="width: 374.436px; height: 249px;"><br></p><p><br></p><p>3. 이제 자랑하러 갈까요?</p><p><img src="http://localhost:3080/made/images/items/designed/desc/20170809062034.jpg" style="width: 372.381px; height: 253px;"><br></p><p><br></p>',	50000,	'20170809062216.jpg', 'design22',130);
 
 /* 상품 리뷰 데이터 작성 */
 INSERT INTO ITEM_REVIEW VALUES('RV'||TO_CHAR(TO_DATE('1707131850','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),null,'DE170710133500','user11','잘 쓰고 있습니다. 짱 좋아여 헤헷',TO_DATE('1707121425','RRMMDDHH24MI'));
@@ -919,33 +923,33 @@ INSERT INTO MESSAGE VALUES('ME'||TO_CHAR(TO_DATE('1707202020','RRMMDDHH24MI'),'R
 -- DAO 입력 값 : INSERT INTO MESSAGE VALUES('ME'||TO_CHAR(SYSDATE,'RRMMDDHH24MI')||LPAD(SEQ_ME.NEXTVAL,2,'0'),'첫번째 쪽지','user11','user22','잘 부탁드려요~~',SYSDATE);
 
 /* ORDER_INFO */
-INSERT INTO ORDER_INFO VALUES('OD170501180001', 'user22', TO_DATE('2017-05-01', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170710133500', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170502180002', 'user22', TO_DATE('2017-05-02', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170712142501', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170501180001', 'user11', TO_DATE('2017-05-01', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170710133500', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170502180002', 'user33', TO_DATE('2017-05-02', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170712142501', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170503180003', 'user22', TO_DATE('2017-05-03', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, 'DE170712143501', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170504180004', 'user22', TO_DATE('2017-05-04', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170713144401', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170504180004', 'user33', TO_DATE('2017-05-04', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170713144401', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170505180005', 'user22', TO_DATE('2017-05-05', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170714024001', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170506180006', 'user22', TO_DATE('2017-05-06', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, 'DE170713102501', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170506180006', 'user11', TO_DATE('2017-05-06', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, 'DE170713102501', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170507180007', 'user22', TO_DATE('2017-05-07', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170713112001', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170508180008', 'user22', TO_DATE('2017-05-08', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170713062301', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170508180008', 'user33', TO_DATE('2017-05-08', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170713062301', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170509180009', 'user22', TO_DATE('2017-05-09', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, 'DE170714204001', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170510180010', 'user22', TO_DATE('2017-05-10', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170714050501', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170510180010', 'user11', TO_DATE('2017-05-10', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170714050501', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170511180011', 'user22', TO_DATE('2017-05-11', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170713141001', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170512180012', 'user22', TO_DATE('2017-05-12', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, 'DE170715143001', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170512180012', 'user33', TO_DATE('2017-05-12', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, 'DE170715143001', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170513180013', 'user22', TO_DATE('2017-05-13', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170715144701', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170514180014', 'user22', TO_DATE('2017-05-14', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170713175001', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170515180015', 'user22', TO_DATE('2017-05-15', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161001');
+INSERT INTO ORDER_INFO VALUES('OD170515180015', 'user11', TO_DATE('2017-05-15', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161001');
 INSERT INTO ORDER_INFO VALUES('OD170516180016', 'user22', TO_DATE('2017-05-16', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, NULL, 'PA170712143501');
-INSERT INTO ORDER_INFO VALUES('OD170517180017', 'user22', TO_DATE('2017-05-17', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, NULL, 'PA170713144401');
+INSERT INTO ORDER_INFO VALUES('OD170517180017', 'user11', TO_DATE('2017-05-17', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, NULL, 'PA170713144401');
 INSERT INTO ORDER_INFO VALUES('OD170518180018', 'user22', TO_DATE('2017-05-18', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161101');
 INSERT INTO ORDER_INFO VALUES('OD170519180019', 'user22', TO_DATE('2017-05-19', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, NULL, 'PA170715101501');
-INSERT INTO ORDER_INFO VALUES('OD170520180020', 'user22', TO_DATE('2017-05-20', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, NULL, 'PA170715102001');
-INSERT INTO ORDER_INFO VALUES('OD170521180021', 'user22', TO_DATE('2017-05-21', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161201');
+INSERT INTO ORDER_INFO VALUES('OD170520180020', 'user11', TO_DATE('2017-05-20', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, NULL, 'PA170715102001');
+INSERT INTO ORDER_INFO VALUES('OD170521180021', 'user33', TO_DATE('2017-05-21', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161201');
 INSERT INTO ORDER_INFO VALUES('OD170522180022', 'user22', TO_DATE('2017-05-22', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, NULL, 'PA170715111501');
 INSERT INTO ORDER_INFO VALUES('OD170523180023', 'user22', TO_DATE('2017-05-23', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, NULL, 'PA170715132001');
-INSERT INTO ORDER_INFO VALUES('OD170524180024', 'user22', TO_DATE('2017-05-24', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161401');
-INSERT INTO ORDER_INFO VALUES('OD170525180025', 'user22', TO_DATE('2017-05-25', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, NULL, 'PA170717010201');
+INSERT INTO ORDER_INFO VALUES('OD170524180024', 'user33', TO_DATE('2017-05-24', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161401');
+INSERT INTO ORDER_INFO VALUES('OD170525180025', 'user11', TO_DATE('2017-05-25', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, NULL, 'PA170717010201');
 INSERT INTO ORDER_INFO VALUES('OD170526180026', 'user22', TO_DATE('2017-05-26', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, NULL, 'PA170717020701');
-INSERT INTO ORDER_INFO VALUES('OD170527180027', 'user22', TO_DATE('2017-05-27', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170717073801');
+INSERT INTO ORDER_INFO VALUES('OD170527180027', 'user11', TO_DATE('2017-05-27', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170717073801');
 
 
 --SELECT * FROM CATEGORY;
@@ -987,7 +991,6 @@ INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707142040','RRMMDDHH24MI'),'RRMMDD
 INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707140505','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','10번째메세지','새를 좋아하신다구요? 그런 분들을 위해 소개합니다. 친환경 새 모이 통!',TO_DATE('1707140505','RRMMDDHH24MI'),'default_design10.jpg',null);
 INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131410','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','11번째메세지','더이상 그릴판을 사러 다니지 마세요!',TO_DATE('1707131410','RRMMDDHH24MI'),'default_design11.jpg',null);
 
-
 COMMIT;
 /*
 SELECT * FROM MEMBER;
@@ -1006,11 +1009,49 @@ select * from ITEM_REVIEW;
 
 ------------------------
  ---- CREATE VIEW 로 구현할 예정 ---
-/* 수익 통계 전용 쿼리 기입부; 구현 필요 */
+/* 수익 통계 전용 쿼리 기입부; 구현 80% -- 프론트단 구현 필요 */
+-- 시간 부족해서 안될 듯;;;;;
   -- 회원ID (디자이너별 확인을 위함)
   -- 월 별 수익 (최근 3개월)
   -- 년 별 수익
   -- 최다 판매 상품
+
+--/* 주문 정보 전용 VIEW 생성용 쿼리 */
+-- 월 별 각 상품 판매 횟수
+--SELECT ITEM "판매 상품", SUBSTR(ORDER_DATE,1,5) "판매 월", COUNT(*) "판매횟수", SUM("가격"*ORDER_COUNT) "판매 실적" FROM (SELECT O.*, D.DESIGN_CODE "ITEM", D.DESIGN_PRICE  "가격", D.MEMBER_ID "MID" FROM ORDER_INFO O
+--               JOIN DESIGN D ON(O.DESIGN_CODE = D.DESIGN_CODE)
+--               UNION
+--               SELECT O.*, P.PART_CODE "ITEM", P.PART_PRICE, NULL FROM ORDER_INFO O
+--               JOIN PART P ON(O.PART_CODE = P.PART_CODE))
+--               GROUP BY ITEM, SUBSTR(ORDER_DATE,1,5) ORDER BY 4 DESC;
+
+-- 월 별 총 상품 판매 횟수
+--SELECT SUBSTR(ORDER_DATE,1,5) "판매 월", COUNT(*) "판매횟수", SUM("가격"*ORDER_COUNT) "판매 실적" FROM (SELECT O.*, D.DESIGN_CODE "ITEM", D.DESIGN_PRICE  "가격", D.MEMBER_ID "MID" FROM ORDER_INFO O
+--               JOIN DESIGN D ON(O.DESIGN_CODE = D.DESIGN_CODE)
+--               UNION
+--               SELECT O.*, P.PART_CODE "ITEM", P.PART_PRICE, NULL FROM ORDER_INFO O
+--               JOIN PART P ON(O.PART_CODE = P.PART_CODE))
+--               GROUP BY SUBSTR(ORDER_DATE,1,5) ORDER BY 3 DESC;
+
+
+--- DESIGNER PURCHEASE ITEM ---
+
+-- 총 판매 내역
+--SELECT * FROM ORDER_INFO
+--JOIN DESIGN USING(DESIGN_CODE)
+--WHERE DESIGN.MEMBER_ID = 'design11';
+
+-- 월 별 판매 상품 수
+--SELECT DESIGN_CODE "판매 상품", SUBSTR(ORDER_DATE,1,5) "판매 월", COUNT(*) "구매 횟수" FROM ORDER_INFO
+--JOIN DESIGN USING(DESIGN_CODE)
+--WHERE DESIGN.MEMBER_ID = 'design11'
+--GROUP BY DESIGN_CODE, SUBSTR(ORDER_DATE,1,5);
+--
+---- 월 별 총 판매량
+--SELECT SUBSTR(ORDER_DATE,1,5) "판매 월", COUNT(*) "구매 횟수" FROM ORDER_INFO
+--JOIN DESIGN USING(DESIGN_CODE)
+--WHERE DESIGN.MEMBER_ID = 'design11'
+--GROUP BY SUBSTR(ORDER_DATE,1,5);
 
 /* TOP5 Item 추출 쿼리 기입부; DAO에 구현 완료 */
 

@@ -126,7 +126,7 @@
 		$.ajax({
 			data : data,
 			type : "post",
-			url : '/made/partUpload', // servlet url
+			url : '/made/partUploadImg', // servlet url
 			cache : false,
 			contentType : false,
 			processData : false,

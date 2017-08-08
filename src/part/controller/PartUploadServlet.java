@@ -90,7 +90,6 @@ public class PartUploadServlet extends HttpServlet {
 				fout.close();
 				originFile.delete(); // 원본 파일 삭제함
 			}
-
 		}
 		PrintWriter out = response.getWriter();
 		out.print("http://localhost:3080/made/images/items/parts/desc/" + renameFileName);

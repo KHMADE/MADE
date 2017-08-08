@@ -487,7 +487,7 @@
 											<p>사이트를 이용하면서 일반 대량 구매 사이트와는 다른 순이익 도표화가 <br>너무 맘에 들어 계속 관계를 맺고 있습니다.<br>여러분 design11의 작품, 많이 이용해 주세요!!!</p>
 										</blockquote>
 										<div class="testimonial-review">
-											<img src="images/userimage/default_image.png" alt="testimoni">
+											<img src="images/userimage/yoo_boss.jpg" alt="testimoni">
 											<h1>
 												유OO 사장님<small>Team. 형설지공 대표</small>
 											</h1>

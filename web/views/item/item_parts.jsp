@@ -139,7 +139,7 @@
 						<!--end isotope -->
 
 						<!-- 페이지 번호 처리 -->
-						<div class="col-lg-7 col-md-7 col-sm-7">
+						<div class="col-lg-5 col-md-5 col-sm-5">
 							<ul class="pagination pull-right mrgt-0">
 								<%
 									if (currentPage <= 1) {
