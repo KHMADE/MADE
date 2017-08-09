@@ -74,6 +74,7 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 				<th width="80px" class="text-center">답변여부</th>
 			</tr>
 			</thead>
+			<%if(list!=null){ %>
 			<%	for(Qa q : list){%>
 			<tbody>
 				<tr class="">                  
@@ -84,13 +85,19 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 					<td class="date">
 						<%=q.getQaDate() %>
 					</td>
-                    <td class="answer">
+                    <td class="answer" align="center">
                     <% if (q.getQaAnswer() != null){ %>
-                    ○
+                    <a><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
                     <% } else { %>
-                    X
+                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <% } %>
                     </td>
+				</tr>
+			</tbody>
+			<%}}else{ %>
+			<tbody>
+				<tr class="">                  
+					등록된 글이 없습니다.
 				</tr>
 			</tbody>
 			<%} %>

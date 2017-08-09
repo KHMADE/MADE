@@ -38,9 +38,7 @@ public class QaMemberListServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 			member=request.getParameter("member");
 		QaService qservice = new QaService();
-		System.out.println(member);
 		int listCount = qservice.getMemberListCount(member);
-		System.out.println(listCount);
 		ArrayList<Qa> list = qservice.qaMemberSelectList(member, currentPage, limit);
 		
 		int maxPage = (int)((double)listCount / limit + 0.9);

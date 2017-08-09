@@ -3,100 +3,70 @@ package notice.model.vo;
 import java.sql.Date;
 
 public class Notice implements java.io.Serializable{
-
 	private static final long serialVersionUID = 1L;
 	
-	private int noticeNo;
+	private String noticeCode;
 	private String noticeTitle;
-	private String noticeWriter;
+	private String noticeContents;
 	private Date noticeDate;
-	private String noticeContent;
-	private String filePath;
+	private String noticeImg;
 	
-	public Notice() {}
-	
-	public Notice(String noticeTitle, String noticeWriter, String noticeContent) {
-		this.noticeTitle = noticeTitle;
-		this.noticeWriter = noticeWriter;
-		this.noticeContent = noticeContent;
+	public String getNoticeCode() {
+		return noticeCode;
 	}
-	
-	public Notice(String noticeTitle, String noticeWriter, String noticeContent, String filePath) {
-		this.noticeTitle = noticeTitle;
-		this.noticeWriter = noticeWriter;
-		this.noticeContent = noticeContent;
-		this.filePath = filePath;
+	public void setNoticeCode(String noticeCode) {
+		this.noticeCode = noticeCode;
 	}
-	
-	public Notice(int noticeNo, String noticeTitle, String noticeContent, String filePath) {
-		this.noticeNo = noticeNo;
-		this.noticeTitle = noticeTitle;
-		this.noticeContent = noticeContent;
-		this.filePath = filePath;
-	}
-	
-	public Notice(int noticeNo, String noticeTitle, String noticeWriter, Date noticeDate, String noticeContent,
-			String filePath) {
-		super();
-		this.noticeNo = noticeNo;
-		this.noticeTitle = noticeTitle;
-		this.noticeWriter = noticeWriter;
-		this.noticeDate = noticeDate;
-		this.noticeContent = noticeContent;
-		this.filePath = filePath;
-	}
-
-	@Override
-	public String toString() {
-		return "Notice [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeWriter=" + noticeWriter
-				+ ", noticeDate=" + noticeDate + ", noticeContent=" + noticeContent + ", filePath=" + filePath + "]";
-	}
-
-	public int getNoticeNo() {
-		return noticeNo;
-	}
-
-	public void setNoticeNo(int noticeNo) {
-		this.noticeNo = noticeNo;
-	}
-
 	public String getNoticeTitle() {
 		return noticeTitle;
 	}
-
 	public void setNoticeTitle(String noticeTitle) {
 		this.noticeTitle = noticeTitle;
 	}
-
-	public String getNoticeWriter() {
-		return noticeWriter;
+	public String getNoticeContents() {
+		return noticeContents;
 	}
-
-	public void setNoticeWriter(String noticeWriter) {
-		this.noticeWriter = noticeWriter;
+	public void setNoticeContents(String noticeContents) {
+		this.noticeContents = noticeContents;
 	}
-
 	public Date getNoticeDate() {
 		return noticeDate;
 	}
-
 	public void setNoticeDate(Date noticeDate) {
 		this.noticeDate = noticeDate;
 	}
-
-	public String getNoticeContent() {
-		return noticeContent;
+	public String getNoticeImg() {
+		return noticeImg;
+	}
+	public void setNoticeImg(String noticeImg) {
+		this.noticeImg = noticeImg;
 	}
 
-	public void setNoticeContent(String noticeContent) {
-		this.noticeContent = noticeContent;
+	public Notice(String noticeCode, String noticeTitle, String noticeContents, Date noticeDate, String noticeImg) {
+		this.noticeCode = noticeCode;
+		this.noticeTitle = noticeTitle;
+		this.noticeContents = noticeContents;
+		this.noticeDate = noticeDate;
+		this.noticeImg = noticeImg;
 	}
-
-	public String getFilePath() {
-		return filePath;
+	
+	public Notice(String noticeCode, String noticeTitle, String noticeContents) {
+		super();
+		this.noticeCode = noticeCode;
+		this.noticeTitle = noticeTitle;
+		this.noticeContents = noticeContents;
 	}
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public Notice(String noticeTitle, String noticeContents) {
+		super();
+		this.noticeTitle = noticeTitle;
+		this.noticeContents = noticeContents;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return  noticeCode + ", " + noticeTitle + ", "	+ noticeContents + ", " + noticeDate + ", " + noticeImg ;
+	}
+	
+	
 }

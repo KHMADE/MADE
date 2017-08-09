@@ -539,7 +539,7 @@ CONSTRAINT FK_REVIEW_PACODE FOREIGN KEY(PART_CODE) REFERENCES PART ON DELETE CAS
 CONSTRAINT FK_REVIEW_DECODE FOREIGN KEY(DESIGN_CODE) REFERENCES DESIGN ON DELETE CASCADE,
 CONSTRAINT FK_REVIEW_MEMID FOREIGN KEY(MEMBER_ID) REFERENCES MEMBER ON DELETE CASCADE
 );
-
+commit;
 COMMENT ON COLUMN ITEM_REVIEW.REVIEW_CODE IS '리뷰코드';
 COMMENT ON COLUMN ITEM_REVIEW.PART_CODE IS '부품코드';
 COMMENT ON COLUMN ITEM_REVIEW.DESIGN_CODE IS '디자인코드';
@@ -548,9 +548,12 @@ COMMENT ON COLUMN ITEM_REVIEW.REVIEW_CONTENT IS '리뷰내용';
 COMMENT ON COLUMN ITEM_REVIEW.REVIEW_DATE IS '리뷰일자';
 
 /* 공지사항 댓글 */
+
 CREATE TABLE NOTICE_REPLY(
 NOTICE_CODE VARCHAR2(14),
+REPLY_CODE VARCHAR2(14),
 MEMBER_ID VARCHAR2(30),
+MEMBER_IMG VARCHAR2(30),
 REPLY_CONTENT VARCHAR2(3000),
 REPLY_DATE DATE DEFAULT SYSDATE,
 CONSTRAINT FK_NORPLY_CODE FOREIGN KEY(NOTICE_CODE) REFERENCES NOTICE ON DELETE CASCADE,
@@ -558,7 +561,9 @@ CONSTRAINT FK_NORPLY_MEMID FOREIGN KEY(MEMBER_ID) REFERENCES MEMBER ON DELETE CA
 );
 
 COMMENT ON COLUMN NOTICE_REPLY.NOTICE_CODE IS '공지 CODE';
+COMMENT ON COLUMN NOTICE_REPLY.REPLY_CODE IS '댓글 CODE';
 COMMENT ON COLUMN NOTICE_REPLY.MEMBER_ID IS '사용자ID';
+COMMENT ON COLUMN NOTICE_REPLY.MEMBER_IMG IS '사용자IMG';
 COMMENT ON COLUMN NOTICE_REPLY.REPLY_CONTENT IS '답글 내용';
 COMMENT ON COLUMN NOTICE_REPLY.REPLY_DATE IS '답글 작성일';
 
@@ -987,6 +992,30 @@ INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707142040','RRMMDDHH24MI'),'RRMMDD
 INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707140505','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','10번째메세지','새를 좋아하신다구요? 그런 분들을 위해 소개합니다. 친환경 새 모이 통!',TO_DATE('1707140505','RRMMDDHH24MI'),'default_design10.jpg',null);
 INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131410','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','11번째메세지','더이상 그릴판을 사러 다니지 마세요!',TO_DATE('1707131410','RRMMDDHH24MI'),'default_design11.jpg',null);
 
+/* NOTICE 임시 데이터*/
+
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707121425','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), 'The unique what you made MADE홈페이지가 오픈을 했습니다.', '국내 최초 핸드메이드 제작 및 판매 사이트 홈페이지 오픈!!',TO_DATE('1707121425','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707130239','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[축]개업기념 이벤트를 실시합니다.', '3만원 이상 구매하시는 모든 고객 분들께 배송비를 무료로 해드리는 이벤트 중입니다. 많이 참여해주세요~',TO_DATE('1707130239','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707142030','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[긴급]서버 점검기간 안내문.', '여러분의 열찬 성화에 힘입어 서버가 다운되었습니다. 좀더 나은 서버로 개선하고자, 금일 12시부터 21시까지 서버점검을 하고자 하오니 많은 양해 부탁드립니다.',TO_DATE('1707142030','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707151124','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[긴급]서버 점검기간 연장 안내문.', '서버개선 작업 중 오류가 발생하여 연장 작업을 실시합니다. 불편하시더라도 더 원활한 서비스를 위함이오니 많은 양해 부탁 드리며, 이번이 마지막이 되길 기도합니다.',TO_DATE('1707151124','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707152130','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지]서버 점검 완료 공지', '서버 점검이 완료되었습니다. 그동안 불편을 드려 정말 죄송하오며, 앞으로는 이런 일이 없도록 서버측 투자에 좀 더 신경 쓰겠습니다. 감사합니다.',TO_DATE('1707152130','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707171530','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지]상품 구매에 관하여...', '상품을 구매하시는 고객님들께 안내말씀 드립니다. 보 사이트의 모든 상품은 품절 시 구매가 되지 않습니다. 이점 명심하시고 구매에 참고 하시기 바랍니다. 감사합니다.',TO_DATE('1707171530','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707182130','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지]목재 관련 상품 안내 공지', '현재 본 사이트 목재 상품에 대해 안내 말씀드립니다. 본 상품 목록 중 목재 상품과 관련하여 기존에 공급해주던 공급사가 바뀜으로 인해서 재고량에 차질이 생겼습니다. 이 점 확인 하시고, 구매하실 때 참고 해주시기 바랍니다. 감사합니다.',TO_DATE('1707182130','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707182230','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지]서버 관리자 모집', '서버 관리자를 모집합니다. 지원조건은 27세 이하의 여성분들 선호이며, 스프링 코드를 구현해보신 분을 모집합니다. 능력자 분들 환영하오니 많은 참여 부탁드립니다.',TO_DATE('1707182230','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707182330','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[Inform]Server Summer Event', 'Hi, We are planning about Summer item Event in Europe. Come and see our items, then enjoy our items delivery free Event! Thank you. see ya.',TO_DATE('1707182330','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707190130','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지]해외 부품 협약 안내문', '드디어 본사에서 해외 이케아 협약을 체결하여 이케가의 부품들을 직수입 할 수 있게 되었습니다. 많은 이용 바랍니다. 감사합니다.',TO_DATE('1707190130','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707190330','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[긴급]플라스틱 품목 품절 안내', '현재 본 사이트 플라스틱 일부 상품이 품절 되어 공급사와 긴급히 연락 중에 있습니다. 이용 시 참고하시기 바랍니다. 감사합니다.',TO_DATE('1707190330','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707191030','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[Inform]Notice about Career staff', 'When resigning from a job role, it is considered best practice to give your employer the notice period as stated in your contract before you depart. This period of time allows your employer to plan for your departure, and to ensure that your job responsibilities are fully covered as to not disrupt the business and work flow.',TO_DATE('1707191030','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707192130','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[Notice]Writing to staff', 'Once staff have been assessed to work out who to put into a pension scheme they must be given information which explains how automatic enrolment applies to them.',TO_DATE('1707192130','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707201530','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[Inform]Advanced guidance', 'These resources may help if you have more detailed questions on the above:Detailed guidance 10: Information to workers (PDF, 144kb, 35 pages) For information on what must be provided to what type of staff, at which time, with links on where to find more information.',TO_DATE('1707201530','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707222030','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지]사업계획서 및 제휴신청서 안내', '본 사이트에 사업계획을 의논하시거나 제휴를 맺고자 하시는 기업체 담당자 분들은 해당 내용과 관련된 계획서를 담당자 유사장에게 firerain4@naver.com 메일로 발송해 주시면 감사하겠습니다. 보내주신 후 문자남겨 주시면 바로 확인 후 답변 드리도록 하겠습니다. 좋은 하루 되시기 바랍니다.',TO_DATE('1707222030','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707241220','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지] KG모빌리언스 크롬 브라우저 일부버전 오류관련 공지', '현재 크롬 웹브라우저 및 웹뷰 일부 버전에서 오류현상이 발생중이므로 하단 내용 참고 부탁드립니다.
+Google Chrome 웹브라우저 및 웹뷰 53/54 일부 버전에서 당사 결제창 접속시 보안 경고 및 접속 불가 현상이 발생 중입니다. 최근 Google에서 Chrome 일부 버전에 대하여 버그가 있음을 발표하였으며, Chrome 자체 오류로 인해 해결방안은 최신 버전으로 업그레이드 및 패치를 권고하고 있습니다.',TO_DATE('1707241220','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707252110','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지] 5자리 우편번호 시행에 따른 디자인수정 안내', '8월1일 부터 5자리 우편번호 적용 시 디자인관리에서 기존 주문페이지 또는 회원가입 페이지처럼 우편번호를 입력받는 페이지의 소스내용이 배포 또는 패치 후에도 우편번호 입력창이 기존[ ] - [ ]형태로 남아있기 때문에 아래 [예시]와 같은 상태로 보여질수 있으며 이에 따라 디자인을 수정해주시기 바랍니다.',TO_DATE('1707252110','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707272020','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[긴급]	다날 휴대폰 결제 정산관련 사용중지 안내', '현재 다날 휴대폰 결제를 이용하고있는 상점에서 "익주정산(매출 주의 익주 수요일)", "익초 정산(매출월의 익월 5일)" 주기로 선택하여 계약한 상점은 정상결제 진행이 안되고 있는 부분으로,
+기능 수정전까지 다날 휴대폰 결제 사용을 중지해 주시기 바라며 다날쪽과 확인하여 빠른시일내로 정상처리 될 수있도록 하겠습니다.',TO_DATE('1707272020','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707281010','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지] 다음 커머스원 상품 수집 일시 중단_8/16 (수요일)', '다음 쇼핑하우 긴급 DB 작업으로 인해, 커머스원의 상품 수집 작업이 2017년 8월 16일 14시부터 18시까지 중단됩니다. 작업 종료 후 스케쥴에 따라 정상적으로 상품 수집을 진행할 예정이며, 기존에 커머스원을 통해 상품 업데이트가 지연되는 문제들도 정상적으로 업데이트 진행될 예정입니다.',TO_DATE('1707281010','RRMMDDHH24MI'),null);
+select * from notice;
 
 COMMIT;
 /*
