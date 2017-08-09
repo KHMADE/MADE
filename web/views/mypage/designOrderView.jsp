@@ -179,12 +179,23 @@ String dFull = (String)request.getAttribute("dFull");
 			}, function(rsp) {
 				if (rsp.success) {
 					//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-					jQuery.ajax({
-						url : "/made/orderConfirm", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+					$.ajax({
+						url : "/made/orderinsert", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
 						type : 'POST',
 						dataType : 'json',
 						data : {
-							imp_uid : rsp.imp_uid
+							item : 'design',
+							code : '<%=d.getDesignId()%>',
+							quan : <%=quan%>,
+							imp_uid : rsp.imp_uid,
+							pay_method : rsp.pay_method,
+							price : rsp.paid_amount,
+							status : rsp.status,
+							title : rsp.name,
+							pg_tid : rsp.pg_tid,
+							buyer_name : rsp.buyer_name,
+							paid_at : rsp.paid_at,
+							receipt_url : rsp.receipt_url
 						//기타 필요한 데이터가 있으면 추가 전달
 						}
 					}).done(function(data) {

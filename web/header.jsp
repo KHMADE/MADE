@@ -253,7 +253,7 @@ $(function(){
 								</ul></li>
 						<li><a href="/made/views/faq/faq.jsp">FAQ</a></li>
 						<li><a href="/made/views/default_page/default_page.jsp">Default</a></li>
-						<li><a href="/made/contact.html">Contact</a></li>
+						<li><a href="/made/contact.jsp">Contact</a></li>
 					</ul>
 				</div>
 			</div>

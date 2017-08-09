@@ -47,11 +47,11 @@
 	<!--start wrapper-->
 	<section class="wrapper">
 	<h3>월 별 매출액 도표화</h3>
-		<div id="chart1" style="width:700px; height:300px"></div>
+		<div id="chart1" class="chart" style="width:700px; height:300px"></div>
 	<h3>금년도 인기상품 판매 퍼센트</h3>
-		<div id="chart2" style="width:700px; height:300px"></div>
+		<div id="chart2" class="chart" style="width:700px; height:300px"></div>
 	<h3>금년도 상위 5개 상품 판매 누계</h3>
-		<div id="chart3" style="width:700px; height:300px"></div>
+		<div id="chart3" class="chart" style="width:700px; height:300px"></div>
 		http://www.jqplot.com/examples/barLineAnimated.php
 	</section>
 	<!--End wrapper-->

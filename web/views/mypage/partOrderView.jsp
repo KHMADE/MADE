@@ -147,7 +147,18 @@ int quan = ((Integer)request.getAttribute("quan")).intValue();
 						type : 'POST',
 						dataType : 'json',
 						data : {
-							imp_uid : rsp.imp_uid
+							item : 'part',
+							code : '<%=p.getPartId()%>',
+							quan : <%=quan%>,
+							imp_uid : rsp.imp_uid,
+							pay_method : rsp.pay_method,
+							price : rsp.paid_amount,
+							status : rsp.status,
+							title : rsp.name,
+							pg_tid : rsp.pg_tid,
+							buyer_name : rsp.buyer_name,
+							paid_at : rsp.paid_at,
+							receipt_url : rsp.receipt_url
 						//기타 필요한 데이터가 있으면 추가 전달
 						}
 					}).done(function(data) {
