@@ -1,75 +1,81 @@
 package notice.model.service;
 
-import static common.JDBCTemplate.*;
-import java.sql.*;
-import java.util.*;
-import notice.model.dao.*;
-import notice.model.vo.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import notice.model.dao.NoticeDao;
+import notice.model.vo.Notice;
+import noticereply.model.dao.NoticeReplyDao;
+import noticereply.model.vo.NoticeReply;
+
 
 public class NoticeService {
-	public NoticeService() {}
-	
-	public ArrayList<Notice> noticeList(){
+	public ArrayList<Notice> qaSelectList(int currentPage, int limit){
 		Connection con = getConnection();
-		ArrayList<Notice> noList = new NoticeDAO().noticeList(con);
+		ArrayList<Notice> qa = new NoticeDao().selectNoticeList(con,currentPage,limit);
 		close(con);
-		return noList;
+		return qa;
 	}
-	
-	public HashMap<Integer,Notice> noticeMap(){
+
+	public int getListCount() {
 		Connection con = getConnection();
-		HashMap<Integer,Notice> noList = new NoticeDAO().noticeMap(con);
+		int listCount = new NoticeDao().getListCount(con);
 		close(con);
-		return noList;
+		return listCount;
 	}
-	
-	public Notice noticeSelect(int no){
+	public int noticeInsert(Notice n) {
+		int result=0;
 		Connection con = getConnection();
-		Notice notice = new NoticeDAO().selectOne(con,no);
+		result = new NoticeDao().insertNotice(con,n);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
+
+	public Notice noticeSelect(String noticeNum) {
+		Connection con = getConnection();
+		Notice notice = new NoticeDao().selectNotice(con,noticeNum);
 		close(con);
 		return notice;
 	}
-	
-	public ArrayList<Notice> selectTitle(String title){
+
+	public int deleteNotice(String noticeNum) {
+		int result=0;
 		Connection con = getConnection();
-		ArrayList<Notice> noList = new NoticeDAO().selectTitle(con, title);
-		close(con);
-		return noList;
-	}
-	
-	public int insertNotice(Notice n){
-		Connection con = getConnection();
-		int result = new NoticeDAO().insertNotice(con, n);
-		if(result > 0){
+		result = new NoticeDao().deleteNotice(con,noticeNum);
+		if(result > 0)
 			commit(con);
-		} else {
+		else
 			rollback(con);
-		}
 		close(con);
 		return result;
 	}
 	
-	public int updateNotice(Notice n){
+	public int updateNotice(Notice no) {
+		int result=0;
 		Connection con = getConnection();
-		int result = new NoticeDAO().updateNotice(con, n);
-		if(result > 0){
+		result = new NoticeDao().updateNotice(con,no);
+		if(result > 0)
 			commit(con);
-		} else {
+		else
 			rollback(con);
-		}
 		close(con);
 		return result;
 	}
-	
-	public int deleteNotice(int noticeNo){
+
+	public ArrayList<Notice> noticeSelectList(int currentPage, int limit) {
 		Connection con = getConnection();
-		int result = new NoticeDAO().deleteNotice(con, noticeNo);
-		if(result > 0){
-			commit(con);
-		} else {
-			rollback(con);
-		}
+		ArrayList<Notice> notice = new NoticeDao().selectNoticeList(con,currentPage,limit);
 		close(con);
-		return result;
+		return notice;
 	}
+
 }

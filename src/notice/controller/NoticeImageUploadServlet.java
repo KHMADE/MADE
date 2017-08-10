@@ -1,4 +1,4 @@
-package qa.controller;
+package notice.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,21 +13,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 /**
- * Servlet implementation class QaImageUploadServlet
+ * Servlet implementation class NoticeImageUploadServlet
  */
-@WebServlet("/qaUpload")
-public class QaImageUploadServlet extends HttpServlet {
+@WebServlet("/nUpload")
+public class NoticeImageUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QaImageUploadServlet() {
+    public NoticeImageUploadServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -53,7 +55,7 @@ public class QaImageUploadServlet extends HttpServlet {
 		// 해당 컨테이너의 구동중인 웹 애플리케이션의 루트 경로 알아냄
 		String root = request.getSession().getServletContext().getRealPath("/");
 		// 업로드되는 파일이 저장될 폴더명과 경로 연결 처리
-		String savePath = root + "images\\qaUploadFiles";
+		String savePath = root + "images\\noticeUploadFiles";
 		// web/nuploadFiles 로 지정함
 		// request 를 MultipartRequest 객체로 변환함
 		MultipartRequest mrequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
@@ -89,9 +91,8 @@ public class QaImageUploadServlet extends HttpServlet {
 				originFile.delete(); // 원본 파일 삭제함
 			}
 		}
-	
 		PrintWriter out = response.getWriter();
-		out.print("http://localhost:3080/made/images/qaUploadFiles/" + renameFileName);
+		out.print("http://localhost:3080/made/images/noticeUploadFiles/" + renameFileName);
 		out.flush();
 		out.close();
 	}

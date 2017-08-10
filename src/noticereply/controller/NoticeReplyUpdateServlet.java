@@ -1,11 +1,7 @@
-package qa.controller;
+package noticereply.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,26 +9,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
-import qa.model.service.QaService;
-import qa.model.vo.Qa;
-
+import noticereply.model.service.NoticeReplyService;
 
 /**
- * Servlet implementation class QaInsertServlet
+ * Servlet implementation class NoticeReplyUpdateServlet
  */
-@WebServlet("/qinsert")
-public class QaInsertServlet extends HttpServlet {
+@WebServlet("/nrupdate")
+public class NoticeReplyUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QaInsertServlet() {
+    public NoticeReplyUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,18 +33,22 @@ public class QaInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		NoticeReplyService nrservice = new NoticeReplyService();
 		
-		String member = request.getParameter("qaMember");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		Qa qa = new Qa(member,title,content);
-		QaService qservice = new QaService();
-		if (qservice.qaInsert(qa) > 0) {
-			response.sendRedirect("/made/qmlist?member=" + member + "&page=1");
+		String reviewCode = request.getParameter("reviewCode");
+		String updtContent = request.getParameter("updtContent");
+		
+		RequestDispatcher view = null;
+		if(nrservice.updateNoticeReply(reviewCode,updtContent) != null){
+			PrintWriter out = response.getWriter();
+			out.print("댓글 수정 완료");
+			out.flush();
+			out.close();
 		} else {
-			response.sendRedirect("/made/404-page.jsp");
+			view = request.getRequestDispatcher("404-page.jsp");
+			request.setAttribute("message","디자인 후기 수정 과정 중 오류가 발생했습니다!!<br>상세한 사항은 관리자에게 문의하세요!");
+			view.forward(request, response);
 		}
-		
 	}
 
 	/**

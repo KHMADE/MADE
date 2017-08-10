@@ -40,12 +40,12 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<h2>1대1 문의</h2>
+						<h2>공지사항</h2>
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
 								<li><a href="/made/index.jsp">Home</a></li>
-								<li>QA</li>
+								<li>NOTICE</li>
 							</ul>
 						</nav>
 					</div>
@@ -57,24 +57,21 @@
         <div class="panel panel-default">
                 <!-- Default panel contents -->
                 <div class="panel-heading hide"></div>
-                <form method="POST" action="/made/qinsert" >
-                <input type="hidden" name="qaMember" value="<%=m.getId()%>">
+                <form method="POST" action="/made/ninsert" >
                     <div class="panel-body article">
-                        <h4>1대1문의</h4>
+                        <h4>공지사항 작성</h4>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h5>제목 : &nbsp;<input  style="width:50%;" name="title"></h5> </div>
-                            
                                <textarea name="content" class="summernote"></textarea>
-                           
                         </div>
                         <ul class="pager">
                             <li>
-                                <input type="submit" class="btn btn-default" value="보내기">
+                                <input type="submit" class="btn btn-default" value="글 작성">
                             </li>
                             </form>
                             <li>
-                               <button type="button" class="btn btn-default" onclick="top.location.href='/made/qmlist?member=<%=m.getId()%>&page=1'"> 문의함 </button>
+                               <button type="button" class="btn btn-default" onclick="javascript:history.go(-1);">취소하기</button>
                             </li>
                         </ul>
                     </div>
@@ -101,7 +98,7 @@
 		$.ajax({
 			data : data,
 			type : "post",
-			url : '/made/qaUpload', // servlet url
+			url : '/made/nUpload', // servlet url
 			cache : false,
 			contentType : false,
 			processData : false,

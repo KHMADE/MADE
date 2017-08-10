@@ -1,11 +1,6 @@
-package qa.controller;
+package noticereply.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,26 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
-import qa.model.service.QaService;
-import qa.model.vo.Qa;
-
+import notice.model.vo.Notice;
+import noticereply.model.service.NoticeReplyService;
+import noticereply.model.vo.NoticeReply;
 
 /**
- * Servlet implementation class QaInsertServlet
+ * Servlet implementation class NoticeReplyInsertServlet
  */
-@WebServlet("/qinsert")
-public class QaInsertServlet extends HttpServlet {
+@WebServlet("/nrinsert")
+public class NoticeReplyInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QaInsertServlet() {
+    public NoticeReplyInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,18 +34,18 @@ public class QaInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
-		String member = request.getParameter("qaMember");
-		String title = request.getParameter("title");
+		String id = request.getParameter("id");
+		String img = request.getParameter("img");
+		String nnum = request.getParameter("nnum");
 		String content = request.getParameter("content");
-		Qa qa = new Qa(member,title,content);
-		QaService qservice = new QaService();
-		if (qservice.qaInsert(qa) > 0) {
-			response.sendRedirect("/made/qmlist?member=" + member + "&page=1");
+		int currentPage = Integer.parseInt(request.getParameter("page"));
+		NoticeReplyService nrservice = new NoticeReplyService();
+		NoticeReply n = new NoticeReply(nnum,null,id,img,content, null);
+		if(nrservice.replyInsert(n) > 0){
+			response.sendRedirect("/made/ndetail?nnum="+nnum+"&page="+currentPage);
 		} else {
 			response.sendRedirect("/made/404-page.jsp");
 		}
-		
 	}
 
 	/**

@@ -1,4 +1,4 @@
-/*** Semi 데이터 베이스 스크립트 Ver 3.3 ***/
+/*** Semi 데이터 베이스 스크립트 Ver 3.0 ***/
 /* ID : made / PWD : made1708 */
 
 /** 1.0 ver 스크립트 초기화를 위한 테이블 삭제 **/
@@ -278,7 +278,7 @@ ALTER TABLE REQUEST
 /* 공지사항 */
 CREATE TABLE NOTICE (
 	NOTICE_CODE VARCHAR2(14) CONSTRAINT PK_NOTICE PRIMARY KEY, /* 공지사항 코드 */
-	NOTICE_TITLE VARCHAR2(50) NOT NULL, /* 제목 */
+	NOTICE_TITLE VARCHAR2(300) NOT NULL, /* 제목 */
 	NOTICE_CONTENTS VARCHAR2(3000) NOT NULL, /* 내용 */
 	NOTICE_DATE DATE NOT NULL, /* 작성일 */
 	NOTICE_IMG VARCHAR2(50) /* 이미지 */
@@ -370,8 +370,6 @@ CREATE TABLE DESIGN (
        CONSTRAINT FK_DE_CATEGORY FOREIGN KEY(DESIGN_CATEGORY) REFERENCES CATEGORY
 );
 
-SELECT * FROM DESIGN;
-
 COMMENT ON TABLE DESIGN IS '디자인게시글';
 
 COMMENT ON COLUMN DESIGN.DESIGN_CODE IS '디자인 코드';
@@ -390,23 +388,21 @@ COMMENT ON COLUMN DESIGN.DESIGN_IMG IS '이미지';
 COMMENT ON COLUMN DESIGN.MEMBER_ID IS '디자이너';
 COMMENT ON COLUMN DESIGN.DESIGN_COUNT IS '조회수';
 
-select * from part;
+
 /* 주문서 */
 CREATE TABLE ORDER_INFO (
 	ORDER_CODE VARCHAR2(14) CONSTRAINT PK_ORDER PRIMARY KEY, /* 주문 코드 */
 	MEMBER_ID VARCHAR2(30) NOT NULL, /* 아이디 */
 	ORDER_DATE DATE NOT NULL, /* 주문일 */
-       ORDER_COUNT NUMBER, /* 주문 갯수 */
+  ORDER_COUNT NUMBER, /* 주문 갯수 */
 	ORDER_POINT NUMBER, /* 주문별 포인트 */
 	ORDER_STATE_CODE VARCHAR2(10) NOT NULL, /* 상태 코드 */
 	SHIP_COMPANY_NAME VARCHAR2(30), /* 배송 업체명 */
 	ORDER_SHIP_CODE VARCHAR2(30), /* 운송장 번호 */
-       DESIGN_CODE VARCHAR2(14), /* 디자인 코드 */
-       PART_CODE VARCHAR2(14), /* 부품 코드 */
---       ORDER_PRICE NUMBER, /* 구매 가격 */
---       DESIGN_FULL VARCHAR2(3) CONSTRAINT CK_DESIGNFULL CHECK (DESIGN_FULL IN('Y', 'N')),
-       CONSTRAINT FK_DE_CODE FOREIGN KEY(DESIGN_CODE) REFERENCES DESIGN,
-       CONSTRAINT FK_PT_CODE FOREIGN KEY(PART_CODE) REFERENCES PART
+  DESIGN_CODE VARCHAR2(14), /* 디자인 코드 */
+  PART_CODE VARCHAR2(14), /* 부품 코드 */
+  CONSTRAINT FK_DE_CODE FOREIGN KEY(DESIGN_CODE) REFERENCES DESIGN,
+  CONSTRAINT FK_PT_CODE FOREIGN KEY(PART_CODE) REFERENCES PART
 );
 
 COMMENT ON TABLE ORDER_INFO IS '주문서';
@@ -431,6 +427,7 @@ COMMENT ON COLUMN ORDER_INFO.DESIGN_CODE IS '디자인 코드';
 
 COMMENT ON COLUMN ORDER_INFO.PART_CODE IS '부품 코드';
 
+
 /* 부품 묶음 */
 CREATE TABLE PART_SET (
 	DESIGN_CODE VARCHAR2(14) NOT NULL, /* 디자인 코드 */
@@ -451,7 +448,7 @@ SET ESCAPE ON;
 CREATE TABLE QA (
 	QA_CODE VARCHAR2(14) CONSTRAINT PK_QA PRIMARY KEY, /* 문의사항 코드 */
 	MEMBER_ID VARCHAR2(30) NOT NULL, /* 아이디 */
-	QA_TITLE VARCHAR2(50) NOT NULL, /* 제목 */
+	QA_TITLE VARCHAR2(300) NOT NULL, /* 제목 */
 	QA_CONTENTS VARCHAR2(3000) NOT NULL, /* 내용 */
 	QA_DATE DATE NOT NULL, /* 작성일 */
 	QA_IMG VARCHAR2(50), /* 이미지 */
@@ -528,7 +525,7 @@ CONSTRAINT FK_LL_PACODE FOREIGN KEY(PART_CODE) REFERENCES PART ON DELETE CASCADE
 COMMENT ON COLUMN LIKELIST.MEMBER_ID IS '유저ID';
 COMMENT ON COLUMN LIKELIST.DESIGN_CODE IS '디자인코드';
 COMMENT ON COLUMN LIKELIST.PART_CODE IS '부품코드';
-
+SELECT * FROM ITEM_REVIEW;
 /* 상품 후기 */
 CREATE TABLE ITEM_REVIEW(
 REVIEW_CODE VARCHAR2(14) CONSTRAINT PK_REVIEW PRIMARY KEY,
@@ -542,7 +539,7 @@ CONSTRAINT FK_REVIEW_PACODE FOREIGN KEY(PART_CODE) REFERENCES PART ON DELETE CAS
 CONSTRAINT FK_REVIEW_DECODE FOREIGN KEY(DESIGN_CODE) REFERENCES DESIGN ON DELETE CASCADE,
 CONSTRAINT FK_REVIEW_MEMID FOREIGN KEY(MEMBER_ID) REFERENCES MEMBER ON DELETE CASCADE
 );
-
+commit;
 COMMENT ON COLUMN ITEM_REVIEW.REVIEW_CODE IS '리뷰코드';
 COMMENT ON COLUMN ITEM_REVIEW.PART_CODE IS '부품코드';
 COMMENT ON COLUMN ITEM_REVIEW.DESIGN_CODE IS '디자인코드';
@@ -551,9 +548,12 @@ COMMENT ON COLUMN ITEM_REVIEW.REVIEW_CONTENT IS '리뷰내용';
 COMMENT ON COLUMN ITEM_REVIEW.REVIEW_DATE IS '리뷰일자';
 
 /* 공지사항 댓글 */
+
 CREATE TABLE NOTICE_REPLY(
 NOTICE_CODE VARCHAR2(14),
+REPLY_CODE VARCHAR2(14),
 MEMBER_ID VARCHAR2(30),
+MEMBER_IMG VARCHAR2(30),
 REPLY_CONTENT VARCHAR2(3000),
 REPLY_DATE DATE DEFAULT SYSDATE,
 CONSTRAINT FK_NORPLY_CODE FOREIGN KEY(NOTICE_CODE) REFERENCES NOTICE ON DELETE CASCADE,
@@ -561,7 +561,9 @@ CONSTRAINT FK_NORPLY_MEMID FOREIGN KEY(MEMBER_ID) REFERENCES MEMBER ON DELETE CA
 );
 
 COMMENT ON COLUMN NOTICE_REPLY.NOTICE_CODE IS '공지 CODE';
+COMMENT ON COLUMN NOTICE_REPLY.REPLY_CODE IS '댓글 CODE';
 COMMENT ON COLUMN NOTICE_REPLY.MEMBER_ID IS '사용자ID';
+COMMENT ON COLUMN NOTICE_REPLY.MEMBER_IMG IS '사용자IMG';
 COMMENT ON COLUMN NOTICE_REPLY.REPLY_CONTENT IS '답글 내용';
 COMMENT ON COLUMN NOTICE_REPLY.REPLY_DATE IS '답글 작성일';
 
@@ -773,6 +775,10 @@ TO_DATE('1999-02-10','RRRR-MM-DD'),'010-3233-7153','30221,서울시,강남구 �
 INSERT INTO MEMBER VALUES('user33','C','pass33','정진모','jjm9290@iei.or.kr','남',
 TO_DATE('1999-02-10','RRRR-MM-DD'),'010-9504-9598','30221,서울시,강남구 역삼동', SYSDATE, 'jjm.jpg',
 90000,'정대리');
+
+--SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_CLASS_CODE = 'D';
+
+/* 임시 데이터 */
 INSERT INTO MEMBER VALUES('maxy','C','pass44','김막시','maxy@iei.or.kr','여',
 TO_DATE('1999-05-15','RRRR-MM-DD'),'010-0101-1234','10020,서울,OO구 ㅁㅁ동', SYSDATE, 'sg.jpg',
 00000,'막시멈');
@@ -873,10 +879,6 @@ INSERT INTO PART VALUES('PA'||TO_CHAR(TO_DATE('1707121614','RRMMDDHH24MI'),'RRMM
 INSERT INTO PART VALUES('PA'||TO_CHAR(TO_DATE('1707170102','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'목재 판넬','WOOD',TO_DATE('1707121612','RRMMDDHH24MI'),21230,5,'기본 목재 샘플4','default_wood4.jpg',0);
 INSERT INTO PART VALUES('PA'||TO_CHAR(TO_DATE('1707170207','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'플라스틱 인조잔디블럭_50size','PLASTIC',TO_DATE('1707121637','RRMMDDHH24MI'),15000,70,'플라스틱 자재 샘플3','default_plastic3.jpg',0);
 INSERT INTO PART VALUES('PA'||TO_CHAR(TO_DATE('1707170738','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'철재 모형','STEEL',TO_DATE('1707170738','RRMMDDHH24MI'),22000,20,'기본 철재 샘플3','default_steel3.jpg',0);
-INSERT INTO PART VALUES('PA170809060701','DIY-Shoes','ETC',TO_DATE('1708090538','RRMMDDHH24MI'),15000,130,'<p style="text-align: center; "><font face="Arial Black"><b>DIY-Shoes (Get your own unique Shoes)</b></font></p><p style="text-align: center; "><font face="Arial Black"><b><br></b></font></p><div style="text-align: center;"><iframe width="560" height="315" src="https://www.youtube.com/embed/2r-zF48muPk?start=65" frameborder="0" allowfullscreen=""></iframe></div><div style="text-align: center;"><br></div><div style="text-align: center;">요즘 신발 디자인이 너무 흔해서 재미가 없다구요?</div><div style="text-align: center;">그런 당신을 위해 준비했습니다, 세상에 하나뿐인 신발, DIY Shoes!!</div><div style="text-align: center;"><br></div><div style="text-align: center;">[ 만드는 법]</div><div style="text-align: center;"><br></div><div style="text-align: center;">1. 본 페이지의 무색 스니커즈 단화를 구매하세요!</div><div style="text-align: center;">(유성 매직은 상품에 포함되어 있지 않습니다.)</div><div style="text-align: center;"><img src="http://localhost:3080/made/images/items/parts/desc/20170809060729.jpg" style="width: 605px;"><br></div><div style="text-align: center;"><br></div><div style="text-align: center;">2. 본인이 원하는 디자인을 본 딸 틀을 준비하세요!</div><div style="text-align: center;"><img src="http://localhost:3080/made/images/items/parts/desc/20170809060738.jpg" style="width: 605px;"><br></div><div style="text-align: center;"><br></div><div style="text-align: center;">3. 다 그린 후, 그늘진 서늘한 곳에서 약 3시간 정도 말리면 준비 끝!!</div><div style="text-align: center;">자, 어서가서 지인들께 당신의 특별한 신발을 자랑하세요~!!</div><div style="text-align: center;"><img src="http://localhost:3080/made/images/items/parts/desc/20170809060746.jpg" style="width: 605px;"><br></div>','20170809060751.jpg',180);
-INSERT INTO PART VALUES('PA170809061302','목재 리폼 스티커 100x45cm','ETC',TO_DATE('1708090738','RRMMDDHH24MI'),5500,50,'<p style="text-align: center; "><img src="http://localhost:3080/made/images/items/parts/desc/20170809061339.jpg" style="width: 495px;"><br></p><p><br></p><p>목재 리폼 스티커 입니다.</p><p>디자인이 맘에 안드는 가구가 있거나, 인테리어를 꾸미고 싶을 때 안성 맞춤인 스티커!</p><p>뭐라구요, 아직 안써보셨다구요?</p><p>그럼 하나 장만 하시고, 놀라는 일만 남았겠군요!!</p>','20170809061351.jpg',70);
-
-select * from part;
 
 /* 디자인 판매 게시글 */
 INSERT INTO DESIGN VALUES('DE'||TO_CHAR(TO_DATE('1707101335','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(0,2,'0'),'목재서랍장1','WOOD',TO_DATE('1707101335','RRMMDDHH24MI'),'목재 서랍장1입니다.',15000,'default_design1.jpg','design11',9);
@@ -893,14 +895,13 @@ INSERT INTO DESIGN VALUES('DE'||TO_CHAR(TO_DATE('1707131410','RRMMDDHH24MI'),'RR
 INSERT INTO DESIGN VALUES('DE'||TO_CHAR(TO_DATE('1707151430','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'철재캠프파이어화덕','STEEL',TO_DATE('1707151430','RRMMDDHH24MI'),'역시 캠프하면 캠프파이어죠!! 화재는 책임 못집니다.',63000,'default_design12.jpg','design11',0);
 INSERT INTO DESIGN VALUES('DE'||TO_CHAR(TO_DATE('1707151447','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'목재n철재 책상','ETC',TO_DATE('1707151447','RRMMDDHH24MI'),'철재와 목재로 친환경 책상을 만듭니다, 완제품 구매시엔 원하시는 사이즈를 말씀하세요.',75000,'default_design13.jpg','design22',0);
 INSERT INTO DESIGN VALUES('DE'||TO_CHAR(TO_DATE('1707131750','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'목재n철재 탁자','ETC',TO_DATE('1707131750','RRMMDDHH24MI'),'정원에 이런 탁자, 다들 하나쯤은 있지 않나요?',59000,'default_design14.jpg','design11',0);
-INSERT INTO DESIGN VALUES('DE170809062201', '목재 리폼 노트북', 'ETC', TO_DATE('170809','RRMMDD'),	'<p><iframe frameborder="0" src="//www.youtube.com/embed/9ifQqJycl-c" width="640" height="360" class="note-video-clip"></iframe><br></p><p>목재리폼 스티커를 활용한 노트북 꾸미기!!</p><p>아니 혹해서 들어온 당신, 아직도 구닥다리 기본 랩탑 스킨을 사용 중이시라구요??</p><p>이번 기회를 놓치시면 전문가의 손.길. &nbsp;기대하기 힘들 걸요!!!</p><p><br></p><p>지금이라면 사이트에서 판매하는 스티커를 활용해서 직접 붙이실 수도 있습니다. 기대하세요~!!</p><p><br></p><p><b>[준비물]</b></p><p>&nbsp;- 사무용 칼</p><p>&nbsp;- 리폼 스티커 (이 사이트에서도 팔더라구요 ㅎㅎ)</p><p><br></p><p><b>[만드는 법]</b></p><p>1. 먼저 본인의 노트북 사이즈에 맞게 리폼 스티커를 제단합니다.</p><p><img src="http://localhost:3080/made/images/items/designed/desc/20170809062106.jpg" style="width: 390.977px; height: 260px;"><br></p><p><br></p><p>2. 뭐 있나요, 붙이시면 끝인 걸!! 붙일때 혐오스러운 기포가 안생기게,</p><p> 먼저 물티슈와 마른 티슈로 한 번씩 표면을 닦아주고 수평으로 조심히 붙여줍니다.</p><p><img src="http://localhost:3080/made/images/items/designed/desc/20170809062054.jpg" style="width: 374.436px; height: 249px;"><br></p><p><br></p><p>3. 이제 자랑하러 갈까요?</p><p><img src="http://localhost:3080/made/images/items/designed/desc/20170809062034.jpg" style="width: 372.381px; height: 253px;"><br></p><p><br></p>',	50000,	'20170809062216.jpg', 'design22',130);
 
 /* 상품 리뷰 데이터 작성 */
 INSERT INTO ITEM_REVIEW VALUES('RV'||TO_CHAR(TO_DATE('1707131850','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),null,'DE170710133500','user11','잘 쓰고 있습니다. 짱 좋아여 헤헷',TO_DATE('1707121425','RRMMDDHH24MI'));
 INSERT INTO ITEM_REVIEW VALUES('RV'||TO_CHAR(TO_DATE('1707132250','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),null,'DE170710133500','user22','이 제품 좋네요 감사히 쓰겠습니다.',TO_DATE('1707191505','RRMMDDHH24MI'));
 INSERT INTO ITEM_REVIEW VALUES('RV'||TO_CHAR(TO_DATE('1707141750','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'PA170710133501',null,'user11','배송도 빠르고 좋네요 ^^',TO_DATE('1707121520','RRMMDDHH24MI'));
 INSERT INTO ITEM_REVIEW VALUES('RV'||TO_CHAR(TO_DATE('1707182050','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'PA170710133501',null,'user22','아이템 후기 테스트',TO_DATE('1707121425','RRMMDDHH24MI'));
-
+commit;
 CREATE SEQUENCE SEQ_ME
        START WITH 1
        INCREMENT BY 1
@@ -923,33 +924,33 @@ INSERT INTO MESSAGE VALUES('ME'||TO_CHAR(TO_DATE('1707202020','RRMMDDHH24MI'),'R
 -- DAO 입력 값 : INSERT INTO MESSAGE VALUES('ME'||TO_CHAR(SYSDATE,'RRMMDDHH24MI')||LPAD(SEQ_ME.NEXTVAL,2,'0'),'첫번째 쪽지','user11','user22','잘 부탁드려요~~',SYSDATE);
 
 /* ORDER_INFO */
-INSERT INTO ORDER_INFO VALUES('OD170501180001', 'user11', TO_DATE('2017-05-01', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170710133500', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170502180002', 'user33', TO_DATE('2017-05-02', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170712142501', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170501180001', 'user22', TO_DATE('2017-05-01', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170710133500', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170502180002', 'user22', TO_DATE('2017-05-02', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170712142501', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170503180003', 'user22', TO_DATE('2017-05-03', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, 'DE170712143501', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170504180004', 'user33', TO_DATE('2017-05-04', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170713144401', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170504180004', 'user22', TO_DATE('2017-05-04', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170713144401', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170505180005', 'user22', TO_DATE('2017-05-05', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170714024001', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170506180006', 'user11', TO_DATE('2017-05-06', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, 'DE170713102501', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170506180006', 'user22', TO_DATE('2017-05-06', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, 'DE170713102501', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170507180007', 'user22', TO_DATE('2017-05-07', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170713112001', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170508180008', 'user33', TO_DATE('2017-05-08', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170713062301', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170508180008', 'user22', TO_DATE('2017-05-08', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170713062301', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170509180009', 'user22', TO_DATE('2017-05-09', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, 'DE170714204001', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170510180010', 'user11', TO_DATE('2017-05-10', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170714050501', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170510180010', 'user22', TO_DATE('2017-05-10', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170714050501', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170511180011', 'user22', TO_DATE('2017-05-11', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170713141001', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170512180012', 'user33', TO_DATE('2017-05-12', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, 'DE170715143001', NULL);
+INSERT INTO ORDER_INFO VALUES('OD170512180012', 'user22', TO_DATE('2017-05-12', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, 'DE170715143001', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170513180013', 'user22', TO_DATE('2017-05-13', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, 'DE170715144701', NULL);
 INSERT INTO ORDER_INFO VALUES('OD170514180014', 'user22', TO_DATE('2017-05-14', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, 'DE170713175001', NULL);
-INSERT INTO ORDER_INFO VALUES('OD170515180015', 'user11', TO_DATE('2017-05-15', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161001');
+INSERT INTO ORDER_INFO VALUES('OD170515180015', 'user22', TO_DATE('2017-05-15', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161001');
 INSERT INTO ORDER_INFO VALUES('OD170516180016', 'user22', TO_DATE('2017-05-16', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, NULL, 'PA170712143501');
-INSERT INTO ORDER_INFO VALUES('OD170517180017', 'user11', TO_DATE('2017-05-17', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, NULL, 'PA170713144401');
+INSERT INTO ORDER_INFO VALUES('OD170517180017', 'user22', TO_DATE('2017-05-17', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, NULL, 'PA170713144401');
 INSERT INTO ORDER_INFO VALUES('OD170518180018', 'user22', TO_DATE('2017-05-18', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161101');
 INSERT INTO ORDER_INFO VALUES('OD170519180019', 'user22', TO_DATE('2017-05-19', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, NULL, 'PA170715101501');
-INSERT INTO ORDER_INFO VALUES('OD170520180020', 'user11', TO_DATE('2017-05-20', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, NULL, 'PA170715102001');
-INSERT INTO ORDER_INFO VALUES('OD170521180021', 'user33', TO_DATE('2017-05-21', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161201');
+INSERT INTO ORDER_INFO VALUES('OD170520180020', 'user22', TO_DATE('2017-05-20', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, NULL, 'PA170715102001');
+INSERT INTO ORDER_INFO VALUES('OD170521180021', 'user22', TO_DATE('2017-05-21', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161201');
 INSERT INTO ORDER_INFO VALUES('OD170522180022', 'user22', TO_DATE('2017-05-22', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, NULL, 'PA170715111501');
 INSERT INTO ORDER_INFO VALUES('OD170523180023', 'user22', TO_DATE('2017-05-23', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, NULL, 'PA170715132001');
-INSERT INTO ORDER_INFO VALUES('OD170524180024', 'user33', TO_DATE('2017-05-24', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161401');
-INSERT INTO ORDER_INFO VALUES('OD170525180025', 'user11', TO_DATE('2017-05-25', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, NULL, 'PA170717010201');
+INSERT INTO ORDER_INFO VALUES('OD170524180024', 'user22', TO_DATE('2017-05-24', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170712161401');
+INSERT INTO ORDER_INFO VALUES('OD170525180025', 'user22', TO_DATE('2017-05-25', 'RRRR-MM-DD'), 1, NULL, 'A', NULL, NULL, NULL, 'PA170717010201');
 INSERT INTO ORDER_INFO VALUES('OD170526180026', 'user22', TO_DATE('2017-05-26', 'RRRR-MM-DD'), 1, NULL, 'B', NULL, NULL, NULL, 'PA170717020701');
-INSERT INTO ORDER_INFO VALUES('OD170527180027', 'user11', TO_DATE('2017-05-27', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170717073801');
+INSERT INTO ORDER_INFO VALUES('OD170527180027', 'user22', TO_DATE('2017-05-27', 'RRRR-MM-DD'), 1, NULL, 'C', NULL, NULL, NULL, 'PA170717073801');
 
 
 --SELECT * FROM CATEGORY;
@@ -979,17 +980,42 @@ INSERT INTO PART_SET VALUES('DE170713062301','PA170712161201',1);
 --SELECT SUM(PART_PRICE)*0.9 FROM PART;
 
 /* QA 임시  데이터 */
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707101335','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(0,2,'0'),'user11','1번째메세지','목재 서랍장1입니다.',TO_DATE('1707101335','RRMMDDHH24MI'),'default_design1.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707121425','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','2번째메세지','목재 서랍장2입니다.',TO_DATE('1707121425','RRMMDDHH24MI'),'default_design2.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707121435','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','3번째메세지','철재 서랍장1입니다.',TO_DATE('1707121435','RRMMDDHH24MI'),'default_design3.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131444','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','4번째메세지','철재 서랍장2입니다.',TO_DATE('1707131444','RRMMDDHH24MI'),'default_design4.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707140240','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','5번째메세지','통나무 양초 틀입니다. 완제품 주문시 말씀하시면 원하시는 사이즈로 제단하여 배송드립니다.',TO_DATE('1707140240','RRMMDDHH24MI'),'default_design5.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131025','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','6번째메세지','심심하지 않은 목재 조명틀입니다.',TO_DATE('1707131025','RRMMDDHH24MI'),'default_design6.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131120','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','7번째메세지','친환경 목재 컵 받침대! 깨질 염려는 이제 그만!!',TO_DATE('1707131120','RRMMDDHH24MI'),'default_design7.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707130623','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','8번째메세지','아이들의 조그만 장남감을 담을 수 있는 간편 정리함입니다.',TO_DATE('1707130623','RRMMDDHH24MI'),'default_design8.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707142040','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','9번째메세지','여러분이 쓰레기라고 생각하시는 패트병으로 이런 화분을 만들 수 있어요!!.',TO_DATE('1707142040','RRMMDDHH24MI'),'default_design9.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707140505','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','10번째메세지','새를 좋아하신다구요? 그런 분들을 위해 소개합니다. 친환경 새 모이 통!',TO_DATE('1707140505','RRMMDDHH24MI'),'default_design10.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131410','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','11번째메세지','더이상 그릴판을 사러 다니지 마세요!',TO_DATE('1707131410','RRMMDDHH24MI'),'default_design11.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707101335','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(0,2,'0'),'user11','관리자님 홈페이지가 별로에요..','내 마음속의 별로..',TO_DATE('1707101335','RRMMDDHH24MI'),'default_design1.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707121425','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user22','관리자님!!','오늘 사이트가 잘 안 들어가지던데 무슨 문제 있나요?',TO_DATE('1707121425','RRMMDDHH24MI'),'default_design2.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707121435','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user33','오늘 처음 MADE를 이용해봤습니다.','내 손으로 만드는 가구여서 그런지 가격도 싸고 제 취향에 딱 맞네요 ㅎㅎ 자주 이용할게용',TO_DATE('1707121435','RRMMDDHH24MI'),'default_design3.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131444','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user22','사이트 잘 들어가지네요 ㅎ','감사해용 관리자님.',TO_DATE('1707131444','RRMMDDHH24MI'),'default_design4.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707140240','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','오늘 배송이 많이 늦네요','배송 확인 부탁드립니다',TO_DATE('1707140240','RRMMDDHH24MI'),'default_design5.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131025','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'design11','오늘 새로운 디자인 보내 드렸습니다 확인해주세요.','제곧내',TO_DATE('1707131025','RRMMDDHH24MI'),'default_design6.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131120','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','벌써 3번째 주문이네요.ㅎㅎ','제품이 좋아서 계속 여기서 구매 하고 있어요 ㅎㅎ 포인트 적립? 같은 것도 있었으면 좋겠습니다.',TO_DATE('1707131120','RRMMDDHH24MI'),'default_design7.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707130623','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'design11','디자인 확인 하셨나요?? 답장 부탁드려요 ㅎ','답장 부탁드립니다 ㅎㅎ',TO_DATE('1707130623','RRMMDDHH24MI'),'default_design8.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707142040','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','관리자님 감사합니다 계속 여기서 이용할게용 ㅎㅎ','포인트 적립 기능 짱 좋아요 ㅎㅎ',TO_DATE('1707142040','RRMMDDHH24MI'),'default_design9.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707140505','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'design22','안녕하십니까? 엉드래킴입니다.','지인 추천으로 이 사이트를 알게 되었습니다. 다음에 밥 한끼 하면서 이야기 나누고 싶습니다. 쪽지 남겨주세요.',TO_DATE('1707140505','RRMMDDHH24MI'),'default_design10.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131410','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','저번에 산 그릴판 잘 이용하고 있어요!!','다음에 제주도 놀러갈때 챙겨 갈려구요 ㅎ',TO_DATE('1707131410','RRMMDDHH24MI'),'default_design11.jpg',null);
+select * from qa;
+/* NOTICE 임시 데이터*/
+
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707121425','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), 'The unique what you made MADE홈페이지가 오픈을 했습니다.', '국내 최초 핸드메이드 제작 및 판매 사이트 홈페이지 오픈!!',TO_DATE('1707121425','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707130239','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[축]개업기념 이벤트를 실시합니다.', '3만원 이상 구매하시는 모든 고객 분들께 배송비를 무료로 해드리는 이벤트 중입니다. 많이 참여해주세요~',TO_DATE('1707130239','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707142030','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[긴급]서버 점검기간 안내문.', '여러분의 열찬 성화에 힘입어 서버가 다운되었습니다. 좀더 나은 서버로 개선하고자, 금일 12시부터 21시까지 서버점검을 하고자 하오니 많은 양해 부탁드립니다.',TO_DATE('1707142030','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707151124','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[긴급]서버 점검기간 연장 안내문.', '서버개선 작업 중 오류가 발생하여 연장 작업을 실시합니다. 불편하시더라도 더 원활한 서비스를 위함이오니 많은 양해 부탁 드리며, 이번이 마지막이 되길 기도합니다.',TO_DATE('1707151124','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707152130','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지]서버 점검 완료 공지', '서버 점검이 완료되었습니다. 그동안 불편을 드려 정말 죄송하오며, 앞으로는 이런 일이 없도록 서버측 투자에 좀 더 신경 쓰겠습니다. 감사합니다.',TO_DATE('1707152130','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707171530','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지]상품 구매에 관하여...', '상품을 구매하시는 고객님들께 안내말씀 드립니다. 보 사이트의 모든 상품은 품절 시 구매가 되지 않습니다. 이점 명심하시고 구매에 참고 하시기 바랍니다. 감사합니다.',TO_DATE('1707171530','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707182130','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지]목재 관련 상품 안내 공지', '현재 본 사이트 목재 상품에 대해 안내 말씀드립니다. 본 상품 목록 중 목재 상품과 관련하여 기존에 공급해주던 공급사가 바뀜으로 인해서 재고량에 차질이 생겼습니다. 이 점 확인 하시고, 구매하실 때 참고 해주시기 바랍니다. 감사합니다.',TO_DATE('1707182130','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707182230','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지]서버 관리자 모집', '서버 관리자를 모집합니다. 지원조건은 27세 이하의 여성분들 선호이며, 스프링 코드를 구현해보신 분을 모집합니다. 능력자 분들 환영하오니 많은 참여 부탁드립니다.',TO_DATE('1707182230','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707182330','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[Inform]Server Summer Event', 'Hi, We are planning about Summer item Event in Europe. Come and see our items, then enjoy our items delivery free Event! Thank you. see ya.',TO_DATE('1707182330','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707190130','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지]해외 부품 협약 안내문', '드디어 본사에서 해외 이케아 협약을 체결하여 이케가의 부품들을 직수입 할 수 있게 되었습니다. 많은 이용 바랍니다. 감사합니다.',TO_DATE('1707190130','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707190330','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[긴급]플라스틱 품목 품절 안내', '현재 본 사이트 플라스틱 일부 상품이 품절 되어 공급사와 긴급히 연락 중에 있습니다. 이용 시 참고하시기 바랍니다. 감사합니다.',TO_DATE('1707190330','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707191030','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[Inform]Notice about Career staff', 'When resigning from a job role, it is considered best practice to give your employer the notice period as stated in your contract before you depart. This period of time allows your employer to plan for your departure, and to ensure that your job responsibilities are fully covered as to not disrupt the business and work flow.',TO_DATE('1707191030','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707192130','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[Notice]Writing to staff', 'Once staff have been assessed to work out who to put into a pension scheme they must be given information which explains how automatic enrolment applies to them.',TO_DATE('1707192130','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707201530','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[Inform]Advanced guidance', 'These resources may help if you have more detailed questions on the above:Detailed guidance 10: Information to workers (PDF, 144kb, 35 pages) For information on what must be provided to what type of staff, at which time, with links on where to find more information.',TO_DATE('1707201530','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707222030','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지]사업계획서 및 제휴신청서 안내', '본 사이트에 사업계획을 의논하시거나 제휴를 맺고자 하시는 기업체 담당자 분들은 해당 내용과 관련된 계획서를 담당자 유사장에게 firerain4@naver.com 메일로 발송해 주시면 감사하겠습니다. 보내주신 후 문자남겨 주시면 바로 확인 후 답변 드리도록 하겠습니다. 좋은 하루 되시기 바랍니다.',TO_DATE('1707222030','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707241220','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지] KG모빌리언스 크롬 브라우저 일부버전 오류관련 공지', '현재 크롬 웹브라우저 및 웹뷰 일부 버전에서 오류현상이 발생중이므로 하단 내용 참고 부탁드립니다.
+Google Chrome 웹브라우저 및 웹뷰 53/54 일부 버전에서 당사 결제창 접속시 보안 경고 및 접속 불가 현상이 발생 중입니다. 최근 Google에서 Chrome 일부 버전에 대하여 버그가 있음을 발표하였으며, Chrome 자체 오류로 인해 해결방안은 최신 버전으로 업그레이드 및 패치를 권고하고 있습니다.',TO_DATE('1707241220','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707252110','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지] 5자리 우편번호 시행에 따른 디자인수정 안내', '8월1일 부터 5자리 우편번호 적용 시 디자인관리에서 기존 주문페이지 또는 회원가입 페이지처럼 우편번호를 입력받는 페이지의 소스내용이 배포 또는 패치 후에도 우편번호 입력창이 기존[ ] - [ ]형태로 남아있기 때문에 아래 [예시]와 같은 상태로 보여질수 있으며 이에 따라 디자인을 수정해주시기 바랍니다.',TO_DATE('1707252110','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707272020','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[긴급]	다날 휴대폰 결제 정산관련 사용중지 안내', '현재 다날 휴대폰 결제를 이용하고있는 상점에서 "익주정산(매출 주의 익주 수요일)", "익초 정산(매출월의 익월 5일)" 주기로 선택하여 계약한 상점은 정상결제 진행이 안되고 있는 부분으로,
+기능 수정전까지 다날 휴대폰 결제 사용을 중지해 주시기 바라며 다날쪽과 확인하여 빠른시일내로 정상처리 될 수있도록 하겠습니다.',TO_DATE('1707272020','RRMMDDHH24MI'),null);
+INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707281010','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지] 다음 커머스원 상품 수집 일시 중단_8/16 (수요일)', '다음 쇼핑하우 긴급 DB 작업으로 인해, 커머스원의 상품 수집 작업이 2017년 8월 16일 14시부터 18시까지 중단됩니다. 작업 종료 후 스케쥴에 따라 정상적으로 상품 수집을 진행할 예정이며, 기존에 커머스원을 통해 상품 업데이트가 지연되는 문제들도 정상적으로 업데이트 진행될 예정입니다.',TO_DATE('1707281010','RRMMDDHH24MI'),null);
+select * from notice;
 
 COMMIT;
 /*
@@ -1009,49 +1035,11 @@ select * from ITEM_REVIEW;
 
 ------------------------
  ---- CREATE VIEW 로 구현할 예정 ---
-/* 수익 통계 전용 쿼리 기입부; 구현 80% -- 프론트단 구현 필요 */
--- 시간 부족해서 안될 듯;;;;;
+/* 수익 통계 전용 쿼리 기입부; 구현 필요 */
   -- 회원ID (디자이너별 확인을 위함)
   -- 월 별 수익 (최근 3개월)
   -- 년 별 수익
   -- 최다 판매 상품
-
---/* 주문 정보 전용 VIEW 생성용 쿼리 */
--- 월 별 각 상품 판매 횟수
---SELECT ITEM "판매 상품", SUBSTR(ORDER_DATE,1,5) "판매 월", COUNT(*) "판매횟수", SUM("가격"*ORDER_COUNT) "판매 실적" FROM (SELECT O.*, D.DESIGN_CODE "ITEM", D.DESIGN_PRICE  "가격", D.MEMBER_ID "MID" FROM ORDER_INFO O
---               JOIN DESIGN D ON(O.DESIGN_CODE = D.DESIGN_CODE)
---               UNION
---               SELECT O.*, P.PART_CODE "ITEM", P.PART_PRICE, NULL FROM ORDER_INFO O
---               JOIN PART P ON(O.PART_CODE = P.PART_CODE))
---               GROUP BY ITEM, SUBSTR(ORDER_DATE,1,5) ORDER BY 4 DESC;
-
--- 월 별 총 상품 판매 횟수
---SELECT SUBSTR(ORDER_DATE,1,5) "판매 월", COUNT(*) "판매횟수", SUM("가격"*ORDER_COUNT) "판매 실적" FROM (SELECT O.*, D.DESIGN_CODE "ITEM", D.DESIGN_PRICE  "가격", D.MEMBER_ID "MID" FROM ORDER_INFO O
---               JOIN DESIGN D ON(O.DESIGN_CODE = D.DESIGN_CODE)
---               UNION
---               SELECT O.*, P.PART_CODE "ITEM", P.PART_PRICE, NULL FROM ORDER_INFO O
---               JOIN PART P ON(O.PART_CODE = P.PART_CODE))
---               GROUP BY SUBSTR(ORDER_DATE,1,5) ORDER BY 3 DESC;
-
-
---- DESIGNER PURCHEASE ITEM ---
-
--- 총 판매 내역
---SELECT * FROM ORDER_INFO
---JOIN DESIGN USING(DESIGN_CODE)
---WHERE DESIGN.MEMBER_ID = 'design11';
-
--- 월 별 판매 상품 수
---SELECT DESIGN_CODE "판매 상품", SUBSTR(ORDER_DATE,1,5) "판매 월", COUNT(*) "구매 횟수" FROM ORDER_INFO
---JOIN DESIGN USING(DESIGN_CODE)
---WHERE DESIGN.MEMBER_ID = 'design11'
---GROUP BY DESIGN_CODE, SUBSTR(ORDER_DATE,1,5);
---
----- 월 별 총 판매량
---SELECT SUBSTR(ORDER_DATE,1,5) "판매 월", COUNT(*) "구매 횟수" FROM ORDER_INFO
---JOIN DESIGN USING(DESIGN_CODE)
---WHERE DESIGN.MEMBER_ID = 'design11'
---GROUP BY SUBSTR(ORDER_DATE,1,5);
 
 /* TOP5 Item 추출 쿼리 기입부; DAO에 구현 완료 */
 

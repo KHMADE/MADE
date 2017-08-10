@@ -1,9 +1,10 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="qa.model.vo.Qa, java.util.ArrayList, java.sql.Date" %>
+<%@ page import="notice.model.vo.Notice,noticereply.model.vo.NoticeReply, java.util.ArrayList, java.sql.Date" %>
 <% 
-ArrayList<Qa> list = (ArrayList<Qa>)request.getAttribute("list");
+ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+ArrayList<NoticeReply> list1=(ArrayList<NoticeReply>)request.getAttribute("list1");
 int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
 int startPage = ((Integer)request.getAttribute("startPage")).intValue();
 int endPage = ((Integer)request.getAttribute("endPage")).intValue();
@@ -16,7 +17,7 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title> QA - MAːDÆ</title>
+	<title> NOTICE - MAːDÆ</title>
 	<meta name="description" content="">
 	<link rel="shortcut icon" href="/made/images/icon.ico">
 	<!-- CSS FILES -->
@@ -46,12 +47,12 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<h2>1대1 문의 확인</h2>
+						<h2>공지사항</h2>
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
 								<li><a href="../../index.html">Home</a></li>
-                                <li>QA</li>
+                                <li>NOTICE</li>
 							</ul>
 						</nav>
 					</div>
@@ -65,39 +66,31 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 		<div class="panel-heading hide"></div>
 
 		<table class="board-list table">
-			
 			<thead>
 			<tr class="header">
 				<th width="*" class="text-left">제목</th>
-				<th width="110px" class="text-center">보낸이</th>
-				<th width="90px" class="text-center">보낸날짜</th>
-				<th width="80px" class="text-center">답변여부</th>
+				<th width="110px" class="text-center">작성자</th>
+				<th width="90px" class="text-center">작성날짜</th>
 			</tr>
 			</thead>
-			<%if(list!=null){ %>
-			<%	for(Qa q : list){%>
+			<%	for(Notice n : list){%>
 			<tbody>
 				<tr class="">                  
 					<td class="title">
-					<a href="/made/qdetail?qnum=<%=q.getQaCode()%>&page=<%=currentPage%>"><%=q.getQaTitle() %></a>
+					<a href="/made/ndetail?nnum=<%=n.getNoticeCode()%>&page=<%=currentPage%>"><%=n.getNoticeTitle() %></a>
 					</td>
-					<td class="author" align="center"><%=q.getMemberId() %></td>
-					<td class="date" align="center">
-						<%=q.getQaDate() %>
+					<td class="author">관리자</td>
+					<td class="date">
+						<%=n.getNoticeDate() %>
 					</td>
-                     <td class="answer" align="center">
-                    <% if (q.getQaAnswer() != null){ %>
-                    <a><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
-                    <% } else { %>
-                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    <% } %>
-                    </td>
 				</tr>
 			</tbody>
-			<%}%>
+			<%} %>
 		</table>
 	</div>
-	<button type="button" class="btn btn-default" onclick="top.location.href='/made/views/qa/qa.jsp'"> 1대1 문의하기</button>
+	<%if(m.getClassCode().charAt(0)=='A'){ %>
+	<button type="button" class="btn btn-default" onclick="top.location.href='/made/views/notice/notice.jsp'">공지사항 작성</button>
+	<%} %>
 	<%-- 페이지 번호 처리 --%>
 	<div class="board-page text-center">
 		<ul class="pagination">
@@ -105,7 +98,7 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 			<%  if(currentPage <= 1){	%>
 					<span class="glyphicon glyphicon-chevron-left " style="color:blue"></span> &nbsp;
 			<%  }else{ %>
-					<a href="/made/qmlist?member=<%=m.getId()%>&page=<%= currentPage - 1 %>"><span class="glyphicon glyphicon-chevron-left"></span></a> &nbsp;
+					<a href="/made/nlist?page=<%= currentPage - 1 %>"><span class="glyphicon glyphicon-chevron-left"></span></a> &nbsp;
 			<%  } %>
 			</li>
 			<li>
@@ -113,20 +106,19 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 			if(p == currentPage){
 				%><a style="color:blue"><%= p %></a>
 			<%     }else{ %>
-				<a href="/made/qmlist?member=<%=m.getId()%>&page=<%= p %>"><%= p %></a>
+				<a href="/made/nlist?page=<%= p %>"><%= p %></a>
 			<%  }}%>
 			</li>
 			
 			<li class="">
 			<% if(currentPage >= maxPage){ %>
-				<span class="glyphicon glyphicon-chevron-right" style="color:blue"></span>
+				<span class="glyphicon glyphicon-chevron-right" style="color:blue">
 			<% }else{ %>
-				<a href="/made/qmlist?member=<%=m.getId()%>&page=<%= currentPage + 1 %>"><span class="glyphicon glyphicon-chevron-right"></span></a>
-			<% }} %>
+				<a href="/made/nlist?page=<%= currentPage + 1 %>"><span class="glyphicon glyphicon-chevron-right"></a>
+			<% } %>
 			</li>
 		</ul>
 	</div>
-	 
 </div>
     </section>
 <!--start footer-->

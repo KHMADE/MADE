@@ -229,7 +229,7 @@ $(function(){
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/made/index.jsp">Home</a></li>
-						<li id="notice"><a href="/made/nilst?page=1">공지사항</a></li>
+						<li id="notice"><a href="/made/nlist?page=1">공지사항</a></li>
 						<li id="item"><a href="#">DIY 상품</a>
 							<ul class="dropdown-menu">
 								<li><a href="/made/designitemlist?page=1">Designed</a></li>
@@ -245,7 +245,7 @@ $(function(){
 								<% if(m != null && m.getClassCode().charAt(0) == 'A'){ %>
 									<li><a href="/made/qlist?page=1">1:1문의확인</a></li>
 									<%}else{ %>
-									<li><a href="/made/views/qa/qa.jsp">1:1문의</a></li>
+									<li><a href="/made/qmlist?page=1">1:1문의</a></li>
 									<%} %>
 									<% if(m != null &&(m.getClassCode().equals("A") || m.getClassCode().equals("D"))) {%>
 									<li><a href="/made/views/mypage/profitView.jsp">수익 차트 보기</a></li>

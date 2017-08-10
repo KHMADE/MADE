@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Member;
 import qa.model.service.QaService;
 import qa.model.vo.Qa;
 
@@ -36,21 +37,16 @@ public class QaMemberListServlet extends HttpServlet {
 		int limit = 10;
 		String member = null;
 			currentPage = Integer.parseInt(request.getParameter("page"));
-			member=request.getParameter("member");
+			member=((Member)(request.getSession(false)).getAttribute("member")).getId();
 		QaService qservice = new QaService();
-		System.out.println(member);
 		int listCount = qservice.getMemberListCount(member);
-		System.out.println(listCount);
 		ArrayList<Qa> list = qservice.qaMemberSelectList(member, currentPage, limit);
-		
 		int maxPage = (int)((double)listCount / limit + 0.9);
-
 		int startPage = (((int)((double)currentPage / limit + 0.9)) - 1) * limit + 1;
 		
 		int endPage = startPage + limit - 1;
 		if(maxPage < endPage)
 			endPage = maxPage;
-		
 		RequestDispatcher view = null;
 		if(list != null && list.size() > 0){
 			view = request.getRequestDispatcher("views/qa/qaMemberList.jsp");
