@@ -25,7 +25,7 @@ public class JDBCTemplate {
 
 	public static void close(Connection con) {
 		try {
-			if (!con.isClosed() && con != null) {
+			if (con != null && !con.isClosed()) {
 				con.close();
 			}
 		} catch (SQLException e) {
@@ -35,7 +35,7 @@ public class JDBCTemplate {
 
 	public static void close(Statement stmt) {
 		try { //Statement가 상위라 preparedStatement도 포함
-			if (!stmt.isClosed() && stmt != null) {
+			if (stmt != null && !stmt.isClosed()) {
 				stmt.close();
 			}
 		} catch (SQLException e) {
@@ -45,7 +45,7 @@ public class JDBCTemplate {
 
 	public static void close(ResultSet rset) {
 		try {
-			if (!rset.isClosed() && rset != null) {
+			if (rset != null && !rset.isClosed()) {
 				rset.close();
 			}
 		} catch (SQLException e) {
@@ -55,7 +55,7 @@ public class JDBCTemplate {
 
 	public static void commit(Connection con) {
 		try {
-			if (!con.isClosed() && con != null) {
+			if (con != null && !con.isClosed()) {
 				con.commit();
 			}
 		} catch (SQLException e) {
@@ -65,7 +65,7 @@ public class JDBCTemplate {
 
 	public static void rollback(Connection con) {
 		try {
-			if (!con.isClosed() && con != null) {
+			if (con != null && !con.isClosed()) {
 				con.rollback();
 			}
 		} catch (SQLException e) {

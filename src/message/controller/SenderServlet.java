@@ -1,28 +1,29 @@
-package design.controller;
+package message.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import design.model.service.DesignService;
+import member.model.service.MemberService;
 import member.model.vo.Member;
+import message.model.service.MessageService;
+import message.model.vo.Message;
 
 /**
- * Servlet implementation class DesignLikeCheckServlet
+ * Servlet implementation class SenderServlet
  */
-@WebServlet("/designLike")
-public class DesignLikeCheckServlet extends HttpServlet {
+@WebServlet("/sender")
+public class SenderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DesignLikeCheckServlet() {
+    public SenderServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,21 +34,22 @@ public class DesignLikeCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		String did = request.getParameter("did");
-		String mid = ((Member)request.getSession(false).getAttribute("member")).getId();
-		int likechk = Integer.parseInt(request.getParameter("like"));
-		DesignService dservice = new DesignService(); 
 		
-		PrintWriter out = response.getWriter();
-		if(likechk == 0){
-			dservice.insertLike(mid, did);
-			out.print(1);
+		String userID = request.getParameter("id");
+		String userPWD = request.getParameter("pwd");
+		Message ms = new MessageService().selectMessage(userID, userPWD);
+		if(ms != null){
+			//System.out.println(member);
+			HttpSession session = request.getSession();
+			//System.out.println(session.getId());
+			// 웹 페이지마다 값이 다름 (Map과 비슷함: key = String, value= Object)
+			session.setAttribute("message", ms);
+			
+			response.sendRedirect("myinfo.html");
 		} else {
-			dservice.deleteLike(mid, did);
-			out.print(0);
+			response.sendRedirect("404-page.jsp");
+			// 파일을 직접 내보냄
 		}
-		out.flush();
-		out.close();
 	}
 
 	/**

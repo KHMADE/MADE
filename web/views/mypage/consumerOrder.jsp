@@ -37,6 +37,56 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+<style>
+	table * {
+		text-align : center;
+		vertical-align: middle;
+	}
+	button {
+		border : none;
+		padding-top : 2px;
+		padding-bottom : 2px;
+		margin : 2px;
+		background : gray;
+		/* #e74c3c */
+		color : white;
+	}
+	button:hover {
+		background : #e74c3c;
+	}
+	table span {
+		font-weight: bold;
+	}
+	.c_product {
+		/* border:1px dashed blue; */
+		height : 100px;
+	}
+	.c_product_description {
+		border:1px dashed red;
+		clear : both; 
+		display: table-cell;
+				vertical-align: middle;
+	}
+	img {
+		float : left;
+		width: 100px;
+		height: 100%;
+	}
+	.c_review_image_div {
+        		float: left;
+   	}
+	.c_review_image_div li {
+		list-style-type: none;
+		float: left;
+	    position: relative;
+	    width: 68px;
+	    height: 68px;
+	    margin-right: 10px;
+	    border: 1px solid #dbdbdb;
+	}
+</style>
+				
 </head>
 <body>
 	
@@ -54,7 +104,6 @@
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
-								<!-- ■ ■ ■ ■ ■ 수정하기 ■ ■ ■ ■ ■ -->
 								<li><a href="/made/index.jsp">Home</a></li>
 								<li>마이페이지</li>
 								<li>주문/배송조회</li>
@@ -67,47 +116,9 @@
         
         <!--- 여기에 내용을 작성해주세요~ --->
         
-        <!-- <div class="container" style="border:1px dashed blue;"> -->
 		<div class="container">
         		<div class="panel panel-default">
-					<!-- ■ ■ ■ ■ ■ 자리 옮기기 ■ ■ ■ ■ ■ -->
-					<style>
-						table * {
-							text-align : center;
-							vertical-align: middle;
-						}
-						button {
-							border : none;
-							padding-top : 2px;
-							padding-bottom : 2px;
-							margin : 2px;
-							background : gray;
-							/* #e74c3c */
-							color : white;
-						}
-						button:hover {
-							background : #e74c3c;
-						}
-						table span {
-							font-weight: bold;
-						}
-						.c_product {
-							/* border:1px dashed blue; */
-							height : 100px;
-						}
-						.c_product_description {
-							border:1px dashed red;
-							clear : both; 
-							display: table-cell;
-  							vertical-align: middle;
-						}
-						img {
-							float : left;
-							width: 100px;
-							height: 100%;
-						}
-					</style>
-				
+
 					<table class=table>
 				  		<thead>
 				  			<tr><th>주문일자/주문번호</th><th>상품정보</th><th>금액/수량</th><th>주문상태</th><th>관리</th></tr>
@@ -118,7 +129,7 @@
 					  		
 					  		<% if(e.getDesignCode() != null ) { %>
 					  		<td><div class="c_product"><img alt="상품이미지" src="/made/images/items/designed/<%= e.getDesignImg() %>">
-					  		<div class="c_product_description"><a href="/made/dDetail?id=<%= e.getDesignCode() %>"><%= e.getDesignTitle() %></a></div></div></td><td><%= e.getDesignprice() * e.getOrderCount() %><br>(<%= e.getOrderCount() %>개)</td><td><span><%= e.getOrderStateName() %></span><br><button id="popbutton_review">상품리뷰</button><br>한진택배<br>121053968031<br><button>배송추적</button></td><td><button>반품요청</button><br><button>교환요청</button></td></tr>
+					  		<div class="c_product_description"><a href="/made/dDetail?id=<%= e.getDesignCode() %>"><%= e.getDesignTitle() %></a></div></div></td><td><%= e.getDesignprice() * e.getOrderCount() %><br>(<%= e.getOrderCount() %>개)</td><td><span><%= e.getOrderStateName() %></span><br><br>한진택배<br>121053968031<br><button>배송추적</button></td><td><button>반품요청</button><br><button>교환요청</button></td></tr>
 							
 							<% } else { %>
 							<td><div class="c_product">
@@ -129,7 +140,7 @@
 								<% } else if(e.getPartCategory().equals("PLASTIC")){ %>
 								<img alt="상품이미지" src="/made/images/items/parts/plastic/<%= e.getPartImg() %>">
 								<% } %>
-							<div class="c_product_description"><a href="/made/pDetail?id=<%= e.getPartCode() %>"><%= e.getPartTitle() %></a></div></div></td><td><%= e.getPartPrice() * e.getOrderCount() %><br>(<%= e.getOrderCount() %>개)</td><td><span><%= e.getOrderStateName() %></span><br><button id="popbutton_review">상품리뷰</button><br>한진택배<br>121053968031<br><button>배송추적</button></td><td><button>반품요청</button><br><button>교환요청</button></td></tr>
+							<div class="c_product_description"><a href="/made/pDetail?id=<%= e.getPartCode() %>"><%= e.getPartTitle() %></a></div></div></td><td><%= e.getPartPrice() * e.getOrderCount() %><br>(<%= e.getOrderCount() %>개)</td><td><span><%= e.getOrderStateName() %></span><br><br>한진택배<br>121053968031<br><button>배송추적</button></td><td><button>반품요청</button><br><button>교환요청</button></td></tr>
 							<% } %>
 						<% } %>
 					  	</tbody>
@@ -176,100 +187,5 @@
 	<%@ include file="../../footer.jsp" %>
 	<!--end footer-->
 	
-	<div class="modal_review modal fade" id="layerpop" >
-		  <div class="modal-dialog" style="width:625px; height:720px;">
-		    <div class="modal-content">
-		      <!-- header -->
-		      <div class="modal-header">
-		        <!-- 닫기(x) 버튼 -->
-		        <button type="button" class="close" data-dismiss="modal">×</button>
-		        <!-- header title -->
-		        <h4 class="modal-title">구매후기 작성하기</h4>
-		      </div >
-			      
-		      <!-- body -->
-		      <div class="modal-body review" style="padding: 30px;">
-		      	<img style="float:left;" src="https://img.tmon.co.kr/deals/2017/06/21/384416574/384416574_around_7e20a_1498010687production.jpg" alt="" height="71" width="106">
-		        	 <ul>
-			        	 <li>[생필품20%]질레트+추가증정 찬스!
-			        	 <li>01. 11. 질레트 프로글라이드 파워 8입날
-		        	 </ul>
-		        	 <div style="border:1px dashed olive; clear:left; width:560px; height:460px; margin: 20px 0px 0px 0px;">
-		        	 	<div style="margin:0px; width:100%; height:93px;">
-			        	 	<div style="border:1px dashed blue; float:left; width:106px; height:93px; text-align: center; line-height: 50px; ">
-			        	 		<h5>만족도</h5>
-			        	 	</div>
-			        	 	<div style="position:relative; left:100px; border:1px dashed green; width:457px; height:95px; padding: 15px 51px 0px 19px; margin:0px;">
-				        	 	<p>
-					                <strong>상품</strong>
-					                <span class="point_chk" id="dealPoint">
-					                    <a id="dealPoint1" onclick="" style="cursor:pointer">1점</a>
-					                    <a id="dealPoint2" onclick="" style="cursor:pointer">2점</a>
-					                    <a id="dealPoint3" onclick="" style="cursor:pointer">3점</a>
-					                    <a id="dealPoint4" onclick="" style="cursor:pointer">4점</a>
-					                    <a id="dealPoint5" onclick="" style="cursor:pointer">5점</a>
-					                </span>
-					                <em id="dealText"></em>
-				                </p>
-					            <p>
-					                <strong>배송</strong>
-					                <span class="point_chk" id="deliveryPoint">
-					                    <a id="deliveryPoint1" onclick="" style="cursor:pointer">1점</a>
-					                    <a id="deliveryPoint2" onclick="" style="cursor:pointer">2점</a>
-					                    <a id="deliveryPoint3" onclick="" style="cursor:pointer">3점</a>
-					                    <a id="deliveryPoint4" onclick="" style="cursor:pointer">4점</a>
-					                    <a id="deliveryPoint5" onclick="" style="cursor:pointer">5점</a>
-					                </span>
-					                <em id="deliveryText"></em>
-					            </p>
-							</div>	
-		        	 	</div>
-		        	 	<div style="border:1px dashed orange; width:538px; height:206px; margin:0px; padding:0px;">
-		        	 		<p>구매후기는 한글 기준 5자 이상 600자 이하로 가능합니다. (0/600)</p>
-		        	 		<textarea rows="7" cols="30"></textarea>
-		        	 	</div>
-		        	 	<div class="c_review_image_div"style="border:1px dashed black" >
-			        	 	<p>이미지는 최대 4개까지 등록 가능합니다. (3mb 이하)</p><button>사진등록</button>
-			        	 	<ul>
-			        	 		<li>A</li>
-			        	 		<li>B</li>
-			        	 		<li>C</li>
-			        	 		<li>D</li>
-			        	 	</ul>
-		        	 	</div>
-		        	 	<p style="clear:left;">작성하신 후기 대한 책임은 본인에게 있으며, 등록된 내용은 상품 페이지에 노출될 수 있습니다.</p>
-		        	 	<button type="button" style="margin: auto;">사진등록</button><a href="#close">끄기</a><button type="button">취소</button>
-		        	 </div>
-		      </div>
-		      <!-- Footer -->
-		      <div class="modal-footer">
-		        Footer
-		        <div><button type="button" class="btn btn-default" data-dismiss="modal">닫기</button></div>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-		
-	<script type="text/javascript">
-		$(function(){
-		    $("#popbutton_review").click(function(){
-		        $('div.modal_review').modal();
-		    })
-		})
-	</script>
-	<style>
-        	.c_review_image_div {
-        		float: left;
-        	}
-			.c_review_image_div li {
-				list-style-type: none;
-				float: left;
-			    position: relative;
-			    width: 68px;
-			    height: 68px;
-			    margin-right: 10px;
-			    border: 1px solid #dbdbdb;
-			}
-		</style>
 </body>
 </html>

@@ -137,12 +137,12 @@
                                     <i class="switch fa fa-plus-circle"></i>
                                 </span>
                                 <a href="#collapseFive" data-toggle="collapse">
-                                     Q: 1:1 문의를  드리고 싶은데 이미지 첨부 가능한가요?
+                                     Q: 배송 시에 배송지는 안정하나요?
                                 </a>
                             </h4>
                         </div>
                         <div class="panel-collapse collapse" id="collapseFive">
-                            <div class="panel-body"><b>A:</b>&nbsp;넵, 가능합니다! 문의하고자 하는 사진을 올려주신 후 문의해주시면 관리자가 확인 후 순차적으로 답변해드리고 있습니다.</div>
+                            <div class="panel-body"><b>A:</b>&nbsp;네... 그 부분은 아직 수정 중에 있습니다. 잠시만 기다려 주세요 ㅠㅜ.</div>
                             <div class="panel-body"> &nbsp;&nbsp;양질의 서비스를 제공할 수 있도록 항상 노력 하겠습니다.</div>
                         </div>
                     </div>
@@ -153,12 +153,12 @@
                                     <i class="switch fa fa-plus-circle"></i>
                                 </span>
                                 <a href="#collapseSix" data-toggle="collapse">
-                                     Q: 1:1 문의를 드리고 싶은데 이미지 첨부 가능한가요?
+                                     Q: 디자이너와 일반 구매자의 차이가 뭔가요?
                                 </a>
                             </h4>
                         </div>
                         <div class="panel-collapse collapse" id="collapseSix">
-                            <div class="panel-body"><b>A:</b>&nbsp;넵, 가능합니다! 문의하고자 하는 사진을 올려주신 후 문의해주시면 관리자가 확인 후 순차적으로 답변해드리고 있습니다.</div>
+                            <div class="panel-body"><b>A:</b>&nbsp;디자이너분들은 디자인된 아이템을 등록요청 하는 것 외에도 자신의 아이템이 얼마나 팔렸는지 확인 하실 수 있는 기능이 있습니다. 바로 수익 확인 게시글 부분이죠, 일반 사용자분들은 보실 수 없는 화면을 디자이너분들은 확인이 가능하도록 차별화를 두었습니다.</div>
                             <div class="panel-body"> &nbsp;&nbsp;양질의 서비스를 제공할 수 있도록 항상 노력 하겠습니다.</div>
                         </div>
                     </div>

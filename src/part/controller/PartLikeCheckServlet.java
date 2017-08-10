@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Member;
 import part.model.service.PartService;
 
 /**
@@ -33,7 +34,7 @@ public class PartLikeCheckServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		String pid = request.getParameter("pid");
-		String mid = request.getParameter("mid");
+		String mid = ((Member)request.getSession(false).getAttribute("member")).getId();
 		int likechk = Integer.parseInt(request.getParameter("like"));
 		PartService pservice = new PartService(); 
 		

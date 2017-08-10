@@ -229,30 +229,29 @@ $(function(){
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/made/index.jsp">Home</a></li>
-						<li id="notice"><a href="/made/nilst?page=1">공지사항</a></li>
+						<li id="notice"><a href="/made/nlist?page=1">공지사항</a></li>
 						<li id="item"><a href="#">DIY 상품</a>
 							<ul class="dropdown-menu">
 								<li><a href="/made/designitemlist?page=1">Designed</a></li>
 								<li><a href="/made/partitemlist?page=1">Parts</a></li>
 							</ul></li>
 
-						<li id="mypage"><a href="/made/views/mypage/order_page.html">마이페이지</a>
+						<li id="mypage"><a href="#">마이페이지</a>
 							<ul class="dropdown-menu">
 								<li><a href="/made/views/mypage/myinfo.html">My page</a></li>
 								<li><a href="/made/corderlist">주문내역</a></li>
 								<li><a href="/made/views/mypage/myinfo.html">회원정보수정</a></li>
-								<li><a href="/made/views/mypage/myinfo.html">쪽지함</a></li>
+								<li><a href="/made/acheck?page=1">쪽지함</a></li>
 								<% if(m != null && m.getClassCode().charAt(0) == 'A'){ %>
 									<li><a href="/made/qlist?page=1">1:1문의확인</a></li>
 									<%}else{ %>
 									<li><a href="/made/views/qa/qa.jsp">1:1문의</a></li>
 									<%} %>
 									<% if(m != null &&(m.getClassCode().equals("A") || m.getClassCode().equals("D"))) {%>
-									<li><a href="/made/views/mypage/profitView.jsp">수익 차트 보기</a></li>
+									<li><a href="/made/pview?mid=<%=m.getId()%>">수익 분석 차트</a></li>
 									<%} %>
 								</ul></li>
 						<li><a href="/made/views/faq/faq.jsp">FAQ</a></li>
-						<li><a href="/made/views/default_page/default_page.jsp">Default</a></li>
 						<li><a href="/made/contact.jsp">Contact</a></li>
 					</ul>
 				</div>

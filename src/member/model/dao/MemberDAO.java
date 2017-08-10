@@ -38,6 +38,35 @@ public class MemberDAO {
 		}
 		return member;
 	}
+	
+	public Member selectMember(Connection con, String id) {
+		Member member = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? ";
+		
+		try{
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				member = new Member(id,rset.getString("MEMBER_CLASS_CODE"),null,rset.getString("MEMBER_NAME"),
+						null,rset.getString("MEMBER_EMAIL"),
+						rset.getString("MEMBER_PHONE"),null,
+						null,rset.getString("MEMBER_PROFILE_IMG"),
+						0,rset.getString("MEMBER_NICKNAME"));
+			}
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return member;
+	}
 
 	public int insertMember(Connection con, Member m) {
 		int result = 0;

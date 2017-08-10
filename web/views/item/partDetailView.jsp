@@ -360,7 +360,6 @@ button#like:hover {
 					type : 'post',
 					data : {
 						like : likechk,
-						mid : "<%=m.getId()%>",
 						pid : "<%=p.getPartId()%>"
 					},
 					success : function(data) {

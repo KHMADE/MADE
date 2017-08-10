@@ -16,6 +16,13 @@ public class MemberService {
 		close(con);
 		return loginMember;
 	}
+	
+	public Member selectMember(String id){
+		Connection con = getConnection();
+		Member loginMember = new MemberDAO().selectMember(con, id);
+		close(con);
+		return loginMember;
+	}
 
 	public int insertMember(Member m) {
 		Connection con = getConnection();

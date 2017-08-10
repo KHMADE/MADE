@@ -427,7 +427,6 @@ button#like:hover {
 					type : "post",
 					data : {
 						like : likechk,
-						mid : "<%=m.getId()%>",
 						did : "<%=d.getDesignId()%>"
 					},
 					success : function(data) {
