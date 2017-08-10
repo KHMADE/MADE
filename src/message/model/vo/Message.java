@@ -24,10 +24,6 @@ public class Message {
 		this.messageContents = messageContents;
 		this.messageDate = messageDate;
 	}
-	
-	
-	
-
 
 	public Message(String messageCode, String messageTitle, String messageSenderId, String messageRecipientId,
 			String messageContents) {
@@ -38,6 +34,17 @@ public class Message {
 		this.messageRecipientId = messageRecipientId;
 		this.messageContents = messageContents;
 	}
+
+	public Message(String messageTitle, String messageSenderId, String messageRecipientId, String messageContents) {
+		super();
+		this.messageTitle = messageTitle;
+		this.messageSenderId = messageSenderId;
+		this.messageRecipientId = messageRecipientId;
+		this.messageContents = messageContents;
+	}
+
+
+
 
 
 	public String getMessageCode() {
@@ -93,8 +100,6 @@ public class Message {
 	public Date getMessageDate() {
 		return messageDate;
 	}
-
-
 
 
 

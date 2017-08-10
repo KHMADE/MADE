@@ -70,7 +70,7 @@ public class ConsumerOrderList extends HttpServlet {
 		 	view.forward(request, response);
 		 } else {
 			view = request.getRequestDispatcher("404-page.jsp");
-			request.setAttribute("message", "게시글 페이지별 조회 실패");
+			request.setAttribute("message", "현재 주문하신 상품이 존재하지 않습니다.<br>하나만 사주시죠 ㅎㅎ");
 			view.forward(request, response);
 		 }
 	}

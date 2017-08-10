@@ -1060,6 +1060,7 @@ INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707272020','RRMMDDHH24MI'),'RR
 INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707281010','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), '[공지] 다음 커머스원 상품 수집 일시 중단_8/16 (수요일)', '다음 쇼핑하우 긴급 DB 작업으로 인해, 커머스원의 상품 수집 작업이 2017년 8월 16일 14시부터 18시까지 중단됩니다. 작업 종료 후 스케쥴에 따라 정상적으로 상품 수집을 진행할 예정이며, 기존에 커머스원을 통해 상품 업데이트가 지연되는 문제들도 정상적으로 업데이트 진행될 예정입니다.',TO_DATE('1707281010','RRMMDDHH24MI'),null);
 
 COMMIT;
+
 /*
 SELECT * FROM MEMBER;
 SELECT * FROM PART;

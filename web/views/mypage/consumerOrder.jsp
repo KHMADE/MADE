@@ -18,7 +18,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>Dafault_page - MAːDÆ</title>
+	<title>Consumer Order - MAːDÆ</title>
 	<meta name="description" content="">
 	<link rel="shortcut icon" href="/made/images/icon.ico">
 	<!-- CSS FILES -->
@@ -138,6 +138,8 @@
 								<img alt="상품이미지" src="/made/images/items/parts/steel/<%= e.getPartImg() %>">
 								<% } else if(e.getPartCategory().equals("PLASTIC")){ %>
 								<img alt="상품이미지" src="/made/images/items/parts/plastic/<%= e.getPartImg() %>">
+								<% } else {%>
+								<img alt="상품이미지" src="/made/images/items/parts/etc/<%= e.getPartImg() %>">
 								<% } %>
 							<div class="c_product_description"><a href="/made/pDetail?id=<%= e.getPartCode() %>"><%= e.getPartTitle() %></a></div></div></td><td><%= e.getPartPrice() * e.getOrderCount() %><br>(<%= e.getOrderCount() %>개)</td><td><span><%= e.getOrderStateName() %></span><br><br>한진택배<br>121053968031<br><button>배송추적</button></td><td><button>반품요청</button><br><button>교환요청</button></td></tr>
 							<% } %>

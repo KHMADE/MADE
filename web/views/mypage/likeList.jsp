@@ -18,7 +18,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>Dafault_page - MAːDÆ</title>
+	<title>찜 목록 리스트 - MAːDÆ</title>
 	<meta name="description" content="">
 	<link rel="shortcut icon" href="/made/images/icon.ico">
 	<!-- CSS FILES -->
@@ -100,13 +100,13 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<h2>주문/배송 조회</h2>
+						<h2>찜 목록 리스트</h2>
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
 								<li><a href="/made/index.jsp">Home</a></li>
 								<li>마이페이지</li>
-								<li>주문/배송조회</li>
+								<li>찜 목록 조회</li>
 							</ul>
 						</nav>
 					</div>
@@ -119,7 +119,8 @@
 		<div class="container">
         		<div class="panel panel-default">
 					<input type="hidden" id="m_id" value="<%=m.getId()%>">
-					<table class=table>
+					<% if(list.size() != 0) { %>
+					<table class="table">
 				  		<thead>
 				  			<tr><th>상품정보</th><th>금액/수량</th><th>취소</th></tr>
 				  		</thead>
@@ -181,6 +182,16 @@
 					
 				  </ul>
 				</nav>
+				<% } else { %>
+				<table class="table">
+					<thead>
+				  		<tr><th>상품정보</th><th>금액/수량</th><th>취소</th></tr>
+				  	</thead>
+				  	<tbody>
+				  		<tr><td colspan="3" align="center"><h3>현재 찜하신 아이템이 없습니다. ㅠㅜ</h3></td></tr>
+				  	</tbody>
+				</table>
+				<% } %>
         	</div>
     </section>
 

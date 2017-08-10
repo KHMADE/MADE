@@ -9,9 +9,7 @@ import notice.model.vo.Notice;
 
 public class MessageDao {
 	
-	private Connection con;
-	private PreparedStatement pstmt;
-	private ResultSet rset;
+	
 	
 	public MessageDao(){}
 
@@ -20,7 +18,7 @@ public class MessageDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = "SELECT * FROM MESSAGE" /* WHERE MESSAGE_CODE = ? AND MESSAGE_PASSWORD = ?"*/;
+		String sql = "SELECT * FROM MESSAGE WHERE MESSAGE_CODE = ?";
 		
 		try{
 			pstmt = con.prepareStatement(sql);
@@ -57,15 +55,15 @@ public class MessageDao {
 	public int insertMessage(Connection con, Message m) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO MESSAGE VALUES(?,?,?,?,?, SYSDATE,?,?,?,?)";
+		System.out.println(m);
+
+		String sql = "INSERT INTO MESSAGE VALUES(('ME'||TO_CHAR(SYSDATE,'RRMMDDHH24MI')||LPAD(SEQ_DE.NEXTVAL,2,'0')),?,?,?,?,SYSDATE)";
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, m.getMessageCode());
-			pstmt.setString(2, m.getMessageTitle());
-			pstmt.setString(3, m.getMessageSenderId());
-			pstmt.setString(4, m.getMessageRecipientId());
-			pstmt.setString(5, m.getMessageContents());
-			pstmt.setDate(6, m.getMessageDate());
+			pstmt.setString(1, m.getMessageTitle());
+			pstmt.setString(2, m.getMessageSenderId());
+			pstmt.setString(3, m.getMessageRecipientId());
+			pstmt.setString(4, m.getMessageContents());
 			
 			result = pstmt.executeUpdate();
 			
@@ -118,19 +116,13 @@ public class MessageDao {
 		return result;
 	}
 
-	public ArrayList<Message> selectList(Connection con, int currentPage, int limit) {
+	public ArrayList<Message> selectListAll(Connection con, int currentPage, int limit, String mid) {
 		// 페이지 단위로 게시글 목록 조회용 메소드
 
-		
 				ArrayList<Message> list = null;
 				PreparedStatement pstmt = null;
 				ResultSet rset = null;
-				/*	MESSAGE_CODE
-				MESSAGE_TITLE
-				MESSAGE_SENDER_ID
-				MESSAGE_RECIPIENT_ID
-				MESSAGE_CONTENTS
-				MESSAGE_DATE*/
+				
 				String query = "select * from " 
 						+ "(select rownum rnum, "
 						+ "MESSAGE_CODE, " 
@@ -139,8 +131,9 @@ public class MessageDao {
 						+ "MESSAGE_RECIPIENT_ID, "
 						+ "MESSAGE_CONTENTS, "
 						+ "MESSAGE_DATE "
-						+ "from (select * from message " 
-						+ "order by MESSAGE_DATE desc, MESSAGE_CONTENTS desc, "
+						+ "from (select * from message "
+						+ " WHERE MESSAGE_RECIPIENT_ID = ? OR MESSAGE_SENDER_ID = ?" 
+						+ " order by MESSAGE_DATE desc, MESSAGE_CONTENTS desc, "
 						+ "MESSAGE_RECIPIENT_ID asc, MESSAGE_SENDER_ID asc)) " 
 						+ "where rnum >= ? and rnum <= ?";
 
@@ -149,8 +142,10 @@ public class MessageDao {
 
 				try {
 					pstmt = con.prepareStatement(query);
-					pstmt.setInt(1, startRow);
-					pstmt.setInt(2, endRow);
+					pstmt.setString(1, mid);
+					pstmt.setString(2, mid);
+					pstmt.setInt(3, startRow);
+					pstmt.setInt(4, endRow);
 
 					rset = pstmt.executeQuery();
 					if (rset != null) {
@@ -163,15 +158,6 @@ public class MessageDao {
 									rset.getString("MESSAGE_RECIPIENT_ID"),
 									rset.getString("MESSAGE_CONTENTS")
 									));
-//							Message m = new Message();
-//							m.setMessageCode(rset.getString("MESSAGE_CODE"));
-//							m.setMessageTitle(rset.getString("MESSAGE_TITLE"));
-//							m.setMessageSenderId(rset.getString("MESSAGE_SENDER_ID"));
-//							m.setMessageRecipientId(rset.getString("MESSAGE_RECIPIENT_ID"));
-//							m.setMessageContents(rset.getString("MESSAGE_CONTENTS"));
-//							
-//
-//							list.add(m);
 						}
 					}
 
@@ -212,7 +198,7 @@ public class MessageDao {
 		return listCount;
 	}
 
-	public ArrayList<Message> selectList(Connection con, int currentPage, int limit, String mid) {
+	public ArrayList<Message> selectListRecv(Connection con, int currentPage, int limit, String mid) {
 		ArrayList<Message> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -267,12 +253,180 @@ public class MessageDao {
 
 		return list;
 	}
+	
+	public ArrayList<Message> selectListSend(Connection con, int currentPage, int limit, String mid) {
+		ArrayList<Message> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		/*	MESSAGE_CODE
+		MESSAGE_TITLE
+		MESSAGE_SENDER_ID
+		MESSAGE_RECIPIENT_ID
+		MESSAGE_CONTENTS
+		MESSAGE_DATE*/
+		String query = "select * from " 
+				+ "(select rownum rnum, "
+				+ "MESSAGE_CODE, " 
+				+ "MESSAGE_TITLE, "
+				+ "MESSAGE_SENDER_ID, "
+				+ "MESSAGE_RECIPIENT_ID, "
+				+ "MESSAGE_CONTENTS, "
+				+ "MESSAGE_DATE "
+				+ "from (select * from message WHERE MESSAGE_SENDER_ID = ?" 
+				+ "order by MESSAGE_DATE desc, MESSAGE_CONTENTS desc, "
+				+ "MESSAGE_RECIPIENT_ID asc, MESSAGE_SENDER_ID asc)) " 
+				+ "where rnum >= ? and rnum <= ?";
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+			rset = pstmt.executeQuery();
+			if (rset != null) {
+				list = new ArrayList<Message>();
+				while (rset.next()) {
+					list.add(new Message(
+							rset.getString("MESSAGE_CODE"),
+							rset.getString("MESSAGE_TITLE"),
+							rset.getString("MESSAGE_SENDER_ID"),
+							rset.getString("MESSAGE_RECIPIENT_ID"),
+							rset.getString("MESSAGE_CONTENTS")
+							));
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+
+	
+
+	public ArrayList<Message> selectMyNote(Connection con2, int currentPage, int limit, String mid) {
+		ArrayList<Message> list = new ArrayList<Message>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		/*	MESSAGE_CODE
+		MESSAGE_TITLE
+		MESSAGE_SENDER_ID
+		MESSAGE_RECIPIENT_ID
+		MESSAGE_CONTENTS
+		MESSAGE_DATE*/
+		String query = "select * from " 
+				+ "(select rownum rnum, "
+				+ "MESSAGE_CODE, " 
+				+ "MESSAGE_TITLE, "
+				+ "MESSAGE_SENDER_ID, "
+				+ "MESSAGE_RECIPIENT_ID, "
+				+ "MESSAGE_CONTENTS, "
+				+ "MESSAGE_DATE "
+				+ "from (select * from message WHERE MESSAGE_SENDER_ID = ? AND MESSAGE_RECIPIENT_ID = ? " 
+				+ "order by MESSAGE_DATE desc, MESSAGE_CONTENTS desc, "
+				+ "MESSAGE_RECIPIENT_ID asc, MESSAGE_SENDER_ID asc)) " 
+				+ "where rnum >= ? and rnum <= ?";
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		try {
+			pstmt = con2.prepareStatement(query);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, mid);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+			rset = pstmt.executeQuery();
+			if (rset != null) {
+				while (rset.next()) {
+					list.add(new Message(
+							rset.getString("MESSAGE_CODE"),
+							rset.getString("MESSAGE_TITLE"),
+							rset.getString("MESSAGE_SENDER_ID"),
+							rset.getString("MESSAGE_RECIPIENT_ID"),
+							rset.getString("MESSAGE_CONTENTS")
+							));
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<Message> keepList(Connection con2, int currentPage, int limit, String mid) {
+		ArrayList<Message> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		/*	MESSAGE_CODE
+		MESSAGE_TITLE
+		MESSAGE_SENDER_ID
+		MESSAGE_RECIPIENT_ID
+		MESSAGE_CONTENTS
+		MESSAGE_DATE*/
+		String query = "select * from " 
+				+ "(select rownum rnum, "
+				+ "MESSAGE_CODE, " 
+				+ "MESSAGE_TITLE, "
+				+ "MESSAGE_SENDER_ID, "
+				+ "MESSAGE_RECIPIENT_ID, "
+				+ "MESSAGE_CONTENTS, "
+				+ "MESSAGE_DATE "
+				+ "from (select * from message WHERE MESSAGE_SENDER_ID = ?" 
+				+ "order by MESSAGE_DATE desc, MESSAGE_CONTENTS desc, "
+				+ "MESSAGE_RECIPIENT_ID asc, MESSAGE_SENDER_ID asc)) " 
+				+ "where rnum >= ? and rnum <= ?";
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		try {
+			pstmt = con2.prepareStatement(query);
+			pstmt.setString(1, mid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+			rset = pstmt.executeQuery();
+			if (rset != null) {
+				list = new ArrayList<Message>();
+				while (rset.next()) {
+					list.add(new Message(
+							rset.getString("MESSAGE_CODE"),
+							rset.getString("MESSAGE_TITLE"),
+							rset.getString("MESSAGE_SENDER_ID"),
+							rset.getString("MESSAGE_RECIPIENT_ID"),
+							rset.getString("MESSAGE_CONTENTS")
+							));
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 
 
 
 	
 
-	public ArrayList<Message> search(String messageRecipientId) {
+/*	public ArrayList<Message> search(String messageRecipientId) {
 		
 		String SQL = "select * from message where message_sender_id like ?";
 		ArrayList<Message> messageList = new ArrayList<Message>();
@@ -291,7 +445,9 @@ public class MessageDao {
 			e.printStackTrace();
 		}
 		return messageList;
-	}
+	}*/
 //위에 코드는 AJAX 하려다 막힘 못함 
+
+
 
 }

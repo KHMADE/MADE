@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="message.model.vo.*, java.util.ArrayList, java.sql.Date" %>    
+<%@ page import="message.model.vo.Message, java.util.ArrayList, java.sql.Date" %>    
 <%
 	ArrayList<Message> list = (ArrayList<Message>)request.getAttribute("list");
 	int listCount = ((Integer)request.getAttribute("listCount")).intValue();

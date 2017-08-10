@@ -1,8 +1,6 @@
 package message.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import message.model.service.MessageService;
 import message.model.vo.Message;
-import notice.model.service.NoticeService;
-import notice.model.vo.Notice;
 
 /**
- * Servlet implementation class DetailViewServlet
+ * Servlet implementation class InsertServlet
  */
-@WebServlet("/dtail")
-public class DetailViewServlet extends HttpServlet {
+@WebServlet("/insert")
+public class InsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailViewServlet() {
+    public InsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,21 +29,28 @@ public class DetailViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 공지글 상세보기 처리용 컨트롤러
-				response.setContentType("text/html; charset=utf-8");
-				int currentPage = Integer.parseInt(request.getParameter("page"));
-				String messageName = (String)(request.getParameter("mcode"));
-				Message message = new MessageService().selectOne(messageName);
-				RequestDispatcher view = null;
-				if(message != null){
-					view = request.getRequestDispatcher("views/message/detailView.jsp");
-					request.setAttribute("currentPage", currentPage);
-					request.setAttribute("message", message);
-					view.forward(request, response);
-				}else{
-					response.sendRedirect("404-page.jsp");
-				}
-			}
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		String id = request.getParameter("id");
+
+		String member = request.getParameter("member");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		Message m = new Message(title,member,id,content);
+		
+		/*
+		System.out.println(id);
+		System.out.println(member);
+		System.out.println(title);
+		System.out.println(content);*/
+		MessageService mservice = new MessageService();
+		if (mservice.MessageInsert(m) > 0) {
+			response.sendRedirect("/made/acheck?page=1");
+		} else {
+			response.sendRedirect("/made/404-page.jsp");
+		}
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

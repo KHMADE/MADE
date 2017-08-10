@@ -82,6 +82,7 @@ int quan = ((Integer)request.getAttribute("quan")).intValue();
 					<table class="table table-striped table-hover">
                     <thead>
                     <tr>
+                    	<th>상품 이미지</th>
                     	<th>상품 명</th>
                         <th>상품 가격</th>
                         <th>구매 갯수</th>
@@ -93,8 +94,8 @@ int quan = ((Integer)request.getAttribute("quan")).intValue();
                         <td><img style="width:70px; height:70px;" class="img-circle img-responsive" src="/made/images/items/parts/<%=p.getPartCategory().toLowerCase() %>/<%=p.getPartImg()%>"></td>
                         <td><%=p.getPartName() %></td>
                         <td><%=p.getPrice() %>원</td>
-                        <td><%=p.getQuantity()*quan %>개</td>
-                        <td><%=p.getPrice()*p.getQuantity() %>원</td>
+                        <td><%=quan %>개</td>
+                        <td><%=p.getPrice()*quan %>원</td>
                     </tr>
 					</tbody>
                 </table>
@@ -137,13 +138,14 @@ int quan = ((Integer)request.getAttribute("quan")).intValue();
 				buyer_name : '<%=m.getName()%>',
 				buyer_tel : '<%=m.getPhone()%>',
 				buyer_addr : '<%=addr[1]+" "+addr[2]%>',
-				buyer_postcode : '<%=addr[0]%>',
-			    kakaoOpenApp : true
+				buyer_postcode : '<%=addr[0]%>'
+				//kakaoOpenApp : true,
+			    //m_redirect_url : ""
 			}, function(rsp) {
 				if (rsp.success) {
 					//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-					jQuery.ajax({
-						url : "/made/orderConfirm", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+					$.ajax({
+						url : "/made/orderconfirm", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
 						type : 'POST',
 						dataType : 'json',
 						data : {
@@ -161,22 +163,13 @@ int quan = ((Integer)request.getAttribute("quan")).intValue();
 							receipt_url : rsp.receipt_url
 						//기타 필요한 데이터가 있으면 추가 전달
 						}
-					}).done(function(data) {
-						//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-						if (everythings_fine) {
-							var msg = '결제가 완료되었습니다.';
-							msg += '\n고유ID : ' + rsp.imp_uid;
-							msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-							msg += '\n결제 금액 : ' + rsp.paid_amount;
-							msg += '\n카드 승인번호 : ' + rsp.apply_num;
-							alert(msg);
-						} else {
-							alert("결제가 정상적으로 이루어지지 않았습니다.\n결제 내역을 확인해 주세요.");
-						}
 					});
+					location.href="/made/views/mypage/orderConfirm.jsp?item=part&pay_method="+rsp.pay_method
+							+"&quan=<%=quan%>&nick="+rsp.buyer_name
+							+"&date="+rsp.paid_at+"&price="+rsp.paid_amount;
 				} else {
 					var msg = '결제에 실패하였습니다.';
-					msg += '에러내용 : ' + rsp.error_msg;
+					msg += '\n에러내용 : ' + rsp.error_msg;
 					alert(msg);
 				}
 			});

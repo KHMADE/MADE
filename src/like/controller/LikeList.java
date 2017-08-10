@@ -59,15 +59,15 @@ public class LikeList extends HttpServlet {
 		
 		RequestDispatcher view = null;
 		
-		for(Like e : list)
-			System.out.println("■ list : " + e);
-		System.out.println("■ currentPage : " + currentPage);
-		System.out.println("■ maxPage : " + maxPage);
-		System.out.println("■ startPage : " + startPage);
-		System.out.println("■ endPage : " + endPage);
-		System.out.println("■ listCount : " + listCount);
+//		for(Like e : list)
+//			System.out.println("■ list : " + e);
+//		System.out.println("■ currentPage : " + currentPage);
+//		System.out.println("■ maxPage : " + maxPage);
+//		System.out.println("■ startPage : " + startPage);
+//		System.out.println("■ endPage : " + endPage);
+//		System.out.println("■ listCount : " + listCount);
 		
-		if (list != null && list.size() > 0) {
+		if (list != null) {
 			view = request.getRequestDispatcher("views/mypage/likeList.jsp");
 		 	request.setAttribute("list", list);
 		 	request.setAttribute("currentPage", currentPage);

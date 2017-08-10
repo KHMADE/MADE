@@ -342,10 +342,11 @@ button#like:hover {
 			//Number("12345").toLocaleString('en');
 			$("#price").val(price);
 			$("#quan").on('change',function(){
-				if(("#quan").val() == maxQty){
+				if($("#quan").val() == maxQty){
 					alert("최대 보유 수량입니다.\n 추가 구매를 원하시면 관리자에게 문의해 주세요.");
-				}
+				} else {
 				$("#price").val($("#quan").val()*price);
+				}
 			});
 			<%-- 
 			$("#price").val(<%=p.getPrice()%>);

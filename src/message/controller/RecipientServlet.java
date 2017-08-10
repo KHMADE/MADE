@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Member;
 import message.model.service.MessageService;
 import message.model.vo.Message;
 
@@ -46,16 +47,16 @@ public class RecipientServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		
 		MessageService mservice = new MessageService();
-		String mid = request.getParameter("mid");
+		String mid = ((Member)(request.getSession(false).getAttribute("member"))).getId();
 		
 		//전체 목록 갯수와 해당 페이지별 목록을 리턴받음
 		int listCount = mservice.getListCount();
 		System.out.println("조회된 목록 갯수 : " + listCount);
-		ArrayList<Message> list = mservice.selectList(currentPage, limit, mid);
+		ArrayList<Message> list = mservice.selectListRecv(currentPage, limit, mid);
 		System.out.println(listCount);
 		//총 페이지수 계산 : 목록이 최소 1개일 때 1page로 처리하기
 		//위해 0.9 더함
-		int maxPage = (int)((double)listCount / limit + 0.9);
+		int maxPage = (int)((double)list.size() / limit + 0.9);
 		//현재 페이지에 보여줄 시작 페이지수
 		//(1, 11, 21, .......)
 		//현재 페이지가 13page 이면 시작페이지는 11page 가 되어야 함
@@ -65,7 +66,7 @@ public class RecipientServlet extends HttpServlet {
 		int endPage = startPage + limit - 1;
 		if(maxPage < endPage)
 			endPage = maxPage;
-		
+		String msgType = "recipient";
 		RequestDispatcher view = null;
 		if(list != null && list.size() > 0){
 			view = request.getRequestDispatcher("views/message/messageListView.jsp");
@@ -75,12 +76,13 @@ public class RecipientServlet extends HttpServlet {
 			request.setAttribute("maxPage", maxPage);
 			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
+			request.setAttribute("msgType", msgType);
 			request.setAttribute("listCount", listCount);
 			
 			view.forward(request, response);
 		}else{
 			view = request.getRequestDispatcher("404-page.jsp");
-			request.setAttribute("message", "게시글 페이지별 조회 실패");
+			request.setAttribute("message", "쪽지 페이지 조회 실패");
 			view.forward(request, response);
 		}
 }

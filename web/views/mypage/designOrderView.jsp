@@ -118,7 +118,7 @@ String dFull = (String)request.getAttribute("dFull");
                         <td><%=p.getPartName() %></td>
                         <td><%=p.getPrice() %>원</td>
                         <td><%=p.getQuantity()*quan %>개</td>
-                        <td><%=p.getPrice()*p.getQuantity() %>원</td>
+                        <td><%=p.getPrice()*quan*p.getQuantity() %>원</td>
                     </tr>
 					<% } %>
 					<% } %>
@@ -174,13 +174,14 @@ String dFull = (String)request.getAttribute("dFull");
 				buyer_name : '<%=m.getName()%>',
 				buyer_tel : '<%=m.getPhone()%>',
 				buyer_addr : '<%=addr[1]+" "+addr[2]%>',
-				buyer_postcode : '<%=addr[0]%>',
-			    kakaoOpenApp : true
+				buyer_postcode : '<%=addr[0]%>'
+			    //kakaoOpenApp : true,
+			   // m_redirect_url : "/made/orderconfirm"
 			}, function(rsp) {
 				if (rsp.success) {
 					//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 					$.ajax({
-						url : "/made/orderinsert", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+						url : "/made/orderconfirm", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
 						type : 'POST',
 						dataType : 'json',
 						data : {
@@ -211,6 +212,9 @@ String dFull = (String)request.getAttribute("dFull");
 							alert("결제가 정상적으로 이루어지지 않았습니다.\n결제 내역을 확인해 주세요.");
 						}
 					});
+					location.href="/made/views/mypage/orderConfirm.jsp?item=part&pay_method="+rsp.pay_method
+						+"&quan=<%=quan%>&nick="+rsp.buyer_name
+						+"&date="+rsp.paid_at+"&price="+rsp.paid_amount;
 				} else {
 					var msg = '결제에 실패하였습니다.';
 					msg += '에러내용 : ' + rsp.error_msg;

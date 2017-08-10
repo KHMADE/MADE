@@ -33,7 +33,7 @@ public class NoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-response.setContentType("text/html; charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
 		
 		int currentPage = 1;
 		int limit = 10;
@@ -66,7 +66,7 @@ response.setContentType("text/html; charset=utf-8");
 			request.setAttribute("listCount", listCount);
 			
 			view.forward(request, response);
-		}else{
+		} else{
 			view = request.getRequestDispatcher("404-page.jsp");
 			request.setAttribute("message", "오류");
 			view.forward(request, response);

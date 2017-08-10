@@ -165,6 +165,9 @@ $(function(){
 			}
 		});
 	});
+	function noticeErr(){
+		alert("가입한 회원만 열람이 가능합니다.");
+	};
 </script>
 
 
@@ -229,7 +232,11 @@ $(function(){
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/made/index.jsp">Home</a></li>
+						<% if(m == null) { %>
+						<li id="notice"><a href="#" onclick="noticeErr();">공지사항</a></li>
+						<% } else { %>
 						<li id="notice"><a href="/made/nlist?page=1">공지사항</a></li>
+						<% } %>
 						<li id="item"><a href="#">DIY 상품</a>
 							<ul class="dropdown-menu">
 								<li><a href="/made/designitemlist?page=1">Designed</a></li>
@@ -240,7 +247,7 @@ $(function(){
 							<ul class="dropdown-menu">
 								<li><a href="/made/llist">찜목록</a></li>
 								<li><a href="/made/corderlist">주문내역</a></li>
-								<li><a href="/made/views/mypage/myinfo.html">회원정보수정</a></li>
+								<!-- <li><a href="/made/views/mypage/myinfo.html">회원정보수정</a></li> -->
 								<li><a href="/made/acheck?page=1">쪽지함</a></li>
 								<% if(m != null && m.getClassCode().charAt(0) == 'A'){ %>
 									<li><a href="/made/qlist?page=1">1:1문의확인</a></li>

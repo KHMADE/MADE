@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" errorPage="/made/404-page.jsp" %>
-<%@ page import="message.model.vo.*, java.util.ArrayList, java.sql.Date" %>    
+<%@ page import="message.model.vo.Message, java.util.ArrayList, java.sql.Date" %>    
 <%
 	ArrayList<Message> list = (ArrayList<Message>)request.getAttribute("list");
 	String msgTitle = (String)request.getAttribute("msgTitle");
@@ -9,6 +9,7 @@
 	int startPage = ((Integer)request.getAttribute("startPage")).intValue();
 	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
 	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
+	String msgType = (String)request.getAttribute("msgType");
 %>
 <!DOCTYPE html>
 <html>
@@ -93,37 +94,13 @@
 								<label for="searchKeyWord" class="blind">쪽지 검색어</label>
 								<input type="search" class="search" 
 								id="messageCode" onkeyup="searchFunction()" placeholder="쪽지검색" 
-								id="searchKeyWord"><a href="">
+								id="searchKeyWord"><a href="#"></a>
 								&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-default active" onclick="searchFunction();" id="searchBtn" name="">
 								<i class="fa fa-search">
 								</i></button>
 
 							</div>
-								
-							
-							
-							
-					<!-- 		
-							
-							<tbody id="ajaxTable">
-								<tr>
-									<td>정진모</td>
-									<td>25</td>
-									<td>남자</td>
-									<td>jjm@naver.com</td>
-								</tr>
-							</tbody>
-							
-							
-							 -->
-							
-							
-							
-							
-							
-            <!-- 메일검색어 -->
-			
-			
+								</div>
 			
 			<!-- 메인 쪽지함 view 부분 -->
 			
@@ -152,7 +129,7 @@
 								
 							<div class="btn_workset">
 				<a href="#" class="active">
-					<strong class="active"><span>쪽지 쓰기</span></strong>
+					<strong class="active"><span><a href="/made/views/message/insert.jsp">쪽지 쓰기</a></span></strong>
 				</a> &nbsp;&nbsp;&nbsp;
 				<a href="#" class="active">
 					<strong class="active"><span>내게쓰기</span></strong>
@@ -163,17 +140,17 @@
 			<div>
 			<ul>
 			<li class="active"><a href="/made/acheck?page=1">전체쪽지함 <span class="sr-only">(current)</span></a></li><br><br>
-					<li><a href="/made/recipient?page=1&mid=<%= m.getId() %>">받은 쪽지함</a></li><br><br>
-            		<li><a href="/made/----------?page=1&mid=<%= m.getId() %>">내게쓴쪽지함</a></li><br><br>
-           	 		<li><a href="/made/----------?page=1&mid=<%= m.getId() %>">보관함</a></li>
-           	 		
+					<li><a href="/made/recipient?page=1">받은 쪽지함</a></li><br><br>
+            		<li><a href="/made/sender?page=1">보낸 쪽지함</a></li><br><br>
+           	 		<!-- <li><a href="/made/keep?page=1">보관함</a></li> -->
            	 		</ul>
 			</div>
 			</ul>
 				</nav>
 				</div>
+
 				<h1 align="center"><%= msgTitle %> 목록</h1>
-<h3 align="center">총 게시글 갯수 : <%= list.size() %> 개
+<h3 align="center">총 게시글 갯수 : <%= list.size() %> 개</h3>
 <%-- <%@ include file="note.jsp" %> --%>
 
 
@@ -192,8 +169,8 @@
 
 
 
-<table align="center" border="1" cellspacing="0" width="700">
-<tr><th>보낸이</th><th>받는이</th><th>제목</th><th>날짜</th></tr>
+<table class="table table-striped table-hover" align="center" border="1" cellspacing="0" width="700">
+<thead><tr><th>보낸이</th><th>받는이</th><th>제목</th><th>날짜</th></tr></thead>
 
 
 
@@ -216,10 +193,10 @@
 			<%= b.getBoardTitle() %>
 		<% } %>
 	</td> --%>
-
+<tr>
 <td align="center"><%= msg.getMessageSenderId() %></td>
 <td align="center"><%= msg.getMessageRecipientId() %></td>
-<td align="center"><a href="/made/mdetail?mcode=<%=msg.getMessageCode()%>"><%= msg.getMessageTitle() %></a></td>
+<td align="center"><a href="/made/dtail?mcode=<%=msg.getMessageCode()%>&page=<%=currentPage%>"><%= msg.getMessageTitle() %></a></td>
 <td align="center"><%= msg.getMessageDate() %></td>
 <%-- <td align="center">
 	<% if(b.getBoardOriginalFileName() != null){  //원글의 답글일 때 %>
@@ -244,25 +221,27 @@
 	<%  if(currentPage <= 1){	%>
 		[이전] &nbsp;
 	<%  }else{ %>
-		<a href="/made/acheck?page=<%= currentPage - 1 %>">[이전]</a> &nbsp;
+		<a href="/made/<%=msgType %>?page=<%= currentPage - 1 %>">[이전]</a> &nbsp;
 	<%  } %>
-	<%-- 페이지 숫자 보여주기 --%>
+	페이지 숫자 보여주기
 	<%  for(int p = startPage; p <= endPage; p++){ 
 			if(p == currentPage){
 	%><font color="skyblue" size="4"><b>(<%= p %>)</b></font>
 	<%     }else{ %>
-		<a href="/made/acheck?page=<%= p %>"><%= p %></a>
+		<a href="/made/<%=msgType %>?page=<%= p %>"><%= p %></a>
 	<%  }} //else and for close %>
 	<% if(currentPage >= maxPage){ %>
 		[다음]
 	<% }else{ %>
-		<a href="/made/acheck?page=<%= currentPage + 1 %>">[다음]</a>
+		<a href="/made/<%=msgType %>?page=<%= currentPage + 1 %>">[다음]</a>
 	<% } %>
 </td>
 </tr>
 </table>
 <br><br>
 				</div>
+				</div>
+								</div>
 				</div>
 			</section>
 	<!-- End MSG MENU -->
