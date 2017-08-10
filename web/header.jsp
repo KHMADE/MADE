@@ -245,7 +245,7 @@ $(function(){
 								<% if(m != null && m.getClassCode().charAt(0) == 'A'){ %>
 									<li><a href="/made/qlist?page=1">1:1문의확인</a></li>
 									<%}else{ %>
-									<li><a href="/made/qmlist?page=1">1:1문의</a></li>
+									<li><a href="/made/qmlist?page=1&member=<%=m.getId()%>">1:1문의</a></li>
 									<%} %>
 								</ul></li>
 						<li><a href="/made/views/faq/faq.jsp">FAQ</a></li>

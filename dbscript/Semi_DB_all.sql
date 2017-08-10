@@ -278,7 +278,7 @@ ALTER TABLE REQUEST
 /* 공지사항 */
 CREATE TABLE NOTICE (
 	NOTICE_CODE VARCHAR2(14) CONSTRAINT PK_NOTICE PRIMARY KEY, /* 공지사항 코드 */
-	NOTICE_TITLE VARCHAR2(50) NOT NULL, /* 제목 */
+	NOTICE_TITLE VARCHAR2(300) NOT NULL, /* 제목 */
 	NOTICE_CONTENTS VARCHAR2(3000) NOT NULL, /* 내용 */
 	NOTICE_DATE DATE NOT NULL, /* 작성일 */
 	NOTICE_IMG VARCHAR2(50) /* 이미지 */
@@ -448,7 +448,7 @@ SET ESCAPE ON;
 CREATE TABLE QA (
 	QA_CODE VARCHAR2(14) CONSTRAINT PK_QA PRIMARY KEY, /* 문의사항 코드 */
 	MEMBER_ID VARCHAR2(30) NOT NULL, /* 아이디 */
-	QA_TITLE VARCHAR2(50) NOT NULL, /* 제목 */
+	QA_TITLE VARCHAR2(300) NOT NULL, /* 제목 */
 	QA_CONTENTS VARCHAR2(3000) NOT NULL, /* 내용 */
 	QA_DATE DATE NOT NULL, /* 작성일 */
 	QA_IMG VARCHAR2(50), /* 이미지 */
@@ -901,7 +901,7 @@ INSERT INTO ITEM_REVIEW VALUES('RV'||TO_CHAR(TO_DATE('1707131850','RRMMDDHH24MI'
 INSERT INTO ITEM_REVIEW VALUES('RV'||TO_CHAR(TO_DATE('1707132250','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),null,'DE170710133500','user22','이 제품 좋네요 감사히 쓰겠습니다.',TO_DATE('1707191505','RRMMDDHH24MI'));
 INSERT INTO ITEM_REVIEW VALUES('RV'||TO_CHAR(TO_DATE('1707141750','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'PA170710133501',null,'user11','배송도 빠르고 좋네요 ^^',TO_DATE('1707121520','RRMMDDHH24MI'));
 INSERT INTO ITEM_REVIEW VALUES('RV'||TO_CHAR(TO_DATE('1707182050','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'PA170710133501',null,'user22','아이템 후기 테스트',TO_DATE('1707121425','RRMMDDHH24MI'));
-
+commit;
 CREATE SEQUENCE SEQ_ME
        START WITH 1
        INCREMENT BY 1
@@ -980,18 +980,18 @@ INSERT INTO PART_SET VALUES('DE170713062301','PA170712161201',1);
 --SELECT SUM(PART_PRICE)*0.9 FROM PART;
 
 /* QA 임시  데이터 */
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707101335','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(0,2,'0'),'user11','1번째메세지','목재 서랍장1입니다.',TO_DATE('1707101335','RRMMDDHH24MI'),'default_design1.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707121425','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','2번째메세지','목재 서랍장2입니다.',TO_DATE('1707121425','RRMMDDHH24MI'),'default_design2.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707121435','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','3번째메세지','철재 서랍장1입니다.',TO_DATE('1707121435','RRMMDDHH24MI'),'default_design3.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131444','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','4번째메세지','철재 서랍장2입니다.',TO_DATE('1707131444','RRMMDDHH24MI'),'default_design4.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707140240','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','5번째메세지','통나무 양초 틀입니다. 완제품 주문시 말씀하시면 원하시는 사이즈로 제단하여 배송드립니다.',TO_DATE('1707140240','RRMMDDHH24MI'),'default_design5.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131025','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','6번째메세지','심심하지 않은 목재 조명틀입니다.',TO_DATE('1707131025','RRMMDDHH24MI'),'default_design6.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131120','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','7번째메세지','친환경 목재 컵 받침대! 깨질 염려는 이제 그만!!',TO_DATE('1707131120','RRMMDDHH24MI'),'default_design7.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707130623','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','8번째메세지','아이들의 조그만 장남감을 담을 수 있는 간편 정리함입니다.',TO_DATE('1707130623','RRMMDDHH24MI'),'default_design8.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707142040','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','9번째메세지','여러분이 쓰레기라고 생각하시는 패트병으로 이런 화분을 만들 수 있어요!!.',TO_DATE('1707142040','RRMMDDHH24MI'),'default_design9.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707140505','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','10번째메세지','새를 좋아하신다구요? 그런 분들을 위해 소개합니다. 친환경 새 모이 통!',TO_DATE('1707140505','RRMMDDHH24MI'),'default_design10.jpg',null);
-INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131410','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','11번째메세지','더이상 그릴판을 사러 다니지 마세요!',TO_DATE('1707131410','RRMMDDHH24MI'),'default_design11.jpg',null);
-
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707101335','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(0,2,'0'),'user11','관리자님 홈페이지가 별로에요..','내 마음속의 별로..',TO_DATE('1707101335','RRMMDDHH24MI'),'default_design1.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707121425','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user22','관리자님!!','오늘 사이트가 잘 안 들어가지던데 무슨 문제 있나요?',TO_DATE('1707121425','RRMMDDHH24MI'),'default_design2.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707121435','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user33','오늘 처음 MADE를 이용해봤습니다.','내 손으로 만드는 가구여서 그런지 가격도 싸고 제 취향에 딱 맞네요 ㅎㅎ 자주 이용할게용',TO_DATE('1707121435','RRMMDDHH24MI'),'default_design3.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131444','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user22','사이트 잘 들어가지네요 ㅎ','감사해용 관리자님.',TO_DATE('1707131444','RRMMDDHH24MI'),'default_design4.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707140240','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','오늘 배송이 많이 늦네요','배송 확인 부탁드립니다',TO_DATE('1707140240','RRMMDDHH24MI'),'default_design5.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131025','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'design11','오늘 새로운 디자인 보내 드렸습니다 확인해주세요.','제곧내',TO_DATE('1707131025','RRMMDDHH24MI'),'default_design6.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131120','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','벌써 3번째 주문이네요.ㅎㅎ','제품이 좋아서 계속 여기서 구매 하고 있어요 ㅎㅎ 포인트 적립? 같은 것도 있었으면 좋겠습니다.',TO_DATE('1707131120','RRMMDDHH24MI'),'default_design7.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707130623','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'design11','디자인 확인 하셨나요?? 답장 부탁드려요 ㅎ','답장 부탁드립니다 ㅎㅎ',TO_DATE('1707130623','RRMMDDHH24MI'),'default_design8.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707142040','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','관리자님 감사합니다 계속 여기서 이용할게용 ㅎㅎ','포인트 적립 기능 짱 좋아요 ㅎㅎ',TO_DATE('1707142040','RRMMDDHH24MI'),'default_design9.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707140505','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'design22','안녕하십니까? 엉드래킴입니다.','지인 추천으로 이 사이트를 알게 되었습니다. 다음에 밥 한끼 하면서 이야기 나누고 싶습니다. 쪽지 남겨주세요.',TO_DATE('1707140505','RRMMDDHH24MI'),'default_design10.jpg',null);
+INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707131410','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'),'user11','저번에 산 그릴판 잘 이용하고 있어요!!','다음에 제주도 놀러갈때 챙겨 갈려구요 ㅎ',TO_DATE('1707131410','RRMMDDHH24MI'),'default_design11.jpg',null);
+select * from qa;
 /* NOTICE 임시 데이터*/
 
 INSERT INTO NOTICE VALUES('NO'||TO_CHAR(TO_DATE('1707121425','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(1,2,'0'), 'The unique what you made MADE홈페이지가 오픈을 했습니다.', '국내 최초 핸드메이드 제작 및 판매 사이트 홈페이지 오픈!!',TO_DATE('1707121425','RRMMDDHH24MI'),null);

@@ -81,8 +81,8 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 					<td class="title">
 					<a href="/made/qdetail?qnum=<%=q.getQaCode()%>&page=<%=currentPage%>"><%=q.getQaTitle() %></a>
 					</td>
-					<td class="author"><%=q.getMemberId() %></td>
-					<td class="date">
+					<td class="author"align="center"><%=q.getMemberId() %></td>
+					<td class="date"align="center">
 						<%=q.getQaDate() %>
 					</td>
                     <td class="answer" align="center">
@@ -124,9 +124,9 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 			
 			<li class="">
 			<% if(currentPage >= maxPage){ %>
-				<span class="glyphicon glyphicon-chevron-right" style="color:blue">
+				<span class="glyphicon glyphicon-chevron-right" style="color:blue"></span>
 			<% }else{ %>
-				<a href="/made/qlist?page=<%= currentPage + 1 %>"><span class="glyphicon glyphicon-chevron-right"></a>
+				<a href="/made/qlist?page=<%= currentPage + 1 %>"><span class="glyphicon glyphicon-chevron-right"></span></a>
 			<% } %>
 			</li>
 		</ul>

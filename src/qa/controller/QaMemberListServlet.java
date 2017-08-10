@@ -40,15 +40,13 @@ public class QaMemberListServlet extends HttpServlet {
 		QaService qservice = new QaService();
 		int listCount = qservice.getMemberListCount(member);
 		ArrayList<Qa> list = qservice.qaMemberSelectList(member, currentPage, limit);
-		
 		int maxPage = (int)((double)listCount / limit + 0.9);
-
+		System.out.println(member);
 		int startPage = (((int)((double)currentPage / limit + 0.9)) - 1) * limit + 1;
 		
 		int endPage = startPage + limit - 1;
 		if(maxPage < endPage)
 			endPage = maxPage;
-		
 		RequestDispatcher view = null;
 		if(list != null && list.size() > 0){
 			view = request.getRequestDispatcher("views/qa/qaMemberList.jsp");

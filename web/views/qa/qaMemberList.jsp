@@ -81,8 +81,8 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 					<td class="title">
 					<a href="/made/qdetail?qnum=<%=q.getQaCode()%>&page=<%=currentPage%>"><%=q.getQaTitle() %></a>
 					</td>
-					<td class="author"><%=q.getMemberId() %></td>
-					<td class="date">
+					<td class="author" align="center"><%=q.getMemberId() %></td>
+					<td class="date" align="center">
 						<%=q.getQaDate() %>
 					</td>
                      <td class="answer" align="center">
@@ -94,13 +94,7 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
                     </td>
 				</tr>
 			</tbody>
-			<%}}else{ %>
-			<tbody>
-				<tr class="">                  
-					등록된 글이 없습니다.
-				</tr>
-			</tbody>
-			<%} %>
+			<%}%>
 		</table>
 	</div>
 	<button type="button" class="btn btn-default" onclick="top.location.href='/made/views/qa/qa.jsp'"> 1대1 문의하기</button>
@@ -125,9 +119,9 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 			
 			<li class="">
 			<% if(currentPage >= maxPage){ %>
-				<span class="glyphicon glyphicon-chevron-right" style="color:blue">
-			<% }else{ %>
-				<a href="/made/qmlist?member=<%=m.getId()%>&page=<%= currentPage + 1 %>"><span class="glyphicon glyphicon-chevron-right"></a>
+				<span class="glyphicon glyphicon-chevron-right" style="color:blue"></span>
+			<% }else{} %>
+				<a href="/made/qmlist?member=<%=m.getId()%>&page=<%= currentPage + 1 %>"><span class="glyphicon glyphicon-chevron-right"></span></a>
 			<% } %>
 			</li>
 		</ul>
