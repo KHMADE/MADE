@@ -53,10 +53,13 @@ public class MemberService {
 		
 		return result;
 		}
-
-	/**
-	 * @return
-	 */
+		
+  public ArrayList<String> selectMemberId() {
+		Connection con = getConnection();
+		ArrayList<String> checkId = new MemberDAO().selectMember(con);
+		close(con);
+		return checkId;
+  }
 	public ArrayList<String> selectAllDesigner() {
 		Connection con = getConnection();
 		ArrayList<String> DesignerList = new MemberDAO().selectAllDesigner(con);

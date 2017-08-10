@@ -159,7 +159,7 @@ public class OrderDAO {
 				+ " JOIN DESIGN USING(DESIGN_CODE)"
 				+ " WHERE MONTHS_BETWEEN(SYSDATE,ORDER_DATE) < 4"
 				+ " AND DESIGN.MEMBER_ID = ? "
-				+ " GROUP BY DESIGN_TITLE, SUBSTR(ORDER_DATE,1,5) ORDER BY 2) WHERE ROWNUM < 8";
+				+ " GROUP BY DESIGN_TITLE, SUBSTR(ORDER_DATE,1,2) ORDER BY 2) WHERE ROWNUM < 8";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, mid);

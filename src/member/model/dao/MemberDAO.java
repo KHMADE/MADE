@@ -44,7 +44,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? ";
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ?";
 		
 		try{
 			pstmt = con.prepareStatement(sql);
@@ -53,10 +53,10 @@ public class MemberDAO {
 			
 			if(rset.next()){
 				member = new Member(id,rset.getString("MEMBER_CLASS_CODE"),null,rset.getString("MEMBER_NAME"),
-						null,rset.getString("MEMBER_EMAIL"),
-						rset.getString("MEMBER_PHONE"),null,
-						null,rset.getString("MEMBER_PROFILE_IMG"),
-						0,rset.getString("MEMBER_NICKNAME"));
+						rset.getDate("MEMBER_BIRTHDAY"),rset.getString("MEMBER_EMAIL"),
+						rset.getString("MEMBER_PHONE"),rset.getString("MEMBER_ADDRESS"),
+						rset.getDate("MEMBER_SIGN_DATE"),rset.getString("MEMBER_PROFILE_IMG"),
+						rset.getInt("MEMBER_POINT"),rset.getString("MEMBER_NICKNAME"));
 			}
 			
 		} catch (SQLException e){
@@ -167,5 +167,30 @@ public class MemberDAO {
 			close(stmt);
 		}
 		return designerList;
+	}
+	public ArrayList<String> selectMember(Connection con) {
+		ArrayList<String> idList = new ArrayList<String>();
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = "SELECT MEMBER_ID FROM MEMBER ";
+		
+		try{
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset != null){
+				while(rset.next()){
+					idList.add(rset.getString("MEMBER_ID"));
+				}
+			}
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return idList;
 	}
 }

@@ -26,18 +26,30 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
     <style>
  	#content {
  		background-color:#F6F6F6;
  		height:100%;
  	}
 
- 	input[type="text"] {
+ 	#userid{
  		border: none;
  		height: 100%;
- 		width: 100%;
+ 		width: 200px;
  	}
- 	input[type="password"] {
+ 	#userpwd {
+ 		border: none;
+ 		height: 100%;
+ 		width: 200px;
+ 	}
+ 	#userpwd2{
+ 		border: none;
+ 		height: 100%;
+ 		width: 200px;
+ 	}
+ 	
+ 	input[type="text"] {
  		border: none;
  		height: 100%;
  		width: 100%;
@@ -50,12 +62,12 @@
  	}
  	#member-form{
  		position:relative;
- 		
 		left: -130px;
  		width : 500px;
  		background-color:white;
- 		border:1px solid #D5D5D5;
- 		
+ 		border:1px solid #D5D5D5;		
+ 	}
+ 	#member-form tr td{
  		
  	}
 	#designer-btn{
@@ -88,46 +100,42 @@
 		align:center;
 	}
 	#content-form{
-		display:none;
+	display:none;
 	}
 	#content-form2{
-		display:none;
 	}
 	#birth-form select{
 		font-size:13pt;
 	}
+	
  	
  </style>
  <script type="text/javascript">
-	var bDisplay = true;
+ 
+
+ 
 	function memberDisplay(){
-    var con = document.getElementById("content-form");
-    var con2 = document.getElementById("content-form2");
-    
-    if(con.style.display=='none'){
-        con.style.display='block';
-        con2.style.display='none';
-        
-       
-    }else{
-        con.style.display='none';
-     
-    	}
-   
+		$('#classCode').val('C');
+		$('#img-title').text('회원 대표 이미지');
+	   if($('#content-form').css('display')=='none'){
+		   $('#content-form').css('display','block');
+	    }else{
+	    	$('#content-form').css('display','none');
+	    }
+
+ 
 	}
 	
-	var bDisplay = true;
-	function designerDisplay(){
-    var con2 = document.getElementById("content-form2");
-    var con = document.getElementById("content-form");
-    if(con2.style.display=='none'){
-        con2.style.display='block';
-       	con.style.display='none';
-    }else{
-        con2.style.display='none';
-     
-    	}
-   
+
+	function designerDisplay(){	
+		$('#classCode').val('D');
+		$('#img-title').text('디자이너 대표 이미지');
+		
+		if($('#content-form').css('display')=='none'){
+			   $('#content-form').css('display','block');
+		    }else{
+		    	$('#content-form').css('display','none');
+		    }
 	}
 	//윤달계산한 생년월일
 	
@@ -140,8 +148,8 @@ function DaysInMonth(WhichMonth, WhichYear)
 {
   var DaysInMonth = 31;
   if (WhichMonth == "4" || WhichMonth == "6" || WhichMonth == "9" || WhichMonth == "11") DaysInMonth = 30;
-  if (WhichMonth == "2" && (WhichYear/4) != Math.floor(WhichYear/4)) DaysInMonth = 28;
-  if (WhichMonth == "2" && (WhichYear/4) == Math.floor(WhichYear/4)) DaysInMonth = 29;
+  if (WhichMonth == "2" && (WhichYear/4) != Math.floor(WhichYear/4))        DaysInMonth = 28;
+  if (WhichMonth == "2" && (WhichYear/4) == Math.floor(WhichYear/4))        DaysInMonth = 29;
   return DaysInMonth;
 }
 
@@ -265,6 +273,79 @@ function email_change(){
 	}
 	}
 
+var xhr;
+function createXhr(){
+    if(window.ActiveXObject){   // IE 이전버전
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    }else{
+        xhr = new XMLHttpRequest();
+    }
+}
+ 
+function idcheck(){
+    var id = document.getElementById("userid").value;
+    var queryString = "command=idcheck&id="+id;
+    console.log(queryString);
+    if(id.length<6){
+        document.getElementById("idcheckLayer").innerHTML = "<font color=red>6자리 이상 입력하세요.</font>";    
+    }else{
+        // 1. XMLHttpReqeust 객체 생성
+        createXhr();
+        // 2. 이벤트 핸들러 등록
+        xhr.onreadystatechange = callback;  // callback 함수를 등록
+        // 3. open()를 통해 요청관련 설정을 설정
+        xhr.open("POST", "/made/icheck", true);
+        // 4. Header에 contentType 지정 - post
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        // 5. send()를 통해 요청
+        xhr.send(queryString);  // 요청 쿼리를 보내준다.
+    }
+}
+function callback(){
+    if(xhr.readyState==4){      // 응답을 다 받은 경우
+        if(xhr.status == 200){  // 응답코드가 200인 경우 - 정상인 경우
+            var resTxt = xhr.responseText;  // 서버가 보낸 응답 text
+            //alert(resTxt);
+            document.getElementById("idcheckLayer").innerHTML = resTxt;        
+        }else{
+            alert("요청 처리가 정상적으로 되지 않았습니다.\n"+xhr.status);
+        }
+    }
+}
+
+
+var reg_upw = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-]|.*[0-9]).{6,24}$/;//6~16자 영문대소문자, 숫자, 특수문자 혼합하여 사용
+var s_default = {"border":"1px solid #ccc", "background-color":"#fff"}; //기본
+var s_fail = {"font-size":"8pt", "color":"red","text-align":"center"}; //실패
+var s_success = {"font-size":"8pt", "color":"green","text-align":"center"}; //성공
+function passcheck(){
+	
+
+	if( reg_upw.test( $('#userpwd').val())){
+		$('#passcheckLayer').text("안전한 비밀번호입니다.").css(s_success);
+	}else{
+		$('#passcheckLayer').text("6~16자 영문대소문자, 숫자, 특수문자 혼합하여 사용하세요").css(s_fail);
+	}
+
+}
+
+function passcheck2(){
+
+	if( $('#userpwd').val() != $('#userpwd2').val()){
+		$('#passcheckLayer2').text("비밀번호가 일치하지 않습니다.").css(s_fail);;
+	}else{
+		$('#passcheckLayer2').text("비밀번호 확인").css(s_success);;
+	}
+
+}
+	
+
+
+function nickcheck(){
+	var reg_nickname = /^[0-9a-zA-Z가-힣]{4,20}$/; //한글10자, 영문20자, 한글,영문,숫자 사용가능
+}
+
+
 
 </script>
 
@@ -281,12 +362,13 @@ function email_change(){
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<h2>회원가입 창</h2>
+						<h2>게시글 제목</h2>
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
 								<li><a href="/made/index.jsp">Home</a></li>
-								<li>SignUp</li>
+								<li><a href="default_page.html">Shortcodes</a></li>
+								<li>Typography</li>
 							</ul>
 						</nav>
 					</div>
@@ -296,7 +378,7 @@ function email_change(){
         <div class="container" id="content">
         
          <div class="row">
-  <div class="col-xs-6 col-md-4">왼쪽 여백</div>
+  <div class="col-xs-6 col-md-4"></div>
  
   	
   	
@@ -305,10 +387,12 @@ function email_change(){
 	 <table id="button"><!-- 가입회원구분  -->
   	<tr>
   		<td>
-  			<a href="javascript:memberDisplay();"><button class="btn btn-primary btn-block" type="button" id="member-btn"> <i class="fa fa-bookmark"></i>일반회원</button></a> 
+  			<a href="javascript:memberDisplay();"><button class="btn btn-primary btn-block" type="button" id="member-btn"> 
+  			<i class="fa fa-bookmark"></i>일반회원</button></a> 
   		</td>
 		<td>
-			<a href="javascript:designerDisplay();"><button class="btn btn-primary btn-block" type="button" id="designer-btn"> <i class="fa fa-bookmark"></i>디자이너</button></a> 
+			<a href="javascript:designerDisplay();"><button class="btn btn-primary btn-block" type="button" id="designer-btn">
+			 <i class="fa fa-bookmark"></i>디자이너</button></a> 
 		</td>
 	</tr>
 	</table>
@@ -316,18 +400,22 @@ function email_change(){
 	
 	<div id="content-form">
 	<FORM name="Form1" action="/made/minsert" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="classCode" value="C">
+	<input type="hidden" name="classCode" id="classCode" value="C">
 <table id="member-form" class="table table-striped">
- <tr><td colspan="4" align="center">회원 대표 이미지<br>
- 
+ <tr><td colspan="4" align="center"><span id="img-title">회원 대표 이미지</span><br>
+ <!-- 이미지 미리보기 이벤트 발생 -->
 	<img id="img_preview" class="img-circle"><br>
 
 	<input type="file" id="input_file" name="img"></td></tr>
 
- <tr><td colspan=4 align="left"><input type="text" placeholder="닉네임" name="nickname"></td></tr>
- <tr><td colspan=2 align="left"><input type="text" placeholder="아이디" name="userid"></td><td colspan="2" align="right"><input type="button" value="중복체크">아이디는 영문+숫자만 입력해주세요.</td></tr>
- <tr><td colspan=2><input type="password" placeholder="비밀번호" name="userpwd"></td><td colspan=2>비밀번호는 문자+숫자8자리</td></tr>
- <tr><td colspan=2><input type="password" placeholder="비밀번호확인" name="userpwd2"></td><td colspan=2>비밀번호 확인</td></tr>
+ <tr><td colspan=2 align="left"><input type="text" placeholder="닉네임" name="nickname" id="nickname" ></td>
+ <td colspan="2"><span></span></td></tr>
+ <tr><td colspan=2 align="left"><input type="text" placeholder="아이디" name="userid" id="userid" onkeyup="idcheck()"></td>
+ <td colspan="2"><span id = "idcheckLayer"></span></td></tr>
+ <tr><td colspan=2><input type="password" placeholder="비밀번호" id="userpwd" name="userpwd" onkeyup="passcheck()"></td>
+ <td colspan=2><span id="passcheckLayer"></span></td></tr>
+ <tr><td colspan=2><input type="password" placeholder="비밀번호확인" id="userpwd2" name="userpwd2" onkeyup="passcheck2()"></td>
+ <td colspan=2><span id="passcheckLayer2"></span></td></tr>
    
  </table>
 
@@ -336,15 +424,15 @@ function email_change(){
 
  
  <table id="member-form" class="table">
- <tr><td colspan=2><input type="text" placeholder="이름" name="name"></td><td colspan=2>이름에 숫자나 특수문자는 사용하실수 없습니다.</td></tr>
+ <tr><td colspan=2><input type="text" placeholder="이름" name="name"></td><td colspan=2></td></tr>
  <tr>
  <td>생년월일<br></td>
 	 <td colspan=3>
 
 <SELECT name="FirstSelectYear" onchange="ChangeOptionDays('FirstSelect')">
-        <SCRIPT type="text/javascript">
+       <script type="text/javascript">
                 document.write(WriteYearOptions(50));
-        </SCRIPT>
+        </script>
 </SELECT>
 
 <SELECT name="FirstSelectMonth" onchange="ChangeOptionDays('FirstSelect')">
@@ -400,15 +488,16 @@ function email_change(){
 	 
 	
 	 </tr>
-	 <tr><td>성별</td><td><input type="radio" name="gender" value="남">남</td><td><input type="radio" name="gender" value="여">여</td><td></td></tr>
- <tr><td>	<select name="phone" selected>
+	 <tr><td>성별</td><td><input type="radio" name="gender" value="남">남</td>
+	 <td><input type="radio" name="gender" value="여">여</td><td></td></tr>
+ <tr><td>	<select name="phone1" selected>
  			<option value="010">010
 			<option value="011">011
 			<option value="016">016
 			<option value="017">017
 			<option value="018">018
 		</select>
- 		</td><td colspan="2"><input type="text" placeholder="'-'을 빼고 입력" name="phone"></td><td></td></tr>
+ 		</td><td><input type="text" name="phone2"></td><td><input type="text"  name="phone3"></td></tr>
  <tr>
  <td><input type="text" name="email1" value="이메일" onfocus="this.value='';" style="width:100px"></td>
  <td>&nbsp;@&nbsp;</td>
@@ -449,62 +538,159 @@ function email_change(){
     
  </table>
  <div align="center">
- 	<input type="submit" class="btn btn-primary btn-lg" value="가입하기" >
+ 	<input type="submit" class="btn btn-primary btn-lg" id="btn-join" value="가입하기" >
  	</div>
  	</FORM>
   </div>
   
   
 
+<!-- 디자이너 가입폼 -->
  
- 
- <div id="content-form2">
+ <!-- <div id="content-form2">
+<FORM name="Form2" action="/made/deinsert" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="classCode2" value="D">
 <table id="member-form" class="table">
- <tr><td colspan="4">디자이너 대표 이미지<br>
+ 
+ <tr><td colspan="4" align="center">디자이너 대표 이미지<br>
  
 	<img id="img_preview2" class="img-circle"><br>
 
-	<input type="file" id="input_file2" ></td></tr>
-	
- <tr><td colspan=2><input type="text" placeholder="아이디"></td><td>아이디는 영문+숫자만 입력해주세요.</td><td><input type="button" value="중복체크"></td></tr>
- <tr><td colspan=2><input type="text" placeholder="비밀번호"></td><td colspan=2>비밀번호는 문자+숫자8자리</td></tr>
- <tr><td colspan=2><input type="text" placeholder="비밀번호확인"></td><td colspan=2>비밀번호 확인</td></tr>
+	<input type="file" id="input_file2" name="img2"></td></tr>
+
+ <tr><td colspan=2 align="left"><input type="text" placeholder="닉네임" name="nickname2" id="nickname2"></td>
+ <td colspan="2"></td></tr>
+ <tr><td colspan=2 align="left"><input type="text" placeholder="아이디" name="userid2" id="userid2" onkeyup="idcheck2()"></td>
+ <td colspan="2"><span id="idcheckLayer2"></span></td></tr>
+ <tr><td colspan=2><input type="password" placeholder="비밀번호" name="userpwd2"></td><td colspan=2>비밀번호는 문자+숫자8자리</td></tr>
+ <tr><td colspan=2><input type="password" placeholder="비밀번호확인" name="userpwd22"></td><td colspan=2>비밀번호 확인</td></tr>
    
  </table>
+
+ <br>
+ <br>
+
  
  <table id="member-form" class="table">
- <tr><td colspan=2><input type="text" placeholder="이름"></td><td colspan=2>이름에 숫자나 특수문자는 사용하실수 없습니다.</td></tr>
- <tr><td><input type="text" placeholder="생년"></td><td><input type="text" placeholder="월"></td><td><input type="text" placeholder="일"></td><td></td></tr>
- <tr><td>성별</td><td><input type="radio" name="gender">남</td><td><input type="radio" name="gender">여</td><td></td></tr>
- <tr><td>	<select name="phone" selected>
- 			<option value="010">010
+ <tr><td colspan=2><input type="text" placeholder="이름" name="name2"></td><td colspan=2>이름에 숫자나 특수문자는 사용하실수 없습니다.</td></tr>
+ <tr>
+ <td>생년월일<br></td>
+	 <td colspan=3>
+
+<SELECT name="FirstSelectYear2" onchange="ChangeOptionDays2('FirstSelect')">
+        <SCRIPT type="text/javascript">
+                document.write(WriteYearOptions(50));
+        </SCRIPT>
+</SELECT>
+
+<SELECT name="FirstSelectMonth2" onchange="ChangeOptionDays2('FirstSelect')">
+---- 필요하면 아래 월 표시를 한글로 바꾸어 주세요 -----
+        <OPTION>1
+        <OPTION>2
+        <OPTION>3
+        <OPTION>4
+        <OPTION>5
+        <OPTION>6
+        <OPTION>7
+        <OPTION>8
+        <OPTION>9
+        <OPTION>10
+        <OPTION>11
+        <OPTION>12
+</SELECT>
+<SELECT name="FirstSelectDay2">
+        <OPTION>1
+        <OPTION>2
+        <OPTION>3
+        <OPTION>4
+        <OPTION>5
+        <OPTION>6
+        <OPTION>7
+        <OPTION>8
+        <OPTION>9
+        <OPTION>10
+        <OPTION>11
+        <OPTION>12
+        <OPTION>13
+        <OPTION>14
+        <OPTION>15
+        <OPTION>16
+        <OPTION>17
+        <OPTION>18
+        <OPTION>19
+        <OPTION>20
+        <OPTION>21
+        <OPTION>22
+        <OPTION>23
+        <OPTION>24
+        <OPTION>25
+        <OPTION>26
+        <OPTION>27
+        <OPTION>28
+        <OPTION>29
+        <OPTION>30
+        <OPTION>31
+</SELECT>
+	 </td>
+	 </tr>
+	 <tr><td>성별</td><td><input type="radio" name="gender" value="남">남</td>
+	 <td><input type="radio" name="gender" value="여">여</td><td></td></tr>
+ <tr><td>	<select name="phone1">
+ 			<option value="010" selected>010
 			<option value="011">011
 			<option value="016">016
 			<option value="017">017
 			<option value="018">018
 		</select>
- 		</td><td colspan="2"><input type="text" placeholder="'-'을 빼고 입력"></td><td></td></tr>
- <tr><td colspan=2><input type="text" placeholder="이메일"></td><td><input type="text"></td><td><select name="email" selected>
- 			<option value="naver">naver.com
-			<option value="gmail">gmail.com
-			<option value="hanmail">hanmail.net
-			<option value="daum">daum.net
-			<option value="nate">nate.com
-			<option value="self">직접입력
-			
-		</select></td></tr>
- <tr><td colspan="3"><input type="text" placeholder="주소입력"></td>
- <td><input type="button" value="주소찾기"></td></tr>
-    
- </table>
-   
+ 		</td><td><input type="text" name="phone2"></td><td><input type="text"  name="phone3"></td></tr>
+ <tr>
+ <td><input type="text" name="email1" value="이메일" onfocus="this.value='';" style="width:100px"></td>
+ <td>&nbsp;@&nbsp;</td>
+ <td><input type="text" name="email2" value="" style="width:120px" disabled ></td>
+ <td>
+<select name="email" onchange="email_change2()">
+    <option value="0" >선택하세요</option>
+    <option value="9">직접입력</option>
+    <option value="naver.com">naver.com</option>
+    <option value="nate.com">nate.com</option>
+    <option value="hanmail.net">hanmail.net</option>
+     <option value="hotmail.com">hotmail.com</option>
+     <option value="nate.com">nate.com</option>
+     <option value="yahoo.co.kr">yahoo.co.kr</option>
+     <option value="gmail.com">gmail.com</option>
+   </select>
+</td>
+</tr>
+		
+
+
+
+
+ <tr>
+ <td colspan="2"><input type="text" id="sample4_postcode2" placeholder="우편번호" name="post_num"></td>
+ <td colspan="2"><input type="button" onclick="sample4_execDaumPostcode2()" value="우편번호 찾기"><br></td>
+</tr>
+
+<tr>
+<td colspan="4"><input type="text" id="sample4_roadAddress2" placeholder="도로명주소" name="address1"></td>
+</tr>
+<tr>
+<td colspan="4"><input type="text" id="sample4_jibunAddress2" placeholder="지번주소" name="address2"><span id="guide" style="color:#999"></span></td>
+
 
  
+</tr>
+ </table>
+ <div align="center">
+  <input type="submit" class="btn btn-primary btn-lg" id="btn-join" value="가입하기" >
   </div>
+</FORM>
+ 
+  </div> -->
 
 
 </div>
-  <div class="col-xs-6 col-md-4">오른쪽 여백</div>
+  <div class="col-xs-6 col-md-4"></div>
 </div>
  
  <div>
@@ -512,10 +698,12 @@ function email_change(){
 </div>
 </div>
     </section>
-
 	<!--start footer-->
 	<%@ include file="../../footer.jsp" %>
+	
 	<!--end footer-->
+<script>
 
+</script>
 </body>
 </html>

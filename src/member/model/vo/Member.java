@@ -81,6 +81,20 @@ public class Member implements java.io.Serializable {
 		this.profileImg = profileImg;
 	}
 
+public Member(String id, String classCode, String pwd, String name, String email, String gender, Date birthday,
+			String phone, String address, String profileImg, String nickName) {
+		this.id = id;
+		this.classCode = classCode;
+		this.pwd = pwd;
+		this.name = name;
+		this.email = email;
+		this.gender = gender;
+		this.birthday = birthday;
+		this.phone = phone;
+		this.address = address;
+		this.profileImg = profileImg;
+		this.nickName = nickName;
+	}
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", classCode=" + classCode + ", pwd=" + pwd + ", name=" + name + ", email=" + email
