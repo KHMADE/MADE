@@ -59,7 +59,6 @@
                     <h4><span>FAQ - 자주하는 질문</span></h4>
                 </div>
             </div>
-
             <div class="col-md-6 col-xs-12">
                 <div id="accordion" class="panel-group accordion"><!-- Accordians -->
                     <div class="panel panel-default">
@@ -120,7 +119,7 @@
                                 <span class="accordian-icon">
                                     <i class="switch fa fa-plus-circle"></i>
                                 </span>
-                                <a href="#collapseFour" data-toggle="collapse">
+                                <a href="#collapseFour" data-parent="#toggle" data-toggle="collapse">
                                     Q: 1:1 문의를 드리고 싶은데 이미지 첨부 가능한가요?
                                 </a>
                             </h4>
@@ -136,7 +135,7 @@
                                 <span class="accordian-icon">
                                     <i class="switch fa fa-plus-circle"></i>
                                 </span>
-                                <a href="#collapseFive" data-toggle="collapse">
+                                <a href="#collapseFive" data-parent="#toggle" data-toggle="collapse">
                                      Q: 배송 시에 배송지는 안정하나요?
                                 </a>
                             </h4>
@@ -152,7 +151,7 @@
                                 <span class="accordian-icon">
                                     <i class="switch fa fa-plus-circle"></i>
                                 </span>
-                                <a href="#collapseSix" data-toggle="collapse">
+                                <a href="#collapseSix" data-parent="#toggle" data-toggle="collapse">
                                      Q: 디자이너와 일반 구매자의 차이가 뭔가요?
                                 </a>
                             </h4>
