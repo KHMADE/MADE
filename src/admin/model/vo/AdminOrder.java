@@ -1,10 +1,10 @@
-package consumer.model.vo;
+package admin.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
 
 @SuppressWarnings("serial")
-public class ConsumerOrder implements Serializable{
+public class AdminOrder implements Serializable{
 
 	private String orderCode;
 	private String designCode;
@@ -22,10 +22,10 @@ public class ConsumerOrder implements Serializable{
 	private String shipCompanyName;
 	private String orderShipCode;
 
-	public ConsumerOrder() {
+	public AdminOrder() {
 	}
 
-	public ConsumerOrder(String orderCode, String designCode, String partCode, Date orderDate, int orderCount,
+	public AdminOrder(String orderCode, String designCode, String partCode, Date orderDate, int orderCount,
 			String designTitle, int designprice, String designImg, String partTitle, int partPrice, String partImg,
 			String partCategory, String orderStateName, String shipCompanyName, String orderShipCode) {
 		this.orderCode = orderCode;
@@ -174,6 +174,5 @@ public class ConsumerOrder implements Serializable{
 	public void setOrderShipCode(String orderShipCode) {
 		this.orderShipCode = orderShipCode;
 	}
-
 
 }

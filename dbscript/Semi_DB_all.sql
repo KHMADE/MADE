@@ -992,7 +992,6 @@ INSERT INTO PART_SET VALUES('DE170713062301','PA170712161201',1);
 --
 --SELECT SUM(PART_PRICE)*0.9 FROM PART;
 
-
 /* LIKELIST 임시 데이터 */
 INSERT INTO LIKELIST VALUES('user11', 'DE170710133500', NULL);
 INSERT INTO LIKELIST VALUES('user33', 'DE170712142501', NULL);
@@ -1021,6 +1020,31 @@ INSERT INTO LIKELIST VALUES('user33', NULL, 'PA170712161401');
 INSERT INTO LIKELIST VALUES('user11', NULL, 'PA170717010201');
 INSERT INTO LIKELIST VALUES('user22', NULL, 'PA170717020701');
 INSERT INTO LIKELIST VALUES('user11', NULL, 'PA170717073801');
+
+/* 배송 업체 임시 데이터 */
+INSERT INTO SHIP_COMPANY VALUES('우체국택배', 'http://service.epost.go.kr');
+INSERT INTO SHIP_COMPANY VALUES('대한통운', 'http://www.doortodoor.co.kr');
+INSERT INTO SHIP_COMPANY VALUES('한진택배', 'http://hanex.hanjin.co.kr');
+INSERT INTO SHIP_COMPANY VALUES('로젠택배', 'http://www.ilogen.com');
+INSERT INTO SHIP_COMPANY VALUES('현대택배', 'http://www.hlc.co.kr');
+INSERT INTO SHIP_COMPANY VALUES('KG옐로우캡택배', 'http://www.yellowcap.co.kr');
+INSERT INTO SHIP_COMPANY VALUES('KGB택배', 'http://www.kgbls.co.kr');
+INSERT INTO SHIP_COMPANY VALUES('EMS', 'http://service.epost.go.kr');
+INSERT INTO SHIP_COMPANY VALUES('DHL', 'http://www.dhl.co.kr');
+INSERT INTO SHIP_COMPANY VALUES('한덱스', 'http://www.e-handex.co.kr');
+INSERT INTO SHIP_COMPANY VALUES('FedEx', 'http://www.fedex.com/kr');
+INSERT INTO SHIP_COMPANY VALUES('동부익스프레스', 'http://www.dongbuexpress.co.kr');
+INSERT INTO SHIP_COMPANY VALUES('CJ GLS', 'http://www.cjgls.co.kr');
+INSERT INTO SHIP_COMPANY VALUES('UPS', 'http://www.ups.com/content/kr/ko/index.jsx');
+INSERT INTO SHIP_COMPANY VALUES('하나로택배', 'http://www.hanarologis.com');
+INSERT INTO SHIP_COMPANY VALUES('대신택배', 'http://apps.ds3211.co.kr');
+INSERT INTO SHIP_COMPANY VALUES('경동택배', 'http://www.kdexp.com');
+INSERT INTO SHIP_COMPANY VALUES('이노지스택배', 'http://www.innogis.net');
+INSERT INTO SHIP_COMPANY VALUES('일양로지스택배', 'http://www.ilyanglogis.com');
+INSERT INTO SHIP_COMPANY VALUES('CVSnet 편의점택배', 'http://www.cvsnet.co.kr');
+INSERT INTO SHIP_COMPANY VALUES('TNT Express', 'http://www.tnt.com/express/ko_kr/site/home.html');
+INSERT INTO SHIP_COMPANY VALUES('한방택배', 'http://www.hbtb.co.kr');
+INSERT INTO SHIP_COMPANY VALUES('GTX', 'http://www.gtx2010.co.kr');
 
 /* QA 임시  데이터 */
 INSERT INTO QA VALUES('QA'||TO_CHAR(TO_DATE('1707101335','RRMMDDHH24MI'),'RRMMDDHH24MI')||LPAD(0,2,'0'),'user11','관리자님 홈페이지가 별로에요..','내 마음속의 별로..',TO_DATE('1707101335','RRMMDDHH24MI'),'default_design1.jpg',null);

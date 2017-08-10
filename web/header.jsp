@@ -246,7 +246,13 @@ $(function(){
 						<li id="mypage"><a href="#">마이페이지</a>
 							<ul class="dropdown-menu">
 								<li><a href="/made/llist">찜목록</a></li>
-								<li><a href="/made/corderlist">주문내역</a></li>
+								<% if(m != null && m.getClassCode().equals("C")) {%>
+									<li><a href="/made/corderlist">주문내역</a></li>
+								<% } else if(m != null && m.getClassCode().equals("A")) { %>
+									<li><a href="/made/aorderlist">주문내역</a></li>
+								<% } else if(m != null && m.getClassCode().equals("D")) { %>
+									<li><a href="/made/dorderlist">주문내역</a></li>
+								<% } %>
 								<!-- <li><a href="/made/views/mypage/myinfo.html">회원정보수정</a></li> -->
 								<li><a href="/made/acheck?page=1">쪽지함</a></li>
 								<% if(m != null && m.getClassCode().charAt(0) == 'A'){ %>

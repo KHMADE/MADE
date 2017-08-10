@@ -1,4 +1,4 @@
-package like.controller;
+package designer.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,23 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import consumer.model.service.ConsumerOrderService;
-import consumer.model.vo.ConsumerOrder;
-import like.model.service.LikeService;
-import like.model.vo.Like;
+import designer.model.service.DesignerOrderService;
+import designer.model.vo.DesignerOrder;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class LikeList
+ * Servlet implementation class DesignerOrderList
  */
-@WebServlet("/llist")
-public class LikeList extends HttpServlet {
+@WebServlet("/dorderlist")
+public class DesignerOrderList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LikeList() {
+    public DesignerOrderList() {
         super();
     }
 
@@ -41,13 +39,13 @@ public class LikeList extends HttpServlet {
 		if (request.getParameter("page") != null)
 			currentPage = Integer.parseInt(request.getParameter("page"));
 
-		LikeService likeService = new LikeService();
+		DesignerOrderService designerOrderService = new DesignerOrderService();
 
 		String id = ((Member) request.getSession().getAttribute("member")).getId();
 		
-		int listCount = likeService.getListCount(id);
+		int listCount = designerOrderService.getListCount(id);
 		
-		ArrayList<Like> list = likeService.selectList(id, currentPage);
+		ArrayList<DesignerOrder> list = designerOrderService.selectList(id, currentPage);
 	
 		int maxPage = (int) ((double) listCount / 10 + 0.9);
 
@@ -58,9 +56,9 @@ public class LikeList extends HttpServlet {
 			endPage = maxPage;
 		
 		RequestDispatcher view = null;
-
+		
 		if (list != null) {
-			view = request.getRequestDispatcher("views/mypage/likeList.jsp");
+			view = request.getRequestDispatcher("views/mypage/designerOrder.jsp");
 		 	request.setAttribute("list", list);
 		 	request.setAttribute("currentPage", currentPage);
 		 	request.setAttribute("maxPage", maxPage);

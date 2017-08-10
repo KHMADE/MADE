@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import consumer.model.vo.ConsumerOrder;
@@ -86,6 +85,7 @@ public class ConsumerOrderDao {
 				consumerOrder.setPartCategory(rset.getString("PART_CATEGORY"));
 				consumerOrder.setOrderStateName(rset.getString("ORDER_STATE_NAME"));
 				consumerOrder.setShipCompanyName(rset.getString("SHIP_COMPANY_NAME"));
+				consumerOrder.setOrderShipCode(rset.getString("ORDER_SHIP_CODE"));
 				
 				list.add(consumerOrder);
 			}

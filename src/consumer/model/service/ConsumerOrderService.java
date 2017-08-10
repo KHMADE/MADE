@@ -25,7 +25,9 @@ public class ConsumerOrderService {
 
 		Connection conn = getConnection();
 
-		ArrayList<ConsumerOrder> list = new ConsumerOrderDao().selectList(conn, id, currentPage);
+		ArrayList<ConsumerOrder> list = new ArrayList<ConsumerOrder>();
+		
+		list = new ConsumerOrderDao().selectList(conn, id, currentPage);
 
 		close(conn);
 
