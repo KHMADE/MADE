@@ -74,23 +74,30 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 				<th width="80px" class="text-center">답변여부</th>
 			</tr>
 			</thead>
+			<%if(list!=null){ %>
 			<%	for(Qa q : list){%>
 			<tbody>
 				<tr class="">                  
 					<td class="title">
 					<a href="/made/qdetail?qnum=<%=q.getQaCode()%>&page=<%=currentPage%>"><%=q.getQaTitle() %></a>
 					</td>
-					<td class="author"><%=q.getMemberId() %></td>
-					<td class="date">
+					<td class="author"align="center"><%=q.getMemberId() %></td>
+					<td class="date"align="center">
 						<%=q.getQaDate() %>
 					</td>
-                    <td class="answer">
+                    <td class="answer" align="center">
                     <% if (q.getQaAnswer() != null){ %>
-                    ○
+                    <a><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
                     <% } else { %>
-                    X
+                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <% } %>
                     </td>
+				</tr>
+			</tbody>
+			<%}}else{ %>
+			<tbody>
+				<tr class="">                  
+					등록된 글이 없습니다.
 				</tr>
 			</tbody>
 			<%} %>
@@ -117,9 +124,9 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 			
 			<li class="">
 			<% if(currentPage >= maxPage){ %>
-				<span class="glyphicon glyphicon-chevron-right" style="color:blue">
+				<span class="glyphicon glyphicon-chevron-right" style="color:blue"></span>
 			<% }else{ %>
-				<a href="/made/qlist?page=<%= currentPage + 1 %>"><span class="glyphicon glyphicon-chevron-right"></a>
+				<a href="/made/qlist?page=<%= currentPage + 1 %>"><span class="glyphicon glyphicon-chevron-right"></span></a>
 			<% } %>
 			</li>
 		</ul>

@@ -59,11 +59,9 @@
 		font-weight: bold;
 	}
 	.c_product {
-		/* border:1px dashed blue; */
 		height : 100px;
 	}
 	.c_product_description {
-		border:1px dashed red;
 		clear : both; 
 		display: table-cell;
 				vertical-align: middle;
@@ -126,6 +124,7 @@
 				  		<tbody>
 				  		<% for(ConsumerOrder e : list) { %>
 					  		<tr><td scope=row><%= e.getOrderDate() %><br>(<%= e.getOrderCode() %>)<br><button>영수증출력</button></td>
+					  		
 					  		
 					  		<% if(e.getDesignCode() != null ) { %>
 					  		<td><div class="c_product"><img alt="상품이미지" src="/made/images/items/designed/<%= e.getDesignImg() %>">

@@ -47,8 +47,6 @@ public class QaInsertServlet extends HttpServlet {
 		String member = request.getParameter("qaMember");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		System.out.println(title);
-		System.out.println(content);
 		Qa qa = new Qa(member,title,content);
 		QaService qservice = new QaService();
 		if (qservice.qaInsert(qa) > 0) {

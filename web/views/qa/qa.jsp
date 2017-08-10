@@ -57,9 +57,8 @@
         <div class="panel panel-default">
                 <!-- Default panel contents -->
                 <div class="panel-heading hide"></div>
-                <% if ( m != null ) {%>
                 <form method="POST" action="/made/qinsert" >
-                <input type="hidden" value="<%=m.getId()%>" name="qaMember">
+                <input type="hidden" name="qaMember" value="<%=m.getId()%>">
                     <div class="panel-body article">
                         <h4>1대1문의</h4>
                         <div class="panel panel-default">
@@ -79,12 +78,6 @@
                             </li>
                         </ul>
                     </div>
-                
-                 
-                <% } else { %>
-                <h2>가입한 회원만 이용이 가능합니다.<br><a href='/made/loginout.jsp'>로그인 화면으로 넘어가기</a></h2>
-                
-                <% } %>
             </div>
 </div>
     </section>

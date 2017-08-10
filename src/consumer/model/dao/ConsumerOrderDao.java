@@ -13,17 +13,19 @@ import consumer.model.vo.ConsumerOrder;
 
 public class ConsumerOrderDao {
 	
-	public int getListCount(Connection con) {
+	public int getListCount(Connection con, String id) {
 		int listCount = 0;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "SELECT COUNT(*) FROM ORDER_INFO";
+		String query = "SELECT COUNT(*) FROM ORDER_INFO WHERE MEMBER_ID = ?";
 
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			
+			rset = pstmt.executeQuery();
+			
 			if (rset.next()) {
 				listCount = rset.getInt(1);
 			}
@@ -32,13 +34,13 @@ public class ConsumerOrderDao {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 
 		return listCount;
 	}
 
-	public ArrayList<ConsumerOrder> selectList(Connection conn, int currentPage) {
+	public ArrayList<ConsumerOrder> selectList(Connection conn, String id, int currentPage) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -53,6 +55,7 @@ public class ConsumerOrderDao {
 				+ "            LEFT OUTER JOIN PART USING(PART_CODE) "
 				+ "            JOIN ORDER_STATE USING(ORDER_STATE_CODE) "
 				+ "            LEFT OUTER JOIN SHIP_COMPANY USING(SHIP_COMPANY_NAME) "
+				+ "            WHERE ORDER_INFO.MEMBER_ID = ?"
 				+ "            ORDER BY ORDER_DATE DESC ) A )"
 				+ "WHERE RNUM >= ? AND RNUM <= ?";
 		
@@ -61,8 +64,9 @@ public class ConsumerOrderDao {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			

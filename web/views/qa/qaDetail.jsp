@@ -81,7 +81,7 @@
 							<input type="submit" class="btn btn-default" value="답장">
 							</li>
 						<li>
-							<button type="button" class="btn btn-default" onclick="top.location.href='/made/qlist?page=1'">
+							<button type="button" class="btn btn-default" onclick="javascript:history.back();">
 								목록보기
 							</button>
 						</li>
@@ -91,7 +91,7 @@
 				<h4> 관리자가 문의를 확인중입니다..		</h4>
 				<ul class="pager">
 						<li>
-							<button type="button" class="btn btn-default" onclick="top.location.href='/made/qlist?page=1'">
+							<button type="button" class="btn btn-default" onclick="javascript:history.back();">
 								목록보기
 							</button>
 						</li>
@@ -114,7 +114,7 @@
 				</div>
 				<ul class="pager">
 						<li>
-							<button type="button" class="btn btn-default" onclick="top.location.href='/made/qlist?page=1'">
+							<button type="button" class="btn btn-default" onclick="javascript:history.back();">
 								목록보기
 							</button>
 						</li>

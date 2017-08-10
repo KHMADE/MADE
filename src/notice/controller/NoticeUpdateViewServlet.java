@@ -15,7 +15,7 @@ import notice.model.vo.Notice;
 /**
  * Servlet implementation class NoticeUpdateViewServlet
  */
-@WebServlet("/nupView")
+@WebServlet("/nupview")
 public class NoticeUpdateViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,15 +31,27 @@ public class NoticeUpdateViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html; charset=UTF-8");
-		Notice no = new NoticeService().noticeSelect(Integer.parseInt(request.getParameter("no")));
-		if (no != null){
-			RequestDispatcher view = request.getRequestDispatcher("views/notice/noticeUpdate.jsp");
-			request.setAttribute("notice", no);
+		response.setContentType("text/html; charset=utf-8");
+		// 게시글 상세보기 처리용
+
+		String noticeNum = request.getParameter("nnum");
+		int currentPage = Integer.parseInt(request.getParameter("page"));
+				
+		NoticeService nservice = new NoticeService();
+
+		Notice notice = nservice.noticeSelect(noticeNum);
+		
+		RequestDispatcher view = null;
+		if(notice != null){
+			view = request.getRequestDispatcher("views/notice/noticeUpdate.jsp");
+			request.setAttribute("notice", notice);
+			request.setAttribute("currentPage", currentPage);
 			view.forward(request, response);
-		} else {
-			response.sendRedirect("/first/views/notice/noticeError.jsp");
-		}
+		}else{
+			view = request.getRequestDispatcher("404-page.jsp");
+			request.setAttribute("message", "게시글 상세조회 실패!");
+			view.forward(request, response);
+	}
 	}
 
 	/**

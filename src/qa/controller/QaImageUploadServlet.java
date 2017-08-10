@@ -88,8 +88,8 @@ public class QaImageUploadServlet extends HttpServlet {
 				fout.close();
 				originFile.delete(); // 원본 파일 삭제함
 			}
-
 		}
+	
 		PrintWriter out = response.getWriter();
 		out.print("http://localhost:3080/made/images/qaUploadFiles/" + renameFileName);
 		out.flush();

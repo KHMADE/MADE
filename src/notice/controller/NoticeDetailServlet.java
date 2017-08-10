@@ -1,6 +1,7 @@
 package notice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import notice.model.service.NoticeService;
 import notice.model.vo.Notice;
+import noticereply.model.service.NoticeReplyService;
+import noticereply.model.vo.NoticeReply;
 
 /**
  * Servlet implementation class NoticeDetailServlet
@@ -31,17 +34,28 @@ public class NoticeDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		int noticeNo = Integer.parseInt(request.getParameter("no"));
-		Notice notice = new NoticeService().noticeSelect(noticeNo);
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		String noticeNum = request.getParameter("nnum");
+		int currentPage = Integer.parseInt(request.getParameter("page"));
+		NoticeService nservice = new NoticeService();
+		NoticeReplyService nrservice = new NoticeReplyService();
+		ArrayList<NoticeReply> list = nrservice.replySelectList(noticeNum);
+		Notice notice = nservice.noticeSelect(noticeNum);
+		RequestDispatcher view = null;
 		if(notice != null){
-			RequestDispatcher view = request.getRequestDispatcher("views/notice/noticeDetailView.jsp");
+			view = request.getRequestDispatcher("views/notice/noticeDetail.jsp");
 			request.setAttribute("notice", notice);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("list", list);
 			view.forward(request, response);
-		} else {
-			response.sendRedirect("views/notice/noticeError.jsp");
-		}
+			
+		}else{
+			view = request.getRequestDispatcher("404-page.jsp");
+			request.setAttribute("message", "1:1 상세조회 실패!");
+			view.forward(request, response);
+	}
 	}
 
 	/**

@@ -238,14 +238,14 @@ $(function(){
 
 						<li id="mypage"><a href="#">마이페이지</a>
 							<ul class="dropdown-menu">
-								<li><a href="/made/views/mypage/myinfo.html">My page</a></li>
+								<li><a href="/made/llist">찜목록</a></li>
 								<li><a href="/made/corderlist">주문내역</a></li>
 								<li><a href="/made/views/mypage/myinfo.html">회원정보수정</a></li>
 								<li><a href="/made/acheck?page=1">쪽지함</a></li>
 								<% if(m != null && m.getClassCode().charAt(0) == 'A'){ %>
 									<li><a href="/made/qlist?page=1">1:1문의확인</a></li>
 									<%}else{ %>
-									<li><a href="/made/views/qa/qa.jsp">1:1문의</a></li>
+									<li><a href="/made/qmlist?page=1">1:1문의</a></li>
 									<%} %>
 									<% if(m != null &&(m.getClassCode().equals("A") || m.getClassCode().equals("D"))) {%>
 									<li><a href="/made/pview?mid=<%=m.getId()%>">수익 분석 차트</a></li>

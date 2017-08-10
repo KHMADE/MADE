@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import consumer.model.service.ConsumerOrderService;
 import consumer.model.vo.ConsumerOrder;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class ConsumerOrderList
@@ -42,9 +43,11 @@ public class ConsumerOrderList extends HttpServlet {
 
 		ConsumerOrderService consumerOrderService = new ConsumerOrderService();
 
-		int listCount = consumerOrderService.getListCount();
+		String id = ((Member) request.getSession().getAttribute("member")).getId();
 		
-		ArrayList<ConsumerOrder> list = consumerOrderService.selectList(currentPage);
+		int listCount = consumerOrderService.getListCount(id);
+		
+		ArrayList<ConsumerOrder> list = consumerOrderService.selectList(id, currentPage);
 	
 		int maxPage = (int) ((double) listCount / 10 + 0.9);
 

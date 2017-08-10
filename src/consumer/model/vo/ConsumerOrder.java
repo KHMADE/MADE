@@ -18,13 +18,9 @@ public class ConsumerOrder {
 	private String partCategory;
 	private String orderStateName;
 	private String shipCompanyName;
-	
 
 	public ConsumerOrder() {
 	}
-
-
-
 
 	public ConsumerOrder(String orderCode, String designCode, String partCode, Date orderDate, int orderCount,
 			String designTitle, int designprice, String designImg, String partTitle, int partPrice, String partImg,
@@ -46,9 +42,6 @@ public class ConsumerOrder {
 		this.shipCompanyName = shipCompanyName;
 	}
 
-
-
-
 	@Override
 	public String toString() {
 		return "ConsumerOrder [orderCode=" + orderCode + ", designCode=" + designCode + ", partCode=" + partCode
@@ -58,42 +51,29 @@ public class ConsumerOrder {
 				+ ", orderStateName=" + orderStateName + ", shipCompanyName=" + shipCompanyName + "]";
 	}
 
-
-
-
 	public String getPartCategory() {
 		return partCategory;
 	}
-
-
-
 
 	public void setPartCategory(String partCategory) {
 		this.partCategory = partCategory;
 	}
 
-
-
-
 	public String getDesignImg() {
 		return designImg;
 	}
-
 
 	public void setDesignImg(String designImg) {
 		this.designImg = designImg;
 	}
 
-
 	public String getPartImg() {
 		return partImg;
 	}
 
-
 	public void setPartImg(String partImg) {
 		this.partImg = partImg;
 	}
-
 
 	public String getOrderStateName() {
 		return orderStateName;
