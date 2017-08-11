@@ -88,9 +88,10 @@ int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 			<%} %>
 		</table>
 	</div>
+	<%if(m!=null) {%>
 	<%if(m.getClassCode().charAt(0)=='A'){ %>
 	<button type="button" class="btn btn-default" onclick="top.location.href='/made/views/notice/notice.jsp'">공지사항 작성</button>
-	<%} %>
+	<%}} %>
 	<%-- 페이지 번호 처리 --%>
 	<div class="board-page text-center">
 		<ul class="pagination">

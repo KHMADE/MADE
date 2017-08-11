@@ -168,7 +168,8 @@
 
 
 
-
+<div class="row">
+        <div class="col-sm-9 col-md-9">
 <table class="table table-striped table-hover" align="center" border="1" cellspacing="0" width="700">
 <thead><tr><th>보낸이</th><th>받는이</th><th>제목</th><th>날짜</th></tr></thead>
 
@@ -223,7 +224,6 @@
 	<%  }else{ %>
 		<a href="/made/<%=msgType %>?page=<%= currentPage - 1 %>">[이전]</a> &nbsp;
 	<%  } %>
-	페이지 숫자 보여주기
 	<%  for(int p = startPage; p <= endPage; p++){ 
 			if(p == currentPage){
 	%><font color="skyblue" size="4"><b>(<%= p %>)</b></font>
@@ -242,6 +242,8 @@
 				</div>
 				</div>
 								</div>
+				</div>
+				</div>
 				</div>
 			</section>
 	<!-- End MSG MENU -->

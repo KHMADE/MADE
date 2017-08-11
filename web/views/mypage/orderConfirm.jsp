@@ -6,9 +6,9 @@
 //Design d = (Design) request.getAttribute("design");
 //Part p = (Part) request.getAttribute("part");
 
-SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd");
 String item = request.getParameter("item");
-String date = df.format(new Date(Long.parseLong(request.getParameter("date"))));
+String date = df.format(new Date(Long.parseLong(request.getParameter("date"))*1000L));
 String nick = (String) request.getParameter("nick");
 String payType = (String) request.getParameter("pay_method");
 int quan = Integer.parseInt(request.getParameter("quan"));

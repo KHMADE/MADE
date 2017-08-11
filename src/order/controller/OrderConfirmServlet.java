@@ -93,6 +93,7 @@ public class OrderConfirmServlet extends HttpServlet {
 		long unixTime = Long.parseLong(paid_at);
 		Date date = new Date(unixTime); 
 		SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+		//System.out.println(df.format(date));
 		
 		if(item.equals("part")){
 			p = new PartService().partSelect(code);

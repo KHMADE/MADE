@@ -85,6 +85,7 @@
 						</div>
 					</div>
 				<ul class="pager">
+						<%if(m!=null){ %>
 						<%if(m.getClassCode().charAt(0)=='A'){ %>
 						<li>
 							<button type="button" class="btn btn-default" onclick="top.location.href='/made/ndelete?nnum=<%= n.getNoticeCode() %>'">
@@ -97,13 +98,15 @@
 								수정하기
 							</button>
 						</li>
-						<%} %>
+						<%}} %>
 					</ul>
 				</form>
 				
 				<form action="/made/nrinsert" method="post">
+				<%if(m!=null){ %>
 				<input type="hidden" value="<%=m.getId()%>" name="id">
 				<input type="hidden" value="<%=m.getProfileImg()%>" name="img">
+				<%} %>
 				<input type="hidden" value="<%=n.getNoticeCode()%>" name="nnum">
 				<input type="hidden" value="<%=currentPage%>" name="page">
 				<div class="news_comments">
@@ -125,14 +128,16 @@
                                         </div>
                                     </li>
                                 </ul>
+                                <%if(m!=null){ %>
                                 <% if( r.getMemberId().equals(m.getId())){ %>
 										<p align="right">
 										<button type="button" class="btn btn-default btn-xs updateConfirm1" name="updateConfirm1" id="updateConfirm1" style="display: none;">수정완료</button>
 										&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-default btn-xs update1" name="update1" id="update1">수정하기</button>
 										&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-default btn-xs delete1" name="delete1" id="delete1">삭제하기</button></p>
-                            </div>
                             <%}} %>
-
+                            </div>
+                            <%} %>
+							<%if(m!=null){%>
                             <div class="comment-box row">
                                 <div class="col-sm-12">
                                     <p>
@@ -142,9 +147,17 @@
                             </div>
                             <p align="center"><input type="submit" class="btn btn-default" value="댓글쓰기">
          					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         					<button type="button" class="btn btn-default" onclick="top.location.href='/made/nlist?page=1'">
+								목록보기
+							</button></p>
+         					<%}else{ %>
+         					<div class="comment-box row">
+                                <div class="col-sm-12">
+                                    <p align="center">
 							<button type="button" class="btn btn-default" onclick="top.location.href='/made/nlist?page=1'">
 								목록보기
 							</button></p>
+							<%} %>
                         </div>
                     </form>
 				</div>
@@ -192,6 +205,7 @@
 </script>
 	<!-- summernote apply -->
 <script>
+<%if (m!=null){%>
 								$(function(){
                                     $(".updateConfirm1").on('click',function(){
                                     	var parentP = $(this).parent();
@@ -262,6 +276,7 @@
                                     });
                                 });     
                              });
+		<%}%>
 	</script>
   <!--start footer-->
 	<%@ include file="../../footer.jsp" %>

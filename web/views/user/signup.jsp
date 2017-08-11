@@ -362,13 +362,12 @@ function nickcheck(){
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12">
-						<h2>게시글 제목</h2>
+						<h2>회원가입 창</h2>
 						<nav id="breadcrumbs">
 							<ul>
 								<li>You are here:</li>
 								<li><a href="/made/index.jsp">Home</a></li>
-								<li><a href="default_page.html">Shortcodes</a></li>
-								<li>Typography</li>
+								<li>Sign in</li>
 							</ul>
 						</nav>
 					</div>

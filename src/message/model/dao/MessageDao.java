@@ -156,7 +156,8 @@ public class MessageDao {
 									rset.getString("MESSAGE_TITLE"),
 									rset.getString("MESSAGE_SENDER_ID"),
 									rset.getString("MESSAGE_RECIPIENT_ID"),
-									rset.getString("MESSAGE_CONTENTS")
+									rset.getString("MESSAGE_CONTENTS"),
+									rset.getDate("MESSAGE_DATE")
 									));
 						}
 					}
@@ -239,7 +240,8 @@ public class MessageDao {
 							rset.getString("MESSAGE_TITLE"),
 							rset.getString("MESSAGE_SENDER_ID"),
 							rset.getString("MESSAGE_RECIPIENT_ID"),
-							rset.getString("MESSAGE_CONTENTS")
+							rset.getString("MESSAGE_CONTENTS"),
+							rset.getDate("MESSAGE_DATE")
 							));
 				}
 			}
@@ -295,7 +297,8 @@ public class MessageDao {
 							rset.getString("MESSAGE_TITLE"),
 							rset.getString("MESSAGE_SENDER_ID"),
 							rset.getString("MESSAGE_RECIPIENT_ID"),
-							rset.getString("MESSAGE_CONTENTS")
+							rset.getString("MESSAGE_CONTENTS"),
+							rset.getDate("MESSAGE_DATE")
 							));
 				}
 			}
@@ -353,7 +356,8 @@ public class MessageDao {
 							rset.getString("MESSAGE_TITLE"),
 							rset.getString("MESSAGE_SENDER_ID"),
 							rset.getString("MESSAGE_RECIPIENT_ID"),
-							rset.getString("MESSAGE_CONTENTS")
+							rset.getString("MESSAGE_CONTENTS"),
+							rset.getDate("MESSAGE_DATE")
 							));
 				}
 			}
@@ -408,7 +412,8 @@ public class MessageDao {
 							rset.getString("MESSAGE_TITLE"),
 							rset.getString("MESSAGE_SENDER_ID"),
 							rset.getString("MESSAGE_RECIPIENT_ID"),
-							rset.getString("MESSAGE_CONTENTS")
+							rset.getString("MESSAGE_CONTENTS"),
+							rset.getDate("MESSAGE_DATE")
 							));
 				}
 			}

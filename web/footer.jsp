@@ -139,7 +139,7 @@
 	<!-- summer note korean language pack -->
 	<script src="/made/api/summernote/dist/lang/summernote-ko-KR.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	
+	<script src="/made/js/project(sk).js"></script>
 	<script src="/made/js/main.js"></script>
 	<!-- Start Style Switcher -->
 	<div class="switcher"></div>
