@@ -161,22 +161,10 @@ public class MemberInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	 
-	        doGet(request, response);
-	        /*if(command.equals("getHello")){
-	            getHello(request,response);
-	        }else if(command.equals("postHello")){
-	            postHello(request,response);
-	        }else if(command.equals("idcheck")){
-	            idcheck(request,response);
-	        }else if(command.equals("subwayline")){
-	            subwayline(request,response);
-	        }*/
-	    }
-	     
-	    // ID 중복 검사 처리
-	    protected boolean idcheck(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+	 protected boolean idcheck(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
 	        ArrayList<String> ids = new MemberService().selectMemberId();
 	        PrintWriter out = response.getWriter();
 	        // id 중복 처리
@@ -197,6 +185,5 @@ public class MemberInsertServlet extends HttpServlet {
 	        return result;
 	    }
 	    
-	  
-	    
+
 }

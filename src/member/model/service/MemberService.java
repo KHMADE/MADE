@@ -66,4 +66,45 @@ public class MemberService {
 		close(con);
 		return DesignerList;
 	}
+
+	public String selectOrigenFileName(String userId) {
+		Connection con = getConnection();
+		String originFileName = null;
+		
+		originFileName = new MemberDAO().selectOrigenFileName(con,userId);
+		
+		
+		close(con);
+		return originFileName;
+	}
+
+	public int updateMember1(Member m) {
+		Connection con = getConnection();
+		int result = 0;
+		result = new MemberDAO().updateMember1(con,m);
+		System.out.println("Service updateMember1 result : " + result);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		
+		close(con);
+		return result;
+	}
+
+	public int updateMember2(Member m) {
+		Connection con = getConnection();
+		int result = 0;
+		result = new MemberDAO().updateMember2(con,m);
+		
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		
+		
+		
+		close(con);
+		return result;
+	}
 }
