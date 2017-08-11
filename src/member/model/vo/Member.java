@@ -22,8 +22,6 @@ public class Member implements java.io.Serializable {
 	private int point; /* 포인트 */
 	private String nickName; /* 별명 */
 	
-	public Member(){}
-	
 	// 가입일 제외
 	public Member(String id, String classCode, String pwd, String name, Date birthday, String email, String phone, String address, String profileImg, int point, String nickName) {
 		super();
@@ -41,13 +39,11 @@ public class Member implements java.io.Serializable {
 	}
 
 	// UPDATE 용 생성자
-	public Member(String id, String pwd, String email, String phone, String address, int age, String profileImg, String address2, String img) {
+	public Member(String id, String pwd, String phone, String profileImg) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
-		this.email = email;
 		this.phone = phone;
-		this.address = address;
 		this.profileImg = profileImg;
 	}
 

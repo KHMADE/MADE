@@ -253,7 +253,7 @@ $(function(){
 								<% } else if(m != null && m.getClassCode().equals("D")) { %>
 									<li><a href="/made/dorderlist">주문내역</a></li>
 								<% } %>
-								<!-- <li><a href="/made/views/mypage/myinfo.html">회원정보수정</a></li> -->
+								<li><a href="/made/views/mypage/myinfo.jsp">회원정보수정</a></li>
 								<li><a href="/made/acheck?page=1">쪽지함</a></li>
 								<% if(m != null && m.getClassCode().charAt(0) == 'A'){ %>
 									<li><a href="/made/qlist?page=1">1:1문의확인</a></li>

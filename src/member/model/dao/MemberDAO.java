@@ -4,6 +4,8 @@ import static common.JDBCTemplate.*;
 import java.sql.*;
 import java.util.*;
 
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import member.model.vo.Member;
 
 public class MemberDAO {
@@ -192,5 +194,76 @@ public class MemberDAO {
 			close(stmt);
 		}
 		return idList;
+	}
+
+	public String selectOrigenFileName(Connection con, String userId) {
+		String originFileName = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "SELECT MEMBER_PROFILE_IMG FROM MEMBER WHERE MEMBER_ID = ?";
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			rset=pstmt.executeQuery();
+			if(rset.next()){
+				originFileName = rset.getString("MEMBER_PROFILE_IMG");
+				System.out.println("DAO originFileName : "+originFileName);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return originFileName;
+	}
+
+	public int updateMember1(Connection con, Member m) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String query = "UPDATE MEMBER SET MEMBER_PASSWORD=?, MEMBER_PHONE=? WHERE MEMBER_ID=?";
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, m.getPwd());
+			pstmt.setString(2, m.getPhone());
+			pstmt.setString(3, m.getId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateMember2(Connection con, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "UPDATE MEMBER SET MEMBER_PASSWORD=?, MEMBER_PHONE=?, MEMBER_PROFILE_IMG=? WHERE MEMBER_ID=?";
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, m.getPwd());
+			pstmt.setString(2, m.getPhone());
+			pstmt.setString(3, m.getProfileImg());
+			pstmt.setString(4, m.getId());
+			result = pstmt.executeUpdate();
+			
+			
+			
+			/*this.id = id;
+			this.pwd = pwd;
+			this.phone = phone;
+			this.profileImg = profileImg;
+			*/
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		return result;
 	}
 }
