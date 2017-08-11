@@ -506,6 +506,6 @@ function check_ship(company, query){
 	}
 	window.open(url, "_blank");
 }
-</script>  
+</script>
 </body>
 </html>
