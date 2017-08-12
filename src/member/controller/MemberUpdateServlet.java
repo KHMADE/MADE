@@ -66,8 +66,8 @@ public class MemberUpdateServlet extends HttpServlet {
 
 		
 		// 2. 전송값 꺼내서 변수에 기록하기
-		 String userId= ((Member)request.getSession(false).getAttribute("member")).getId();
-		 System.out.println(userId);
+		String userId= ((Member)request.getSession(false).getAttribute("member")).getId();
+		System.out.println(userId);
 		String userPwd = mrequest.getParameter("userpwd");
 		System.out.println(userPwd);
 		String phone1 = mrequest.getParameter("phone1");
@@ -85,7 +85,7 @@ public class MemberUpdateServlet extends HttpServlet {
 		System.out.println("originFileName : "+originFileName);
 		int result = 0;
 		
-		if(u_originFileName == null ){
+		if(u_originFileName == null){
 			Member m = new Member(userId, userPwd, phone4, null);
 			//img를 삽입하지 않는 서비스
 			result = new MemberService().updateMember1(m);
@@ -95,7 +95,7 @@ public class MemberUpdateServlet extends HttpServlet {
 				// 업로도된 파일명을 "년월일시분초.확장자" 로 변경함
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 				String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
-						+ originFileName.substring(originFileName.lastIndexOf(".") + 1);
+						+ u_originFileName.substring(u_originFileName.lastIndexOf(".") + 1);
 				System.out.println("3");
 				// 파일명 바꾸기하려면 File 객체의 renameTo() 사용함
 				File f_u_originFileName = new File(savePath + "\\" + u_originFileName);
@@ -115,12 +115,10 @@ public class MemberUpdateServlet extends HttpServlet {
 					fin.close();
 					fout.close();
 					f_u_originFileName.delete(); // 원본 파일 삭제함
-				
 					f_originFileName.delete();
 				}
 				
-				
-			Member m = new Member(userId, userPwd, phone4, u_originFileName);
+			Member m = new Member(userId, userPwd, phone4, renameFileName);
 			System.out.println("4");
 			result = new MemberService().updateMember2(m);
 		}

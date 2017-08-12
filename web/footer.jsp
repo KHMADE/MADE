@@ -52,7 +52,7 @@
 									정시칼퇴, 나 과장<small>&nbsp;&nbsp; Team. 형설지공 인사과장</small>
 							</div></li>
 							<li><div class="testimonial-review">
-								<img style="width:45px; height:45px;"src="/made/images/userimage/default_image.jpg" alt="testimoni">
+								<img style="width:45px; height:45px;"src="/made/images/userimage/hyunsang.gif" alt="testimoni">
 									본부장은 임 본부장<small>&nbsp;&nbsp; Team. 형설지공 기술고문</small>
 							</div></li>
 							<li><div class="testimonial-review">
